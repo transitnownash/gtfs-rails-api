@@ -45,4 +45,8 @@ end
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
+# Parse schedule
 gem 'gtfs', '~> 0.2.5'
+
+# Handle bulk inserts
+gem 'bulk_insert', '~> 1.7'

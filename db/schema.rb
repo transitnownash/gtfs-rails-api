@@ -85,7 +85,6 @@ ActiveRecord::Schema.define(version: 2018_09_19_033157) do
     t.string "route_type", null: false
     t.string "route_url"
     t.string "route_color"
-    t.string "document"
     t.string "route_text_color"
     t.integer "route_sort_order"
   end

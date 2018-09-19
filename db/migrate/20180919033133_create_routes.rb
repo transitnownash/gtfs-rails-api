@@ -9,7 +9,6 @@ class CreateRoutes < ActiveRecord::Migration[5.2]
       t.string :route_type, null: false
       t.string :route_url
       t.string :route_color
-      t.string :document
       t.string :route_text_color
       t.integer :route_sort_order
     end
