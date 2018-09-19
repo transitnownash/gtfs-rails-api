@@ -1,0 +1,2 @@
+class FareRule < ApplicationRecord
+end

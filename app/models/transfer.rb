@@ -1,0 +1,2 @@
+class Transfer < ApplicationRecord
+end
