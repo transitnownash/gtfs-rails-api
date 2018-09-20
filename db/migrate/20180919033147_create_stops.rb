@@ -13,6 +13,8 @@ class CreateStops < ActiveRecord::Migration[5.2]
       t.string :parent_station
       t.string :stop_timezone
       t.string :wheelchair_boarding
+
+      t.index :stop_id, unique: true
     end
   end
 end

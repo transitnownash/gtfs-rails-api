@@ -7,6 +7,8 @@ class CreateFareAttributes < ActiveRecord::Migration[5.2]
       t.string :payment_method, null: false
       t.string :agency_id
       t.string :transfer_duration
+
+      t.index :fare_id, unique: true
     end
   end
 end

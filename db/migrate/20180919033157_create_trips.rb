@@ -11,6 +11,8 @@ class CreateTrips < ActiveRecord::Migration[5.2]
       t.string :shape_id
       t.string :wheelchair_accessible
       t.string :bikes_allowed
+
+      t.index :trip_id, unique: true
     end
   end
 end

@@ -1,5 +1,5 @@
 class StopTime < ApplicationRecord
-  def self.hashFromGtfs(row)
+  def self.hash_from_gtfs(row)
     record = {}
     record[:trip_id] = row.trip_id
     record[:arrival_time] = row.arrival_time

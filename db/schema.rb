@@ -21,12 +21,14 @@ ActiveRecord::Schema.define(version: 2018_09_19_033157) do
     t.string "agency_phone"
     t.string "agency_fare_url"
     t.string "agency_email"
+    t.index ["agency_id"], name: "index_agencies_on_agency_id", unique: true
   end
 
   create_table "calendar_dates", id: false, force: :cascade do |t|
     t.string "service_id", null: false
     t.date "date", null: false
     t.string "exception_type", null: false
+    t.index ["service_id", "date"], name: "index_calendar_dates_on_service_id_and_date", unique: true
   end
 
   create_table "calendars", id: false, force: :cascade do |t|
@@ -40,6 +42,7 @@ ActiveRecord::Schema.define(version: 2018_09_19_033157) do
     t.boolean "sunday", null: false
     t.date "start_date", null: false
     t.date "end_date", null: false
+    t.index ["service_id"], name: "index_calendars_on_service_id", unique: true
   end
 
   create_table "fare_attributes", id: false, force: :cascade do |t|
@@ -49,6 +52,7 @@ ActiveRecord::Schema.define(version: 2018_09_19_033157) do
     t.string "payment_method", null: false
     t.string "agency_id"
     t.string "transfer_duration"
+    t.index ["fare_id"], name: "index_fare_attributes_on_fare_id", unique: true
   end
 
   create_table "fare_rules", id: false, force: :cascade do |t|
@@ -57,6 +61,7 @@ ActiveRecord::Schema.define(version: 2018_09_19_033157) do
     t.string "origin_id"
     t.string "destination_id"
     t.string "contains_id"
+    t.index ["fare_id"], name: "index_fare_rules_on_fare_id", unique: true
   end
 
   create_table "feed_infos", id: false, force: :cascade do |t|
@@ -74,6 +79,7 @@ ActiveRecord::Schema.define(version: 2018_09_19_033157) do
     t.time "end_time", null: false
     t.integer "headway_secs", null: false
     t.string "exact_times"
+    t.index ["trip_id"], name: "index_frequencies_on_trip_id", unique: true
   end
 
   create_table "routes", id: false, force: :cascade do |t|
@@ -87,6 +93,7 @@ ActiveRecord::Schema.define(version: 2018_09_19_033157) do
     t.string "route_color"
     t.string "route_text_color"
     t.integer "route_sort_order"
+    t.index ["route_id"], name: "index_routes_on_route_id", unique: true
   end
 
   create_table "shapes", id: false, force: :cascade do |t|
@@ -95,6 +102,7 @@ ActiveRecord::Schema.define(version: 2018_09_19_033157) do
     t.decimal "shape_pt_lon", null: false
     t.integer "shape_pt_sequence", null: false
     t.decimal "shape_dist_traveled"
+    t.index ["shape_id", "shape_pt_sequence"], name: "index_shapes_on_shape_id_and_shape_pt_sequence", unique: true
   end
 
   create_table "stop_times", id: false, force: :cascade do |t|
@@ -108,6 +116,7 @@ ActiveRecord::Schema.define(version: 2018_09_19_033157) do
     t.string "drop_off_type"
     t.decimal "shape_dist_traveled"
     t.string "timepoint"
+    t.index ["trip_id", "stop_sequence"], name: "index_stop_times_on_trip_id_and_stop_sequence", unique: true
   end
 
   create_table "stops", id: false, force: :cascade do |t|
@@ -123,6 +132,7 @@ ActiveRecord::Schema.define(version: 2018_09_19_033157) do
     t.string "parent_station"
     t.string "stop_timezone"
     t.string "wheelchair_boarding"
+    t.index ["stop_id"], name: "index_stops_on_stop_id", unique: true
   end
 
   create_table "transfers", id: false, force: :cascade do |t|
@@ -130,6 +140,7 @@ ActiveRecord::Schema.define(version: 2018_09_19_033157) do
     t.string "to_stop_id", null: false
     t.string "transfer_type", null: false
     t.integer "min_transfer_time"
+    t.index ["from_stop_id", "to_stop_id"], name: "index_transfers_on_from_stop_id_and_to_stop_id", unique: true
   end
 
   create_table "trips", id: false, force: :cascade do |t|
@@ -143,6 +154,7 @@ ActiveRecord::Schema.define(version: 2018_09_19_033157) do
     t.string "shape_id"
     t.string "wheelchair_accessible"
     t.string "bikes_allowed"
+    t.index ["trip_id"], name: "index_trips_on_trip_id", unique: true
   end
 
 end

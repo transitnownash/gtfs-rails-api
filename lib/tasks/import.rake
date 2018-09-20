@@ -1,8 +1,31 @@
 namespace :import do
+  raise 'You must set the GTFS_URL variable.' if ENV['GTFS_URL'].nil?
+  @source = GTFS::Source.build ENV['GTFS_URL']
+
+  task default: 'import:all'
+
+  desc 'Import all available data'
+  task all: :environment do
+    Rake::Task['import:clean'].invoke
+
+    Rake::Task['import:agency'].invoke
+    Rake::Task['import:stops'].invoke
+    Rake::Task['import:routes'].invoke
+    Rake::Task['import:trips'].invoke
+    Rake::Task['import:stop_times'].invoke
+    Rake::Task['import:calendar'].invoke
+    Rake::Task['import:calendar_dates'].invoke
+    Rake::Task['import:fare_attributes'].invoke
+    Rake::Task['import:fare_rules'].invoke
+    Rake::Task['import:shapes'].invoke
+    Rake::Task['import:frequencies'].invoke
+    Rake::Task['import:transfers'].invoke
+    Rake::Task['import:feed_info'].invoke
+  end
+
   desc 'Truncates existing tables'
   task clean: :environment do |t|
     puts "Running #{t}"
-    puts "#{Time.new}"
     Agency.delete_all
     CalendarDate.delete_all
     Calendar.delete_all
@@ -17,144 +40,187 @@ namespace :import do
     Transfer.delete_all
     Trip.delete_all
     puts "Finished #{t}"
-    puts "#{Time.new}"
+  end
+
+  desc 'Imports agency.txt'
+  task agency: :environment do
+    puts 'agency.txt'
+    begin
+      Agency.bulk_insert do |worker|
+        @source.each_agency do |row|
+          worker.add(Agency.hash_from_gtfs(row))
+        end
+      end
+    rescue Errno::ENOENT
+      puts '[warning] File does not exist.'
+    end
+  end
+
+  desc 'Imports calendar_dates.txt'
+  task calendar_dates: :environment do
+    puts 'calendar_dates.txt'
+    begin
+      CalendarDate.bulk_insert do |worker|
+        @source.each_calendar_date do |row|
+          worker.add(CalendarDate.hash_from_gtfs(row))
+        end
+      end
+    rescue Errno::ENOENT
+      puts '[warning] File does not exist.'
+    end
+  end
+
+  desc 'Imports calendar.txt'
+  task calendar: :environment do
+    puts 'calendar.txt'
+    begin
+      Calendar.bulk_insert do |worker|
+        @source.each_calendar do |row|
+          worker.add(Calendar.hash_from_gtfs(row))
+        end
+      end
+    rescue Errno::ENOENT
+      puts '[warning] File does not exist.'
+    end
+  end
+
+  desc 'Imports fare_attributes.txt'
+  task fare_attributes: :environment do
+    puts 'fare_attributes.txt'
+    begin
+      FareAttribute.bulk_insert do |worker|
+        @source.each_fare_attribute do |row|
+          worker.add(FareAttribute.hash_from_gtfs(row))
+        end
+      end
+    rescue Errno::ENOENT
+      puts '[warning] File does not exist.'
+    end
   end
 
   desc 'Imports data from configured feed'
-  task load: :environment do
-    Rake::Task['import:clean'].invoke
-    raise 'You must set the GTFS_URL variable.' if ENV['GTFS_URL'].nil?
-
-    puts "#{Time.new}"
-    puts "Retrieving data from #{ENV['GTFS_URL']}"
-    source = GTFS::Source.build ENV['GTFS_URL']
-
-    puts 'Processing data'
-
+  task fare_rules: :environment do
+    puts 'fare_rules.txt'
     begin
-      Agency.bulk_insert do |worker|
-        source.each_agency do |row|
-          worker.add(Agency.hashFromGtfs(row))
+      FareRule.bulk_insert do |worker|
+        @source.each_fare_rule do |row|
+          worker.add(FareRule.hash_from_gtfs(row))
         end
       end
-    rescue => e
-      puts e.message
+    rescue Errno::ENOENT
+      puts '[warning] File does not exist.'
     end
+  end
 
-    begin
-      source.each_calendar_date do |row|
-        CalendarDate.import(row)
-      end
-    rescue => e
-      puts e.message
-    end
-
-    begin
-      source.each_calendar do |row|
-        Calendar.import(row)
-      end
-    rescue => e
-      puts e.message
-    end
-
-    begin
-      source.each_fare_attribute do |row|
-        FareAttribute.import(row)
-      end
-    rescue => e
-      puts e.message
-    end
-
-    begin
-      source.each_fare_rule do |row|
-        FareRule.import(row)
-      end
-
-    rescue => e
-      puts e.message
-    end
-
+  desc 'Imports feed_info.txt'
+  task feed_info: :environment do
+    puts 'feed_info.txt'
     begin
       FeedInfo.bulk_insert do |worker|
-        source.each_feed_info do |row|
-          printf("\rFeed Info: #{row.publisher_name}                          ")
-          worker.add(FeedInfo.hashFromGtfs(row))
+        @source.each_feed_info do |row|
+          worker.add(FeedInfo.hash_from_gtfs(row))
         end
       end
-      printf("\rFeed Info: done!                                            \n")
-    rescue => e
-      puts e.message
+    rescue Errno::ENOENT
+      puts '[warning] File does not exist.'
     end
+  end
 
+  desc 'Imports frequencies.txt'
+  task frequencies: :environment do
+    puts 'frequencies.txt'
     begin
-      source.each_frequency do |row|
-        Frequency.import(row)
+      Frequency.bulk_insert do |worker|
+        @source.each_frequency do |row|
+          worker.add(Frequency.hash_from_gtfs(row))
+        end
       end
-
-    rescue => e
-      puts e.message
+    rescue Errno::ENOENT
+      puts '[warning] File does not exist.'
     end
+  end
 
+  desc 'Imports routes.txt'
+  task routes: :environment do
+    puts 'routes.txt'
     begin
-      source.each_route do |row|
-        printf("\rRoutes: Route #{row.id} / #{row.long_name}                  ")
-        Route.import(row)
+      Route.bulk_insert do |worker|
+        @source.each_route do |row|
+          worker.add(Route.hash_from_gtfs(row))
+        end
       end
-      printf("\rRoutes: done!                                               \n")
-    rescue => e
-      puts e.message
+    rescue Errno::ENOENT
+      puts '[warning] File does not exist.'
     end
+  end
 
+  desc 'Imports shapes.txt'
+  task shapes: :environment do
+    puts 'shapes.txt'
     begin
       Shape.bulk_insert do |worker|
-        source.each_shape do |row|
-          printf("\rShapes: Shape #{row.id} / #{row.pt_sequence}              ")
-          worker.add(Shape.hashFromGtfs(row))
+        @source.each_shape do |row|
+          worker.add(Shape.hash_from_gtfs(row))
         end
       end
-      printf("\rShapes: done!                                               \n")
-    rescue => e
-      puts e.message
+    rescue Errno::ENOENT
+      puts '[warning] File does not exist.'
     end
+  end
 
+  desc 'Imports stop_times.txt'
+  task stop_times: :environment do
+    puts 'stop_times.txt'
     begin
       StopTime.bulk_insert do |worker|
-        source.each_stop_time do |row|
-          printf("\rStop Time: Trip #{row.trip_id} / #{row.stop_id}           ")
-          worker.add(StopTime.hashFromGtfs(row))
+        @source.each_stop_time do |row|
+          worker.add(StopTime.hash_from_gtfs(row))
         end
       end
-      printf("\rStop Time: done!                                            \n")
-    rescue => e
-      puts e.message
+    rescue Errno::ENOENT
+      puts '[warning] File does not exist.'
     end
+  end
 
+  desc 'Imports stops.txt'
+  task stops: :environment do
+    puts 'stops.txt'
     begin
-      source.each_stop do |row|
-        Stop.import(row)
+      Stop.bulk_insert do |worker|
+        @source.each_stop do |row|
+          worker.add(Stop.hash_from_gtfs(row))
+        end
       end
-    rescue => e
-      puts e.message
+    rescue Errno::ENOENT
+      puts '[warning] File does not exist.'
     end
+  end
 
+  desc 'Imports transfers.txt'
+  task transfers: :environment do
+    puts 'transfers.txt'
     begin
-      source.each_transfer do |row|
-        Transfer.import(row)
+      Transfer.bulk_insert do |worker|
+        @source.each_transfer do |row|
+          worker.add(Transfer.hash_from_gtfs(row))
+        end
       end
-    rescue => e
-      puts e.message
+    rescue Errno::ENOENT
+      puts '[warning] File does not exist.'
     end
+  end
 
+  desc 'Import trips.txt'
+  task trips: :environment do
+    puts 'trips.txt'
     begin
-      source.each_trip do |row|
-        Trip.import(row)
+      Trip.bulk_insert do |worker|
+        @source.each_trip do |row|
+          worker.add(Trip.hash_from_gtfs(row))
+        end
       end
-    rescue => e
-      puts e.message
+    rescue Errno::ENOENT
+      puts '[warning] File does not exist.'
     end
-
-    puts 'Complete!'
-    puts "#{Time.new}"
-    exit 0
   end
 end

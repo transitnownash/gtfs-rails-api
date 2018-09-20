@@ -11,6 +11,8 @@ class CreateStopTimes < ActiveRecord::Migration[5.2]
       t.string :drop_off_type
       t.decimal :shape_dist_traveled
       t.string :timepoint
+
+      t.index [:trip_id, :stop_sequence], unique: true
     end
   end
 end

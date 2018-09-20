@@ -1,5 +1,7 @@
 class FeedInfo < ApplicationRecord
-  def self.hashFromGtfs(row)
+  self.primary_key = 'feed_publisher_name'
+  
+  def self.hash_from_gtfs(row)
     record = {}
     record[:feed_publisher_name] = row.publisher_name
     record[:feed_publisher_url] = row.publisher_url

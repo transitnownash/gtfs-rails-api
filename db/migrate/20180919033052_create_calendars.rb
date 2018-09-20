@@ -11,6 +11,8 @@ class CreateCalendars < ActiveRecord::Migration[5.2]
       t.boolean :sunday, null: false
       t.date :start_date, null: false
       t.date :end_date, null: false
+
+      t.index :service_id, unique: true
     end
   end
 end

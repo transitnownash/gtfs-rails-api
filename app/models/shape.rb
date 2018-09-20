@@ -1,5 +1,7 @@
 class Shape < ApplicationRecord
-  def self.hashFromGtfs(row)
+  self.primary_key = 'trip_id'
+
+  def self.hash_from_gtfs(row)
     record = {}
     record[:shape_id] = row.id
     record[:shape_pt_lat] = row.pt_lat

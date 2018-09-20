@@ -1,5 +1,7 @@
 class Agency < ApplicationRecord
-  def self.hashFromGtfs(row)
+  self.primary_key = 'agency_id'
+  
+  def self.hash_from_gtfs(row)
     record = {}
     record[:agency_id] = row.id
     record[:agency_name] = row.name

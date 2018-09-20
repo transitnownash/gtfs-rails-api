@@ -6,6 +6,8 @@ class CreateFrequencies < ActiveRecord::Migration[5.2]
       t.time :end_time, null: false
       t.integer :headway_secs, null: false
       t.string :exact_times
+      
+      t.index :trip_id, unique: true
     end
   end
 end

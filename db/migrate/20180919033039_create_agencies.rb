@@ -9,6 +9,8 @@ class CreateAgencies < ActiveRecord::Migration[5.2]
       t.string :agency_phone
       t.string :agency_fare_url
       t.string :agency_email
+
+      t.index :agency_id, unique: true
     end
   end
 end
