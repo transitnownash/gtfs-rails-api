@@ -61,7 +61,6 @@ ActiveRecord::Schema.define(version: 2018_09_19_033157) do
     t.string "origin_id"
     t.string "destination_id"
     t.string "contains_id"
-    t.index ["fare_id"], name: "index_fare_rules_on_fare_id", unique: true
   end
 
   create_table "feed_infos", id: false, force: :cascade do |t|
@@ -79,7 +78,6 @@ ActiveRecord::Schema.define(version: 2018_09_19_033157) do
     t.time "end_time", null: false
     t.integer "headway_secs", null: false
     t.string "exact_times"
-    t.index ["trip_id"], name: "index_frequencies_on_trip_id", unique: true
   end
 
   create_table "routes", id: false, force: :cascade do |t|

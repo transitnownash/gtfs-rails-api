@@ -1,6 +1,4 @@
 class FareRule < ApplicationRecord
-  self.primary_key = 'fare_id'
-
   def self.hash_from_gtfs(row)
     record = {}
     record[:fare_id] = row.fare_id

@@ -1,11 +1,89 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+---
+Trip_1:
+  route_id: AB
+  service_id: FULLW
+  trip_id: AB1
+  trip_headsign: to Bullfrog
+  direction_id: '0'
+  block_id: '1'
 
-# This model initially had no columns defined. If you add columns to the
-# model remove the '{}' from the fixture names and add the columns immediately
-# below each fixture, per the syntax in the comments below
-#
-one: {}
-# column: value
-#
-two: {}
-# column: value
+---
+Trip_2:
+  route_id: AB
+  service_id: FULLW
+  trip_id: AB2
+  trip_headsign: to Airport
+  direction_id: '1'
+  block_id: '2'
+
+---
+Trip_3:
+  route_id: STBA
+  service_id: FULLW
+  trip_id: STBA
+  trip_headsign: Shuttle
+
+---
+Trip_4:
+  route_id: CITY
+  service_id: FULLW
+  trip_id: CITY1
+  direction_id: '0'
+
+---
+Trip_5:
+  route_id: CITY
+  service_id: FULLW
+  trip_id: CITY2
+  direction_id: '1'
+
+---
+Trip_6:
+  route_id: BFC
+  service_id: FULLW
+  trip_id: BFC1
+  trip_headsign: to Furnace Creek Resort
+  direction_id: '0'
+  block_id: '1'
+
+---
+Trip_7:
+  route_id: BFC
+  service_id: FULLW
+  trip_id: BFC2
+  trip_headsign: to Bullfrog
+  direction_id: '1'
+  block_id: '2'
+
+---
+Trip_8:
+  route_id: AAMV
+  service_id: WE
+  trip_id: AAMV1
+  trip_headsign: to Amargosa Valley
+  direction_id: '0'
+
+---
+Trip_9:
+  route_id: AAMV
+  service_id: WE
+  trip_id: AAMV2
+  trip_headsign: to Airport
+  direction_id: '1'
+
+---
+Trip_10:
+  route_id: AAMV
+  service_id: WE
+  trip_id: AAMV3
+  trip_headsign: to Amargosa Valley
+  direction_id: '0'
+
+---
+Trip_11:
+  route_id: AAMV
+  service_id: WE
+  trip_id: AAMV4
+  trip_headsign: to Airport
+  direction_id: '1'
+

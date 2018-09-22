@@ -1,11 +1,20 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+---
+FareRule_1:
+  fare_id: p
+  route_id: AB
 
-# This model initially had no columns defined. If you add columns to the
-# model remove the '{}' from the fixture names and add the columns immediately
-# below each fixture, per the syntax in the comments below
-#
-one: {}
-# column: value
-#
-two: {}
-# column: value
+---
+FareRule_2:
+  fare_id: p
+  route_id: STBA
+
+---
+FareRule_3:
+  fare_id: p
+  route_id: BFC
+
+---
+FareRule_4:
+  fare_id: a
+  route_id: AAMV
+

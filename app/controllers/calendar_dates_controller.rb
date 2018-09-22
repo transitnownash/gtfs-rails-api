@@ -1,0 +1,22 @@
+class CalendarDatesController < ApplicationController
+  before_action :set_calendar_date, only: [:show]
+
+  # GET /calendar_dates
+  def index
+    @calendar_dates = CalendarDate.all
+
+    render json: @calendar_dates
+  end
+
+  # GET /calendar_dates/1
+  def show
+    render json: @calendar_date
+  end
+
+  private
+
+  # Use callbacks to share common setup or constraints between actions.
+  def set_calendar_date
+    @calendar_date = CalendarDate.find(params[:id])
+  end
+end

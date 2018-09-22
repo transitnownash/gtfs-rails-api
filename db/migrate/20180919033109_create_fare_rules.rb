@@ -6,8 +6,6 @@ class CreateFareRules < ActiveRecord::Migration[5.2]
       t.string :origin_id
       t.string :destination_id
       t.string :contains_id
-      
-      t.index :fare_id, unique: true
     end
   end
 end

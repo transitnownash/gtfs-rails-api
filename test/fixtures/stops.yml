@@ -1,11 +1,63 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+---
+Stop_1:
+  stop_id: FUR_CREEK_RES
+  stop_name: Furnace Creek Resort (Demo)
+  stop_lat: !ruby/object:BigDecimal 45:0.36425288e2
+  stop_lon: !ruby/object:BigDecimal 45:-0.117133162e3
 
-# This model initially had no columns defined. If you add columns to the
-# model remove the '{}' from the fixture names and add the columns immediately
-# below each fixture, per the syntax in the comments below
-#
-one: {}
-# column: value
-#
-two: {}
-# column: value
+---
+Stop_2:
+  stop_id: BEATTY_AIRPORT
+  stop_name: Nye County Airport (Demo)
+  stop_lat: !ruby/object:BigDecimal 45:0.36868446e2
+  stop_lon: !ruby/object:BigDecimal 45:-0.116784582e3
+
+---
+Stop_3:
+  stop_id: BULLFROG
+  stop_name: Bullfrog (Demo)
+  stop_lat: !ruby/object:BigDecimal 45:0.3688108e2
+  stop_lon: !ruby/object:BigDecimal 45:-0.11681797e3
+
+---
+Stop_4:
+  stop_id: STAGECOACH
+  stop_name: Stagecoach Hotel & Casino (Demo)
+  stop_lat: !ruby/object:BigDecimal 45:0.36915682e2
+  stop_lon: !ruby/object:BigDecimal 45:-0.116751677e3
+
+---
+Stop_5:
+  stop_id: NADAV
+  stop_name: North Ave / D Ave N (Demo)
+  stop_lat: !ruby/object:BigDecimal 45:0.36914893e2
+  stop_lon: !ruby/object:BigDecimal 45:-0.11676821e3
+
+---
+Stop_6:
+  stop_id: NANAA
+  stop_name: North Ave / N A Ave (Demo)
+  stop_lat: !ruby/object:BigDecimal 45:0.36914944e2
+  stop_lon: !ruby/object:BigDecimal 45:-0.116761472e3
+
+---
+Stop_7:
+  stop_id: DADAN
+  stop_name: Doing Ave / D Ave N (Demo)
+  stop_lat: !ruby/object:BigDecimal 45:0.36909489e2
+  stop_lon: !ruby/object:BigDecimal 45:-0.116768242e3
+
+---
+Stop_8:
+  stop_id: EMSI
+  stop_name: E Main St / S Irving St (Demo)
+  stop_lat: !ruby/object:BigDecimal 45:0.36905697e2
+  stop_lon: !ruby/object:BigDecimal 45:-0.11676218e3
+
+---
+Stop_9:
+  stop_id: AMV
+  stop_name: Amargosa Valley (Demo)
+  stop_lat: !ruby/object:BigDecimal 45:0.36641496e2
+  stop_lon: !ruby/object:BigDecimal 45:-0.11640094e3
+

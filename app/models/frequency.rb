@@ -1,6 +1,4 @@
-class Frequency < ApplicationRecord
-  self.primary_key = 'trip_id'
-  
+class Frequency < ApplicationRecord  
   def self.hash_from_gtfs(row)
     record = {}
     record[:trip_id] = row.trip_id

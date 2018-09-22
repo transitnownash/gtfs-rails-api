@@ -1,11 +1,21 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+---
+Calendar_1:
+  service_id: FULLW
+  monday: true
+  tuesday: true
+  wednesday: true
+  thursday: true
+  friday: true
+  saturday: true
+  sunday: true
+  start_date: 2007-01-01
+  end_date: 2010-12-31
 
-# This model initially had no columns defined. If you add columns to the
-# model remove the '{}' from the fixture names and add the columns immediately
-# below each fixture, per the syntax in the comments below
-#
-one: {}
-# column: value
-#
-two: {}
-# column: value
+---
+Calendar_2:
+  service_id: WE
+  saturday: true
+  sunday: true
+  start_date: 2007-01-01
+  end_date: 2010-12-31
+

@@ -1,11 +1,19 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+---
+Transfer_1:
+  from_stop_id: S6
+  to_stop_id: S7
+  transfer_type: '2'
+  min_transfer_time: 300
 
-# This model initially had no columns defined. If you add columns to the
-# model remove the '{}' from the fixture names and add the columns immediately
-# below each fixture, per the syntax in the comments below
-#
-one: {}
-# column: value
-#
-two: {}
-# column: value
+---
+Transfer_2:
+  from_stop_id: S7
+  to_stop_id: S6
+  transfer_type: '3'
+
+---
+Transfer_3:
+  from_stop_id: S23
+  to_stop_id: S7
+  transfer_type: '1'
+

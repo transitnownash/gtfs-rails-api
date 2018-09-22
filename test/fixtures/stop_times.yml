@@ -1,11 +1,419 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+---
+StopTime_1:
+  trip_id: STBA
+  arrival_time: !ruby/object:ActiveSupport::TimeWithZone
+    utc: &1 2000-01-01 06:00:00.000000000 Z
+    zone: &2 !ruby/object:ActiveSupport::TimeZone
+      name: Etc/UTC
+    time: *1
+  departure_time: !ruby/object:ActiveSupport::TimeWithZone
+    utc: &3 2000-01-01 06:00:00.000000000 Z
+    zone: *2
+    time: *3
+  stop_id: STAGECOACH
+  stop_sequence: 1
 
-# This model initially had no columns defined. If you add columns to the
-# model remove the '{}' from the fixture names and add the columns immediately
-# below each fixture, per the syntax in the comments below
-#
-one: {}
-# column: value
-#
-two: {}
-# column: value
+---
+StopTime_2:
+  trip_id: STBA
+  arrival_time: !ruby/object:ActiveSupport::TimeWithZone
+    utc: &1 2000-01-01 06:20:00.000000000 Z
+    zone: &2 !ruby/object:ActiveSupport::TimeZone
+      name: Etc/UTC
+    time: *1
+  departure_time: !ruby/object:ActiveSupport::TimeWithZone
+    utc: &3 2000-01-01 06:20:00.000000000 Z
+    zone: *2
+    time: *3
+  stop_id: BEATTY_AIRPORT
+  stop_sequence: 2
+
+---
+StopTime_3:
+  trip_id: CITY1
+  arrival_time: !ruby/object:ActiveSupport::TimeWithZone
+    utc: &1 2000-01-01 06:00:00.000000000 Z
+    zone: &2 !ruby/object:ActiveSupport::TimeZone
+      name: Etc/UTC
+    time: *1
+  departure_time: !ruby/object:ActiveSupport::TimeWithZone
+    utc: &3 2000-01-01 06:00:00.000000000 Z
+    zone: *2
+    time: *3
+  stop_id: STAGECOACH
+  stop_sequence: 1
+
+---
+StopTime_4:
+  trip_id: CITY1
+  arrival_time: !ruby/object:ActiveSupport::TimeWithZone
+    utc: &1 2000-01-01 06:05:00.000000000 Z
+    zone: &2 !ruby/object:ActiveSupport::TimeZone
+      name: Etc/UTC
+    time: *1
+  departure_time: !ruby/object:ActiveSupport::TimeWithZone
+    utc: &3 2000-01-01 06:07:00.000000000 Z
+    zone: *2
+    time: *3
+  stop_id: NANAA
+  stop_sequence: 2
+
+---
+StopTime_5:
+  trip_id: CITY1
+  arrival_time: !ruby/object:ActiveSupport::TimeWithZone
+    utc: &1 2000-01-01 06:12:00.000000000 Z
+    zone: &2 !ruby/object:ActiveSupport::TimeZone
+      name: Etc/UTC
+    time: *1
+  departure_time: !ruby/object:ActiveSupport::TimeWithZone
+    utc: &3 2000-01-01 06:14:00.000000000 Z
+    zone: *2
+    time: *3
+  stop_id: NADAV
+  stop_sequence: 3
+
+---
+StopTime_6:
+  trip_id: CITY1
+  arrival_time: !ruby/object:ActiveSupport::TimeWithZone
+    utc: &1 2000-01-01 06:19:00.000000000 Z
+    zone: &2 !ruby/object:ActiveSupport::TimeZone
+      name: Etc/UTC
+    time: *1
+  departure_time: !ruby/object:ActiveSupport::TimeWithZone
+    utc: &3 2000-01-01 06:21:00.000000000 Z
+    zone: *2
+    time: *3
+  stop_id: DADAN
+  stop_sequence: 4
+
+---
+StopTime_7:
+  trip_id: CITY1
+  arrival_time: !ruby/object:ActiveSupport::TimeWithZone
+    utc: &1 2000-01-01 06:26:00.000000000 Z
+    zone: &2 !ruby/object:ActiveSupport::TimeZone
+      name: Etc/UTC
+    time: *1
+  departure_time: !ruby/object:ActiveSupport::TimeWithZone
+    utc: &3 2000-01-01 06:28:00.000000000 Z
+    zone: *2
+    time: *3
+  stop_id: EMSI
+  stop_sequence: 5
+
+---
+StopTime_8:
+  trip_id: CITY2
+  arrival_time: !ruby/object:ActiveSupport::TimeWithZone
+    utc: &1 2000-01-01 06:28:00.000000000 Z
+    zone: &2 !ruby/object:ActiveSupport::TimeZone
+      name: Etc/UTC
+    time: *1
+  departure_time: !ruby/object:ActiveSupport::TimeWithZone
+    utc: &3 2000-01-01 06:30:00.000000000 Z
+    zone: *2
+    time: *3
+  stop_id: EMSI
+  stop_sequence: 1
+
+---
+StopTime_9:
+  trip_id: CITY2
+  arrival_time: !ruby/object:ActiveSupport::TimeWithZone
+    utc: &1 2000-01-01 06:35:00.000000000 Z
+    zone: &2 !ruby/object:ActiveSupport::TimeZone
+      name: Etc/UTC
+    time: *1
+  departure_time: !ruby/object:ActiveSupport::TimeWithZone
+    utc: &3 2000-01-01 06:37:00.000000000 Z
+    zone: *2
+    time: *3
+  stop_id: DADAN
+  stop_sequence: 2
+
+---
+StopTime_10:
+  trip_id: CITY2
+  arrival_time: !ruby/object:ActiveSupport::TimeWithZone
+    utc: &1 2000-01-01 06:42:00.000000000 Z
+    zone: &2 !ruby/object:ActiveSupport::TimeZone
+      name: Etc/UTC
+    time: *1
+  departure_time: !ruby/object:ActiveSupport::TimeWithZone
+    utc: &3 2000-01-01 06:44:00.000000000 Z
+    zone: *2
+    time: *3
+  stop_id: NADAV
+  stop_sequence: 3
+
+---
+StopTime_11:
+  trip_id: CITY2
+  arrival_time: !ruby/object:ActiveSupport::TimeWithZone
+    utc: &1 2000-01-01 06:49:00.000000000 Z
+    zone: &2 !ruby/object:ActiveSupport::TimeZone
+      name: Etc/UTC
+    time: *1
+  departure_time: !ruby/object:ActiveSupport::TimeWithZone
+    utc: &3 2000-01-01 06:51:00.000000000 Z
+    zone: *2
+    time: *3
+  stop_id: NANAA
+  stop_sequence: 4
+
+---
+StopTime_12:
+  trip_id: CITY2
+  arrival_time: !ruby/object:ActiveSupport::TimeWithZone
+    utc: &1 2000-01-01 06:56:00.000000000 Z
+    zone: &2 !ruby/object:ActiveSupport::TimeZone
+      name: Etc/UTC
+    time: *1
+  departure_time: !ruby/object:ActiveSupport::TimeWithZone
+    utc: &3 2000-01-01 06:58:00.000000000 Z
+    zone: *2
+    time: *3
+  stop_id: STAGECOACH
+  stop_sequence: 5
+
+---
+StopTime_13:
+  trip_id: AB1
+  arrival_time: !ruby/object:ActiveSupport::TimeWithZone
+    utc: &1 2000-01-01 08:00:00.000000000 Z
+    zone: &2 !ruby/object:ActiveSupport::TimeZone
+      name: Etc/UTC
+    time: *1
+  departure_time: !ruby/object:ActiveSupport::TimeWithZone
+    utc: &3 2000-01-01 08:00:00.000000000 Z
+    zone: *2
+    time: *3
+  stop_id: BEATTY_AIRPORT
+  stop_sequence: 1
+
+---
+StopTime_14:
+  trip_id: AB1
+  arrival_time: !ruby/object:ActiveSupport::TimeWithZone
+    utc: &1 2000-01-01 08:10:00.000000000 Z
+    zone: &2 !ruby/object:ActiveSupport::TimeZone
+      name: Etc/UTC
+    time: *1
+  departure_time: !ruby/object:ActiveSupport::TimeWithZone
+    utc: &3 2000-01-01 08:15:00.000000000 Z
+    zone: *2
+    time: *3
+  stop_id: BULLFROG
+  stop_sequence: 2
+
+---
+StopTime_15:
+  trip_id: AB2
+  arrival_time: !ruby/object:ActiveSupport::TimeWithZone
+    utc: &1 2000-01-01 12:05:00.000000000 Z
+    zone: &2 !ruby/object:ActiveSupport::TimeZone
+      name: Etc/UTC
+    time: *1
+  departure_time: !ruby/object:ActiveSupport::TimeWithZone
+    utc: &3 2000-01-01 12:05:00.000000000 Z
+    zone: *2
+    time: *3
+  stop_id: BULLFROG
+  stop_sequence: 1
+
+---
+StopTime_16:
+  trip_id: AB2
+  arrival_time: !ruby/object:ActiveSupport::TimeWithZone
+    utc: &1 2000-01-01 12:15:00.000000000 Z
+    zone: &2 !ruby/object:ActiveSupport::TimeZone
+      name: Etc/UTC
+    time: *1
+  departure_time: !ruby/object:ActiveSupport::TimeWithZone
+    utc: &3 2000-01-01 12:15:00.000000000 Z
+    zone: *2
+    time: *3
+  stop_id: BEATTY_AIRPORT
+  stop_sequence: 2
+
+---
+StopTime_17:
+  trip_id: BFC1
+  arrival_time: !ruby/object:ActiveSupport::TimeWithZone
+    utc: &1 2000-01-01 08:20:00.000000000 Z
+    zone: &2 !ruby/object:ActiveSupport::TimeZone
+      name: Etc/UTC
+    time: *1
+  departure_time: !ruby/object:ActiveSupport::TimeWithZone
+    utc: &3 2000-01-01 08:20:00.000000000 Z
+    zone: *2
+    time: *3
+  stop_id: BULLFROG
+  stop_sequence: 1
+
+---
+StopTime_18:
+  trip_id: BFC1
+  arrival_time: !ruby/object:ActiveSupport::TimeWithZone
+    utc: &1 2000-01-01 09:20:00.000000000 Z
+    zone: &2 !ruby/object:ActiveSupport::TimeZone
+      name: Etc/UTC
+    time: *1
+  departure_time: !ruby/object:ActiveSupport::TimeWithZone
+    utc: &3 2000-01-01 09:20:00.000000000 Z
+    zone: *2
+    time: *3
+  stop_id: FUR_CREEK_RES
+  stop_sequence: 2
+
+---
+StopTime_19:
+  trip_id: BFC2
+  arrival_time: !ruby/object:ActiveSupport::TimeWithZone
+    utc: &1 2000-01-01 11:00:00.000000000 Z
+    zone: &2 !ruby/object:ActiveSupport::TimeZone
+      name: Etc/UTC
+    time: *1
+  departure_time: !ruby/object:ActiveSupport::TimeWithZone
+    utc: &3 2000-01-01 11:00:00.000000000 Z
+    zone: *2
+    time: *3
+  stop_id: FUR_CREEK_RES
+  stop_sequence: 1
+
+---
+StopTime_20:
+  trip_id: BFC2
+  arrival_time: !ruby/object:ActiveSupport::TimeWithZone
+    utc: &1 2000-01-01 12:00:00.000000000 Z
+    zone: &2 !ruby/object:ActiveSupport::TimeZone
+      name: Etc/UTC
+    time: *1
+  departure_time: !ruby/object:ActiveSupport::TimeWithZone
+    utc: &3 2000-01-01 12:00:00.000000000 Z
+    zone: *2
+    time: *3
+  stop_id: BULLFROG
+  stop_sequence: 2
+
+---
+StopTime_21:
+  trip_id: AAMV1
+  arrival_time: !ruby/object:ActiveSupport::TimeWithZone
+    utc: &1 2000-01-01 08:00:00.000000000 Z
+    zone: &2 !ruby/object:ActiveSupport::TimeZone
+      name: Etc/UTC
+    time: *1
+  departure_time: !ruby/object:ActiveSupport::TimeWithZone
+    utc: &3 2000-01-01 08:00:00.000000000 Z
+    zone: *2
+    time: *3
+  stop_id: BEATTY_AIRPORT
+  stop_sequence: 1
+
+---
+StopTime_22:
+  trip_id: AAMV1
+  arrival_time: !ruby/object:ActiveSupport::TimeWithZone
+    utc: &1 2000-01-01 09:00:00.000000000 Z
+    zone: &2 !ruby/object:ActiveSupport::TimeZone
+      name: Etc/UTC
+    time: *1
+  departure_time: !ruby/object:ActiveSupport::TimeWithZone
+    utc: &3 2000-01-01 09:00:00.000000000 Z
+    zone: *2
+    time: *3
+  stop_id: AMV
+  stop_sequence: 2
+
+---
+StopTime_23:
+  trip_id: AAMV2
+  arrival_time: !ruby/object:ActiveSupport::TimeWithZone
+    utc: &1 2000-01-01 10:00:00.000000000 Z
+    zone: &2 !ruby/object:ActiveSupport::TimeZone
+      name: Etc/UTC
+    time: *1
+  departure_time: !ruby/object:ActiveSupport::TimeWithZone
+    utc: &3 2000-01-01 10:00:00.000000000 Z
+    zone: *2
+    time: *3
+  stop_id: AMV
+  stop_sequence: 1
+
+---
+StopTime_24:
+  trip_id: AAMV2
+  arrival_time: !ruby/object:ActiveSupport::TimeWithZone
+    utc: &1 2000-01-01 11:00:00.000000000 Z
+    zone: &2 !ruby/object:ActiveSupport::TimeZone
+      name: Etc/UTC
+    time: *1
+  departure_time: !ruby/object:ActiveSupport::TimeWithZone
+    utc: &3 2000-01-01 11:00:00.000000000 Z
+    zone: *2
+    time: *3
+  stop_id: BEATTY_AIRPORT
+  stop_sequence: 2
+
+---
+StopTime_25:
+  trip_id: AAMV3
+  arrival_time: !ruby/object:ActiveSupport::TimeWithZone
+    utc: &1 2000-01-01 13:00:00.000000000 Z
+    zone: &2 !ruby/object:ActiveSupport::TimeZone
+      name: Etc/UTC
+    time: *1
+  departure_time: !ruby/object:ActiveSupport::TimeWithZone
+    utc: &3 2000-01-01 13:00:00.000000000 Z
+    zone: *2
+    time: *3
+  stop_id: BEATTY_AIRPORT
+  stop_sequence: 1
+
+---
+StopTime_26:
+  trip_id: AAMV3
+  arrival_time: !ruby/object:ActiveSupport::TimeWithZone
+    utc: &1 2000-01-01 14:00:00.000000000 Z
+    zone: &2 !ruby/object:ActiveSupport::TimeZone
+      name: Etc/UTC
+    time: *1
+  departure_time: !ruby/object:ActiveSupport::TimeWithZone
+    utc: &3 2000-01-01 14:00:00.000000000 Z
+    zone: *2
+    time: *3
+  stop_id: AMV
+  stop_sequence: 2
+
+---
+StopTime_27:
+  trip_id: AAMV4
+  arrival_time: !ruby/object:ActiveSupport::TimeWithZone
+    utc: &1 2000-01-01 15:00:00.000000000 Z
+    zone: &2 !ruby/object:ActiveSupport::TimeZone
+      name: Etc/UTC
+    time: *1
+  departure_time: !ruby/object:ActiveSupport::TimeWithZone
+    utc: &3 2000-01-01 15:00:00.000000000 Z
+    zone: *2
+    time: *3
+  stop_id: AMV
+  stop_sequence: 1
+
+---
+StopTime_28:
+  trip_id: AAMV4
+  arrival_time: !ruby/object:ActiveSupport::TimeWithZone
+    utc: &1 2000-01-01 16:00:00.000000000 Z
+    zone: &2 !ruby/object:ActiveSupport::TimeZone
+      name: Etc/UTC
+    time: *1
+  departure_time: !ruby/object:ActiveSupport::TimeWithZone
+    utc: &3 2000-01-01 16:00:00.000000000 Z
+    zone: *2
+    time: *3
+  stop_id: BEATTY_AIRPORT
+  stop_sequence: 2
