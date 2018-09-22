@@ -14,4 +14,14 @@ class TripsControllerTest < ActionDispatch::IntegrationTest
     get trip_url(@trip), as: :json
     assert_response :success
   end
+
+  test "should show trip shape" do
+    get trip_shape_url(@trip), as: :json
+    assert_response :success
+  end
+
+  test "should show trip stop times" do
+    get trip_stop_times_url(@trip), as: :json
+    assert_response :success
+  end
 end

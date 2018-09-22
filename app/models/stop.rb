@@ -1,4 +1,6 @@
 class Stop < ApplicationRecord
+  self.primary_key = 'stop_id'
+
   def self.hash_from_gtfs(row)
     record = {}
     record[:stop_id] = row.id

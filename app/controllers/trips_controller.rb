@@ -1,5 +1,5 @@
 class TripsController < ApplicationController
-  before_action :set_trip, only: [:show, :update, :destroy]
+  before_action :set_trip, only: [:show, :show_stop_times, :show_shape]
 
   # GET /trips
   def index
@@ -8,44 +8,25 @@ class TripsController < ApplicationController
     render json: @trips
   end
 
-  # GET /trips/1
+  # GET /trips/:id
   def show
     render json: @trip
   end
 
-  # POST /trips
-  def create
-    @trip = Trip.new(trip_params)
-
-    if @trip.save
-      render json: @trip, status: :created, location: @trip
-    else
-      render json: @trip.errors, status: :unprocessable_entity
-    end
+  # GET /trips/:id/stop_times
+  def show_stop_times
+    render json: StopTime.where(trip_id: @trip.trip_id)
   end
 
-  # PATCH/PUT /trips/1
-  def update
-    if @trip.update(trip_params)
-      render json: @trip
-    else
-      render json: @trip.errors, status: :unprocessable_entity
-    end
-  end
-
-  # DELETE /trips/1
-  def destroy
-    @trip.destroy
+  # GET /trips/:id/shape
+  def show_shape
+    render json: Shape.where(shape_id: @trip.shape_id)
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_trip
-      @trip = Trip.find(params[:id])
-    end
 
-    # Only allow a trusted parameter "white list" through.
-    def trip_params
-      params.fetch(:trip, {})
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_trip
+    @trip = Trip.find(params[:id])
+  end
 end

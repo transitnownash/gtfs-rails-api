@@ -25,9 +25,11 @@ ActiveRecord::Schema.define(version: 2018_09_19_033157) do
   end
 
   create_table "calendar_dates", id: false, force: :cascade do |t|
+    t.string "gtfs_id", null: false
     t.string "service_id", null: false
     t.date "date", null: false
     t.string "exception_type", null: false
+    t.index ["gtfs_id"], name: "index_calendar_dates_on_gtfs_id", unique: true
     t.index ["service_id", "date"], name: "index_calendar_dates_on_service_id_and_date", unique: true
   end
 
@@ -56,11 +58,13 @@ ActiveRecord::Schema.define(version: 2018_09_19_033157) do
   end
 
   create_table "fare_rules", id: false, force: :cascade do |t|
+    t.string "gtfs_id", null: false
     t.string "fare_id", null: false
     t.string "route_id"
     t.string "origin_id"
     t.string "destination_id"
     t.string "contains_id"
+    t.index ["gtfs_id"], name: "index_fare_rules_on_gtfs_id", unique: true
   end
 
   create_table "feed_infos", id: false, force: :cascade do |t|
@@ -73,11 +77,14 @@ ActiveRecord::Schema.define(version: 2018_09_19_033157) do
   end
 
   create_table "frequencies", id: false, force: :cascade do |t|
+    t.string "gtfs_id", null: false
     t.string "trip_id", null: false
     t.time "start_time", null: false
     t.time "end_time", null: false
     t.integer "headway_secs", null: false
     t.string "exact_times"
+    t.index ["gtfs_id"], name: "index_frequencies_on_gtfs_id", unique: true
+    t.index ["trip_id", "start_time", "end_time"], name: "index_frequencies_on_trip_id_and_start_time_and_end_time", unique: true
   end
 
   create_table "routes", id: false, force: :cascade do |t|
@@ -95,15 +102,18 @@ ActiveRecord::Schema.define(version: 2018_09_19_033157) do
   end
 
   create_table "shapes", id: false, force: :cascade do |t|
+    t.string "gtfs_id", null: false
     t.string "shape_id", null: false
     t.decimal "shape_pt_lat", null: false
     t.decimal "shape_pt_lon", null: false
     t.integer "shape_pt_sequence", null: false
     t.decimal "shape_dist_traveled"
+    t.index ["gtfs_id"], name: "index_shapes_on_gtfs_id", unique: true
     t.index ["shape_id", "shape_pt_sequence"], name: "index_shapes_on_shape_id_and_shape_pt_sequence", unique: true
   end
 
   create_table "stop_times", id: false, force: :cascade do |t|
+    t.string "gtfs_id", null: false
     t.string "trip_id", null: false
     t.time "arrival_time", null: false
     t.time "departure_time", null: false
@@ -114,6 +124,7 @@ ActiveRecord::Schema.define(version: 2018_09_19_033157) do
     t.string "drop_off_type"
     t.decimal "shape_dist_traveled"
     t.string "timepoint"
+    t.index ["gtfs_id"], name: "index_stop_times_on_gtfs_id", unique: true
     t.index ["trip_id", "stop_sequence"], name: "index_stop_times_on_trip_id_and_stop_sequence", unique: true
   end
 
@@ -134,11 +145,13 @@ ActiveRecord::Schema.define(version: 2018_09_19_033157) do
   end
 
   create_table "transfers", id: false, force: :cascade do |t|
+    t.string "gtfs_id", null: false
     t.string "from_stop_id", null: false
     t.string "to_stop_id", null: false
     t.string "transfer_type", null: false
     t.integer "min_transfer_time"
     t.index ["from_stop_id", "to_stop_id"], name: "index_transfers_on_from_stop_id_and_to_stop_id", unique: true
+    t.index ["gtfs_id"], name: "index_transfers_on_gtfs_id", unique: true
   end
 
   create_table "trips", id: false, force: :cascade do |t|

@@ -1,5 +1,5 @@
 class Route < ApplicationRecord
-  self.primary_key = 'trip_id'
+  self.primary_key = 'route_id'
 
   def self.hash_from_gtfs(row)
     record = {}

@@ -1,5 +1,6 @@
 ---
 Transfer_1:
+  gtfs_id: S6|S7
   from_stop_id: S6
   to_stop_id: S7
   transfer_type: '2'
@@ -7,13 +8,14 @@ Transfer_1:
 
 ---
 Transfer_2:
+  gtfs_id: S7|S6
   from_stop_id: S7
   to_stop_id: S6
   transfer_type: '3'
 
 ---
 Transfer_3:
+  gtfs_id: S23|S7
   from_stop_id: S23
   to_stop_id: S7
   transfer_type: '1'
-

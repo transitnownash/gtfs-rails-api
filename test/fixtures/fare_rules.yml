@@ -1,20 +1,23 @@
 ---
 FareRule_1:
+  gtfs_id: p|AB|||
   fare_id: p
   route_id: AB
 
 ---
 FareRule_2:
+  gtfs_id: p|STBA|||
   fare_id: p
   route_id: STBA
 
 ---
 FareRule_3:
+  gtfs_id: p|BFC|||
   fare_id: p
   route_id: BFC
 
 ---
 FareRule_4:
+  gtfs_id: a|AAMV|||
   fare_id: a
   route_id: AAMV
-

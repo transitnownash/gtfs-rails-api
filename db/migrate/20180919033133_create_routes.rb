@@ -11,7 +11,7 @@ class CreateRoutes < ActiveRecord::Migration[5.2]
       t.string :route_color
       t.string :route_text_color
       t.integer :route_sort_order
-      
+
       t.index :route_id, unique: true
     end
   end

@@ -1,4 +1,6 @@
 class Trip < ApplicationRecord
+  self.primary_key = 'trip_id'
+
   def self.hash_from_gtfs(row)
     record = {}
     record[:route_id] = row.route_id

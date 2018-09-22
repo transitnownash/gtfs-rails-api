@@ -1,5 +1,6 @@
 ---
 StopTime_1:
+  gtfs_id: STBA|1
   trip_id: STBA
   arrival_time: !ruby/object:ActiveSupport::TimeWithZone
     utc: &1 2000-01-01 06:00:00.000000000 Z
@@ -15,6 +16,7 @@ StopTime_1:
 
 ---
 StopTime_2:
+  gtfs_id: STBA|2
   trip_id: STBA
   arrival_time: !ruby/object:ActiveSupport::TimeWithZone
     utc: &1 2000-01-01 06:20:00.000000000 Z
@@ -30,6 +32,7 @@ StopTime_2:
 
 ---
 StopTime_3:
+  gtfs_id: CITY1|2
   trip_id: CITY1
   arrival_time: !ruby/object:ActiveSupport::TimeWithZone
     utc: &1 2000-01-01 06:00:00.000000000 Z
@@ -45,6 +48,7 @@ StopTime_3:
 
 ---
 StopTime_4:
+  gtfs_id: CITY1|2
   trip_id: CITY1
   arrival_time: !ruby/object:ActiveSupport::TimeWithZone
     utc: &1 2000-01-01 06:05:00.000000000 Z
@@ -60,6 +64,7 @@ StopTime_4:
 
 ---
 StopTime_5:
+  gtfs_id: CITY1|3
   trip_id: CITY1
   arrival_time: !ruby/object:ActiveSupport::TimeWithZone
     utc: &1 2000-01-01 06:12:00.000000000 Z
@@ -75,6 +80,7 @@ StopTime_5:
 
 ---
 StopTime_6:
+  gtfs_id: CITY1|4
   trip_id: CITY1
   arrival_time: !ruby/object:ActiveSupport::TimeWithZone
     utc: &1 2000-01-01 06:19:00.000000000 Z
@@ -90,6 +96,7 @@ StopTime_6:
 
 ---
 StopTime_7:
+  gtfs_id: CITY1|5
   trip_id: CITY1
   arrival_time: !ruby/object:ActiveSupport::TimeWithZone
     utc: &1 2000-01-01 06:26:00.000000000 Z
@@ -105,6 +112,7 @@ StopTime_7:
 
 ---
 StopTime_8:
+  gtfs_id: CITY2|1
   trip_id: CITY2
   arrival_time: !ruby/object:ActiveSupport::TimeWithZone
     utc: &1 2000-01-01 06:28:00.000000000 Z
@@ -120,6 +128,7 @@ StopTime_8:
 
 ---
 StopTime_9:
+  gtfs_id: CITY2|2
   trip_id: CITY2
   arrival_time: !ruby/object:ActiveSupport::TimeWithZone
     utc: &1 2000-01-01 06:35:00.000000000 Z
@@ -135,6 +144,7 @@ StopTime_9:
 
 ---
 StopTime_10:
+  gtfs_id: CITY2|3
   trip_id: CITY2
   arrival_time: !ruby/object:ActiveSupport::TimeWithZone
     utc: &1 2000-01-01 06:42:00.000000000 Z
@@ -150,6 +160,7 @@ StopTime_10:
 
 ---
 StopTime_11:
+  gtfs_id: CITY2|4
   trip_id: CITY2
   arrival_time: !ruby/object:ActiveSupport::TimeWithZone
     utc: &1 2000-01-01 06:49:00.000000000 Z
@@ -180,6 +191,7 @@ StopTime_12:
 
 ---
 StopTime_13:
+  gtfs_id: AB1|1
   trip_id: AB1
   arrival_time: !ruby/object:ActiveSupport::TimeWithZone
     utc: &1 2000-01-01 08:00:00.000000000 Z
@@ -195,6 +207,7 @@ StopTime_13:
 
 ---
 StopTime_14:
+  gtfs_id: AB1|2
   trip_id: AB1
   arrival_time: !ruby/object:ActiveSupport::TimeWithZone
     utc: &1 2000-01-01 08:10:00.000000000 Z
@@ -210,6 +223,7 @@ StopTime_14:
 
 ---
 StopTime_15:
+  gtfs_id: AB2|1
   trip_id: AB2
   arrival_time: !ruby/object:ActiveSupport::TimeWithZone
     utc: &1 2000-01-01 12:05:00.000000000 Z
@@ -225,6 +239,7 @@ StopTime_15:
 
 ---
 StopTime_16:
+  gtfs_id: AB2|2
   trip_id: AB2
   arrival_time: !ruby/object:ActiveSupport::TimeWithZone
     utc: &1 2000-01-01 12:15:00.000000000 Z
@@ -240,6 +255,7 @@ StopTime_16:
 
 ---
 StopTime_17:
+  gtfs_id: BFC1|1
   trip_id: BFC1
   arrival_time: !ruby/object:ActiveSupport::TimeWithZone
     utc: &1 2000-01-01 08:20:00.000000000 Z
@@ -255,6 +271,7 @@ StopTime_17:
 
 ---
 StopTime_18:
+  gtfs_id: BFC1|2
   trip_id: BFC1
   arrival_time: !ruby/object:ActiveSupport::TimeWithZone
     utc: &1 2000-01-01 09:20:00.000000000 Z
@@ -270,6 +287,7 @@ StopTime_18:
 
 ---
 StopTime_19:
+  gtfs_id: BFC2|1
   trip_id: BFC2
   arrival_time: !ruby/object:ActiveSupport::TimeWithZone
     utc: &1 2000-01-01 11:00:00.000000000 Z
@@ -285,6 +303,7 @@ StopTime_19:
 
 ---
 StopTime_20:
+  gtfs_id: BFC2|2
   trip_id: BFC2
   arrival_time: !ruby/object:ActiveSupport::TimeWithZone
     utc: &1 2000-01-01 12:00:00.000000000 Z
@@ -300,6 +319,7 @@ StopTime_20:
 
 ---
 StopTime_21:
+  gtfs_id: AAMV1|1
   trip_id: AAMV1
   arrival_time: !ruby/object:ActiveSupport::TimeWithZone
     utc: &1 2000-01-01 08:00:00.000000000 Z
@@ -315,6 +335,7 @@ StopTime_21:
 
 ---
 StopTime_22:
+  gtfs_id: AAMV1|2
   trip_id: AAMV1
   arrival_time: !ruby/object:ActiveSupport::TimeWithZone
     utc: &1 2000-01-01 09:00:00.000000000 Z
@@ -330,6 +351,7 @@ StopTime_22:
 
 ---
 StopTime_23:
+  gtfs_id: AAMV2|1
   trip_id: AAMV2
   arrival_time: !ruby/object:ActiveSupport::TimeWithZone
     utc: &1 2000-01-01 10:00:00.000000000 Z
@@ -345,6 +367,7 @@ StopTime_23:
 
 ---
 StopTime_24:
+  gtfs_id: AAMV2|2
   trip_id: AAMV2
   arrival_time: !ruby/object:ActiveSupport::TimeWithZone
     utc: &1 2000-01-01 11:00:00.000000000 Z
@@ -360,6 +383,7 @@ StopTime_24:
 
 ---
 StopTime_25:
+  gtfs_id: AAMV3|1
   trip_id: AAMV3
   arrival_time: !ruby/object:ActiveSupport::TimeWithZone
     utc: &1 2000-01-01 13:00:00.000000000 Z
@@ -375,6 +399,7 @@ StopTime_25:
 
 ---
 StopTime_26:
+  gtfs_id: AAMV3|2
   trip_id: AAMV3
   arrival_time: !ruby/object:ActiveSupport::TimeWithZone
     utc: &1 2000-01-01 14:00:00.000000000 Z
@@ -390,6 +415,7 @@ StopTime_26:
 
 ---
 StopTime_27:
+  gtfs_id: AAMV4|1
   trip_id: AAMV4
   arrival_time: !ruby/object:ActiveSupport::TimeWithZone
     utc: &1 2000-01-01 15:00:00.000000000 Z
@@ -405,6 +431,7 @@ StopTime_27:
 
 ---
 StopTime_28:
+  gtfs_id: AAMV4|2
   trip_id: AAMV4
   arrival_time: !ruby/object:ActiveSupport::TimeWithZone
     utc: &1 2000-01-01 16:00:00.000000000 Z
