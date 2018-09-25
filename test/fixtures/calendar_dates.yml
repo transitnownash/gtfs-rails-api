@@ -1,6 +1,5 @@
 ---
 CalendarDate_1:
-  gtfs_id: FULLW|20070604
-  service_id: FULLW
+  service_gid: FULLW
   date: 2007-06-04
   exception_type: '2'

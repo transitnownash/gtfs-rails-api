@@ -1,13 +1,15 @@
 class StopTime < ApplicationRecord
-self.primary_key = 'gtfs_id'
+  has_one :trip
+  has_one :stop
 
   def self.hash_from_gtfs(row)
     record = {}
-    record[:gtfs_id] = "#{row.trip_id}|#{row.stop_sequence}"
-    record[:trip_id] = row.trip_id
+    record[:trip_gid] = row.trip_id
+    record[:trip_id] = Trip.find_by_trip_gid(row.trip_id).id
     record[:arrival_time] = row.arrival_time
     record[:departure_time] = row.departure_time
-    record[:stop_id] = row.stop_id
+    record[:stop_gid] = row.stop_id
+    record[:stop_id] = Stop.find_by_stop_gid(row.stop_id)
     record[:stop_sequence] = row.stop_sequence
     record[:stop_headsign] = row.stop_headsign
     record[:pickup_type] = row.pickup_type

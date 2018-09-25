@@ -1,9 +1,9 @@
 class Agency < ApplicationRecord
-  self.primary_key = 'agency_id'
-  
+  has_many :routes
+
   def self.hash_from_gtfs(row)
     record = {}
-    record[:agency_id] = row.id
+    record[:agency_gid] = row.id
     record[:agency_name] = row.name
     record[:agency_url] = row.url
     record[:agency_timezone] = row.timezone

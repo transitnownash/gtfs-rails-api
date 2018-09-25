@@ -1,13 +1,13 @@
 ---
 FareAttribute_1:
-  fare_id: p
+  fare_gid: p
   price: !ruby/object:BigDecimal 45:0.125e1
   currency_type: USD
   payment_method: '0'
 
 ---
 FareAttribute_2:
-  fare_id: a
+  fare_gid: a
   price: !ruby/object:BigDecimal 45:0.525e1
   currency_type: USD
   payment_method: '0'

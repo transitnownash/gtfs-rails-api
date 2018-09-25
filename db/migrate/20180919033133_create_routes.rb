@@ -1,8 +1,9 @@
 class CreateRoutes < ActiveRecord::Migration[5.2]
   def change
-    create_table :routes, id: false do |t|
-      t.string :route_id, null: false
-      t.string :agency_id
+    create_table :routes do |t|
+      t.string :route_gid, null: false
+      t.string :agency_gid
+      t.integer :agency_id
       t.string :route_short_name, null: false
       t.string :route_long_name, null: false
       t.string :route_desc
@@ -12,7 +13,7 @@ class CreateRoutes < ActiveRecord::Migration[5.2]
       t.string :route_text_color
       t.integer :route_sort_order
 
-      t.index :route_id, unique: true
+      t.index :route_gid, unique: true
     end
   end
 end

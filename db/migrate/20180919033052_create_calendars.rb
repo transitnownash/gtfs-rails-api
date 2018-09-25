@@ -1,7 +1,7 @@
 class CreateCalendars < ActiveRecord::Migration[5.2]
   def change
-    create_table :calendars, id: false do |t|
-      t.string :service_id, null: false
+    create_table :calendars do |t|
+      t.string :service_gid, null: false
       t.boolean :monday, null: false
       t.boolean :tuesday, null: false
       t.boolean :wednesday, null: false
@@ -12,7 +12,7 @@ class CreateCalendars < ActiveRecord::Migration[5.2]
       t.date :start_date, null: false
       t.date :end_date, null: false
 
-      t.index :service_id, unique: true
+      t.index :service_gid, unique: true
     end
   end
 end

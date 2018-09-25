@@ -1,89 +1,89 @@
 ---
 Trip_1:
-  route_id: AB
-  service_id: FULLW
-  trip_id: AB1
+  route_gid: AB
+  service_gid: FULLW
+  trip_gid: AB1
   trip_headsign: to Bullfrog
-  direction_id: '0'
-  block_id: '1'
+  direction_gid: '0'
+  block_gid: '1'
 
 ---
 Trip_2:
-  route_id: AB
-  service_id: FULLW
-  trip_id: AB2
+  route_gid: AB
+  service_gid: FULLW
+  trip_gid: AB2
   trip_headsign: to Airport
-  direction_id: '1'
-  block_id: '2'
+  direction_gid: '1'
+  block_gid: '2'
 
 ---
 Trip_3:
-  route_id: STBA
-  service_id: FULLW
-  trip_id: STBA
+  route_gid: STBA
+  service_gid: FULLW
+  trip_gid: STBA
   trip_headsign: Shuttle
 
 ---
 Trip_4:
-  route_id: CITY
-  service_id: FULLW
-  trip_id: CITY1
-  direction_id: '0'
+  route_gid: CITY
+  service_gid: FULLW
+  trip_gid: CITY1
+  direction_gid: '0'
 
 ---
 Trip_5:
-  route_id: CITY
-  service_id: FULLW
-  trip_id: CITY2
-  direction_id: '1'
+  route_gid: CITY
+  service_gid: FULLW
+  trip_gid: CITY2
+  direction_gid: '1'
 
 ---
 Trip_6:
-  route_id: BFC
-  service_id: FULLW
-  trip_id: BFC1
+  route_gid: BFC
+  service_gid: FULLW
+  trip_gid: BFC1
   trip_headsign: to Furnace Creek Resort
-  direction_id: '0'
-  block_id: '1'
+  direction_gid: '0'
+  block_gid: '1'
 
 ---
 Trip_7:
-  route_id: BFC
-  service_id: FULLW
-  trip_id: BFC2
+  route_gid: BFC
+  service_gid: FULLW
+  trip_gid: BFC2
   trip_headsign: to Bullfrog
-  direction_id: '1'
-  block_id: '2'
+  direction_gid: '1'
+  block_gid: '2'
 
 ---
 Trip_8:
-  route_id: AAMV
-  service_id: WE
-  trip_id: AAMV1
+  route_gid: AAMV
+  service_gid: WE
+  trip_gid: AAMV1
   trip_headsign: to Amargosa Valley
-  direction_id: '0'
+  direction_gid: '0'
 
 ---
 Trip_9:
-  route_id: AAMV
-  service_id: WE
-  trip_id: AAMV2
+  route_gid: AAMV
+  service_gid: WE
+  trip_gid: AAMV2
   trip_headsign: to Airport
-  direction_id: '1'
+  direction_gid: '1'
 
 ---
 Trip_10:
-  route_id: AAMV
-  service_id: WE
-  trip_id: AAMV3
+  route_gid: AAMV
+  service_gid: WE
+  trip_gid: AAMV3
   trip_headsign: to Amargosa Valley
-  direction_id: '0'
+  direction_gid: '0'
 
 ---
 Trip_11:
-  route_id: AAMV
-  service_id: WE
-  trip_id: AAMV4
+  route_gid: AAMV
+  service_gid: WE
+  trip_gid: AAMV4
   trip_headsign: to Airport
-  direction_id: '1'
+  direction_gid: '1'
 

@@ -1,6 +1,6 @@
 ---
 Calendar_1:
-  service_id: FULLW
+  service_gid: FULLW
   monday: true
   tuesday: true
   wednesday: true
@@ -13,7 +13,7 @@ Calendar_1:
 
 ---
 Calendar_2:
-  service_id: WE
+  service_gid: WE
   saturday: true
   sunday: true
   start_date: 2007-01-01

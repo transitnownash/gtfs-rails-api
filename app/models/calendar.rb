@@ -1,9 +1,9 @@
 class Calendar < ApplicationRecord
-  self.primary_key = 'service_id'
+  has_many :calendar_dates
 
   def self.hash_from_gtfs(row)
     record = {}
-    record[:service_id] = row.service_id
+    record[:service_gid] = row.service_id
     record[:monday] = row.monday
     record[:tuesday] = row.tuesday
     record[:wednesday] = row.wednesday

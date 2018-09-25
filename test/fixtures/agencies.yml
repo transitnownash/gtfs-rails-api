@@ -1,6 +1,6 @@
 ---
 Agency_1:
-  agency_id: DTA
+  agency_gid: DTA
   agency_name: Demo Transit Authority
   agency_url: http://google.com
   agency_timezone: America/Los_Angeles

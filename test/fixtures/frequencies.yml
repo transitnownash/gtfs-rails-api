@@ -1,7 +1,6 @@
 ---
 Frequency_1:
-  gtfs_id: STBA|6:00:00|22:00:00
-  trip_id: STBA
+  trip_gid: STBA
   start_time: !ruby/object:ActiveSupport::TimeWithZone
     utc: &1 2000-01-01 06:00:00.000000000 Z
     zone: &2 !ruby/object:ActiveSupport::TimeZone
@@ -15,8 +14,7 @@ Frequency_1:
 
 ---
 Frequency_2:
-  gtfs_id: CITY1|6:00:00|7:59:59
-  trip_id: CITY1
+  trip_gid: CITY1
   start_time: !ruby/object:ActiveSupport::TimeWithZone
     utc: &1 2000-01-01 06:00:00.000000000 Z
     zone: &2 !ruby/object:ActiveSupport::TimeZone
@@ -30,8 +28,7 @@ Frequency_2:
 
 ---
 Frequency_3:
-  gtfs_id: CITY2|6:00:00|7:59:59
-  trip_id: CITY2
+  trip_gid: CITY2
   start_time: !ruby/object:ActiveSupport::TimeWithZone
     utc: &1 2000-01-01 06:00:00.000000000 Z
     zone: &2 !ruby/object:ActiveSupport::TimeZone
@@ -45,8 +42,7 @@ Frequency_3:
 
 ---
 Frequency_4:
-  gtfs_id: CITY1|8:00:00|9:59:59
-  trip_id: CITY1
+  trip_gid: CITY1
   start_time: !ruby/object:ActiveSupport::TimeWithZone
     utc: &1 2000-01-01 08:00:00.000000000 Z
     zone: &2 !ruby/object:ActiveSupport::TimeZone
@@ -60,8 +56,7 @@ Frequency_4:
 
 ---
 Frequency_5:
-  gtfs_id: CITY2|8:00:00|9:59:59
-  trip_id: CITY2
+  trip_gid: CITY2
   start_time: !ruby/object:ActiveSupport::TimeWithZone
     utc: &1 2000-01-01 08:00:00.000000000 Z
     zone: &2 !ruby/object:ActiveSupport::TimeZone
@@ -75,8 +70,7 @@ Frequency_5:
 
 ---
 Frequency_6:
-  gtfs_id: CITY1|10:00:00|15:59:59
-  trip_id: CITY1
+  trip_gid: CITY1
   start_time: !ruby/object:ActiveSupport::TimeWithZone
     utc: &1 2000-01-01 10:00:00.000000000 Z
     zone: &2 !ruby/object:ActiveSupport::TimeZone
@@ -90,8 +84,7 @@ Frequency_6:
 
 ---
 Frequency_7:
-  gtfs_id: CITY2|10:00:00|15:59:59
-  trip_id: CITY2
+  trip_gid: CITY2
   start_time: !ruby/object:ActiveSupport::TimeWithZone
     utc: &1 2000-01-01 10:00:00.000000000 Z
     zone: &2 !ruby/object:ActiveSupport::TimeZone
@@ -105,8 +98,7 @@ Frequency_7:
 
 ---
 Frequency_8:
-  gtfs_id: CITY1|16:00:00|18:59:59
-  trip_id: CITY1
+  trip_gid: CITY1
   start_time: !ruby/object:ActiveSupport::TimeWithZone
     utc: &1 2000-01-01 16:00:00.000000000 Z
     zone: &2 !ruby/object:ActiveSupport::TimeZone
@@ -120,8 +112,7 @@ Frequency_8:
 
 ---
 Frequency_9:
-  gtfs_id: CITY2|16:00:00|18:59:59
-  trip_id: CITY2
+  trip_gid: CITY2
   start_time: !ruby/object:ActiveSupport::TimeWithZone
     utc: &1 2000-01-01 16:00:00.000000000 Z
     zone: &2 !ruby/object:ActiveSupport::TimeZone
@@ -135,8 +126,7 @@ Frequency_9:
 
 ---
 Frequency_10:
-  gtfs_id: CITY1|19:00:00|22:00:00
-  trip_id: CITY1
+  trip_gid: CITY1
   start_time: !ruby/object:ActiveSupport::TimeWithZone
     utc: &1 2000-01-01 19:00:00.000000000 Z
     zone: &2 !ruby/object:ActiveSupport::TimeZone
@@ -150,8 +140,7 @@ Frequency_10:
 
 ---
 Frequency_11:
-  gtfs_id: CITY2|19:00:00|22:00:00
-  trip_id: CITY2
+  trip_gid: CITY2
   start_time: !ruby/object:ActiveSupport::TimeWithZone
     utc: &1 2000-01-01 19:00:00.000000000 Z
     zone: &2 !ruby/object:ActiveSupport::TimeZone

@@ -15,18 +15,18 @@ class TripsController < ApplicationController
 
   # GET /trips/:id/stop_times
   def show_stop_times
-    render json: StopTime.where(trip_id: @trip.trip_id)
+    render json: @trip.stop_times
   end
 
-  # GET /trips/:id/shape
+  # GET /trips/:id/shapes
   def show_shape
-    render json: Shape.where(shape_id: @trip.shape_id)
+    render json: @trip.shapes
   end
 
   private
 
   # Use callbacks to share common setup or constraints between actions.
   def set_trip
-    @trip = Trip.find(params[:id])
+    @trip = Trip.find_by_trip_gid(params[:id])
   end
 end

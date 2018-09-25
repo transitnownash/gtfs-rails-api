@@ -17,6 +17,6 @@ class RoutesController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_route
-    @route = Route.find(params[:id])
+    @route = Route.find_by_route_gid(params[:id])
   end
 end

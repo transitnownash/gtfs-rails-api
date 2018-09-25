@@ -1,18 +1,18 @@
 class CreateTrips < ActiveRecord::Migration[5.2]
   def change
-    create_table :trips, id: false do |t|
-      t.string :route_id, null: false
-      t.string :service_id, null: false
-      t.string :trip_id, null: false
+    create_table :trips do |t|
+      t.string :route_gid, null: false
+      t.string :service_gid, null: false
+      t.string :trip_gid, null: false
       t.string :trip_headsign
       t.string :trip_short_name
-      t.string :direction_id
-      t.string :block_id
-      t.string :shape_id
+      t.string :direction_gid
+      t.string :block_gid
+      t.string :shape_gid
       t.string :wheelchair_accessible
       t.string :bikes_allowed
 
-      t.index :trip_id, unique: true
+      t.index :trip_gid, unique: true
     end
   end
 end

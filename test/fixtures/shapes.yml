@@ -1,7 +1,6 @@
 ---
 Shape_1:
-  gtfs_id: A_shp|1
-  shape_id: A_shp
+  shape_gid: A_shp
   shape_pt_lat: !ruby/object:BigDecimal 45:0.3761956e2
   shape_pt_lon: !ruby/object:BigDecimal 45:-0.12248161e3
   shape_pt_sequence: 1
@@ -9,8 +8,7 @@ Shape_1:
 
 ---
 Shape_2:
-  gtfs_id: A_shp|2
-  shape_id: A_shp
+  shape_gid: A_shp
   shape_pt_lat: !ruby/object:BigDecimal 45:0.376443e2
   shape_pt_lon: !ruby/object:BigDecimal 45:-0.1224107e3
   shape_pt_sequence: 2
@@ -18,8 +16,7 @@ Shape_2:
 
 ---
 Shape_3:
-  gtfs_id: A_shp|3
-  shape_id: A_shp
+  shape_gid: A_shp
   shape_pt_lat: !ruby/object:BigDecimal 45:0.3765863e2
   shape_pt_lon: !ruby/object:BigDecimal 45:-0.12230839e3
   shape_pt_sequence: 3

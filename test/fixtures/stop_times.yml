@@ -1,7 +1,6 @@
 ---
 StopTime_1:
-  gtfs_id: STBA|1
-  trip_id: STBA
+  trip_gid: STBA
   arrival_time: !ruby/object:ActiveSupport::TimeWithZone
     utc: &1 2000-01-01 06:00:00.000000000 Z
     zone: &2 !ruby/object:ActiveSupport::TimeZone
@@ -11,13 +10,12 @@ StopTime_1:
     utc: &3 2000-01-01 06:00:00.000000000 Z
     zone: *2
     time: *3
-  stop_id: STAGECOACH
+  stop_gid: STAGECOACH
   stop_sequence: 1
 
 ---
 StopTime_2:
-  gtfs_id: STBA|2
-  trip_id: STBA
+  trip_gid: STBA
   arrival_time: !ruby/object:ActiveSupport::TimeWithZone
     utc: &1 2000-01-01 06:20:00.000000000 Z
     zone: &2 !ruby/object:ActiveSupport::TimeZone
@@ -27,13 +25,12 @@ StopTime_2:
     utc: &3 2000-01-01 06:20:00.000000000 Z
     zone: *2
     time: *3
-  stop_id: BEATTY_AIRPORT
+  stop_gid: BEATTY_AIRPORT
   stop_sequence: 2
 
 ---
 StopTime_3:
-  gtfs_id: CITY1|2
-  trip_id: CITY1
+  trip_gid: CITY1
   arrival_time: !ruby/object:ActiveSupport::TimeWithZone
     utc: &1 2000-01-01 06:00:00.000000000 Z
     zone: &2 !ruby/object:ActiveSupport::TimeZone
@@ -43,13 +40,12 @@ StopTime_3:
     utc: &3 2000-01-01 06:00:00.000000000 Z
     zone: *2
     time: *3
-  stop_id: STAGECOACH
+  stop_gid: STAGECOACH
   stop_sequence: 1
 
 ---
 StopTime_4:
-  gtfs_id: CITY1|2
-  trip_id: CITY1
+  trip_gid: CITY1
   arrival_time: !ruby/object:ActiveSupport::TimeWithZone
     utc: &1 2000-01-01 06:05:00.000000000 Z
     zone: &2 !ruby/object:ActiveSupport::TimeZone
@@ -59,13 +55,12 @@ StopTime_4:
     utc: &3 2000-01-01 06:07:00.000000000 Z
     zone: *2
     time: *3
-  stop_id: NANAA
+  stop_gid: NANAA
   stop_sequence: 2
 
 ---
 StopTime_5:
-  gtfs_id: CITY1|3
-  trip_id: CITY1
+  trip_gid: CITY1
   arrival_time: !ruby/object:ActiveSupport::TimeWithZone
     utc: &1 2000-01-01 06:12:00.000000000 Z
     zone: &2 !ruby/object:ActiveSupport::TimeZone
@@ -75,13 +70,12 @@ StopTime_5:
     utc: &3 2000-01-01 06:14:00.000000000 Z
     zone: *2
     time: *3
-  stop_id: NADAV
+  stop_gid: NADAV
   stop_sequence: 3
 
 ---
 StopTime_6:
-  gtfs_id: CITY1|4
-  trip_id: CITY1
+  trip_gid: CITY1
   arrival_time: !ruby/object:ActiveSupport::TimeWithZone
     utc: &1 2000-01-01 06:19:00.000000000 Z
     zone: &2 !ruby/object:ActiveSupport::TimeZone
@@ -91,13 +85,12 @@ StopTime_6:
     utc: &3 2000-01-01 06:21:00.000000000 Z
     zone: *2
     time: *3
-  stop_id: DADAN
+  stop_gid: DADAN
   stop_sequence: 4
 
 ---
 StopTime_7:
-  gtfs_id: CITY1|5
-  trip_id: CITY1
+  trip_gid: CITY1
   arrival_time: !ruby/object:ActiveSupport::TimeWithZone
     utc: &1 2000-01-01 06:26:00.000000000 Z
     zone: &2 !ruby/object:ActiveSupport::TimeZone
@@ -107,13 +100,12 @@ StopTime_7:
     utc: &3 2000-01-01 06:28:00.000000000 Z
     zone: *2
     time: *3
-  stop_id: EMSI
+  stop_gid: EMSI
   stop_sequence: 5
 
 ---
 StopTime_8:
-  gtfs_id: CITY2|1
-  trip_id: CITY2
+  trip_gid: CITY2
   arrival_time: !ruby/object:ActiveSupport::TimeWithZone
     utc: &1 2000-01-01 06:28:00.000000000 Z
     zone: &2 !ruby/object:ActiveSupport::TimeZone
@@ -123,13 +115,12 @@ StopTime_8:
     utc: &3 2000-01-01 06:30:00.000000000 Z
     zone: *2
     time: *3
-  stop_id: EMSI
+  stop_gid: EMSI
   stop_sequence: 1
 
 ---
 StopTime_9:
-  gtfs_id: CITY2|2
-  trip_id: CITY2
+  trip_gid: CITY2
   arrival_time: !ruby/object:ActiveSupport::TimeWithZone
     utc: &1 2000-01-01 06:35:00.000000000 Z
     zone: &2 !ruby/object:ActiveSupport::TimeZone
@@ -139,13 +130,12 @@ StopTime_9:
     utc: &3 2000-01-01 06:37:00.000000000 Z
     zone: *2
     time: *3
-  stop_id: DADAN
+  stop_gid: DADAN
   stop_sequence: 2
 
 ---
 StopTime_10:
-  gtfs_id: CITY2|3
-  trip_id: CITY2
+  trip_gid: CITY2
   arrival_time: !ruby/object:ActiveSupport::TimeWithZone
     utc: &1 2000-01-01 06:42:00.000000000 Z
     zone: &2 !ruby/object:ActiveSupport::TimeZone
@@ -155,13 +145,12 @@ StopTime_10:
     utc: &3 2000-01-01 06:44:00.000000000 Z
     zone: *2
     time: *3
-  stop_id: NADAV
+  stop_gid: NADAV
   stop_sequence: 3
 
 ---
 StopTime_11:
-  gtfs_id: CITY2|4
-  trip_id: CITY2
+  trip_gid: CITY2
   arrival_time: !ruby/object:ActiveSupport::TimeWithZone
     utc: &1 2000-01-01 06:49:00.000000000 Z
     zone: &2 !ruby/object:ActiveSupport::TimeZone
@@ -171,12 +160,11 @@ StopTime_11:
     utc: &3 2000-01-01 06:51:00.000000000 Z
     zone: *2
     time: *3
-  stop_id: NANAA
+  stop_gid: NANAA
   stop_sequence: 4
 
 ---
 StopTime_12:
-  trip_id: CITY2
   arrival_time: !ruby/object:ActiveSupport::TimeWithZone
     utc: &1 2000-01-01 06:56:00.000000000 Z
     zone: &2 !ruby/object:ActiveSupport::TimeZone
@@ -186,13 +174,12 @@ StopTime_12:
     utc: &3 2000-01-01 06:58:00.000000000 Z
     zone: *2
     time: *3
-  stop_id: STAGECOACH
+  stop_gid: STAGECOACH
   stop_sequence: 5
 
 ---
 StopTime_13:
-  gtfs_id: AB1|1
-  trip_id: AB1
+  trip_gid: AB1
   arrival_time: !ruby/object:ActiveSupport::TimeWithZone
     utc: &1 2000-01-01 08:00:00.000000000 Z
     zone: &2 !ruby/object:ActiveSupport::TimeZone
@@ -202,13 +189,12 @@ StopTime_13:
     utc: &3 2000-01-01 08:00:00.000000000 Z
     zone: *2
     time: *3
-  stop_id: BEATTY_AIRPORT
+  stop_gid: BEATTY_AIRPORT
   stop_sequence: 1
 
 ---
 StopTime_14:
-  gtfs_id: AB1|2
-  trip_id: AB1
+  trip_gid: AB1
   arrival_time: !ruby/object:ActiveSupport::TimeWithZone
     utc: &1 2000-01-01 08:10:00.000000000 Z
     zone: &2 !ruby/object:ActiveSupport::TimeZone
@@ -218,13 +204,12 @@ StopTime_14:
     utc: &3 2000-01-01 08:15:00.000000000 Z
     zone: *2
     time: *3
-  stop_id: BULLFROG
+  stop_gid: BULLFROG
   stop_sequence: 2
 
 ---
 StopTime_15:
-  gtfs_id: AB2|1
-  trip_id: AB2
+  trip_gid: AB2
   arrival_time: !ruby/object:ActiveSupport::TimeWithZone
     utc: &1 2000-01-01 12:05:00.000000000 Z
     zone: &2 !ruby/object:ActiveSupport::TimeZone
@@ -234,13 +219,12 @@ StopTime_15:
     utc: &3 2000-01-01 12:05:00.000000000 Z
     zone: *2
     time: *3
-  stop_id: BULLFROG
+  stop_gid: BULLFROG
   stop_sequence: 1
 
 ---
 StopTime_16:
-  gtfs_id: AB2|2
-  trip_id: AB2
+  trip_gid: AB2
   arrival_time: !ruby/object:ActiveSupport::TimeWithZone
     utc: &1 2000-01-01 12:15:00.000000000 Z
     zone: &2 !ruby/object:ActiveSupport::TimeZone
@@ -250,13 +234,12 @@ StopTime_16:
     utc: &3 2000-01-01 12:15:00.000000000 Z
     zone: *2
     time: *3
-  stop_id: BEATTY_AIRPORT
+  stop_gid: BEATTY_AIRPORT
   stop_sequence: 2
 
 ---
 StopTime_17:
-  gtfs_id: BFC1|1
-  trip_id: BFC1
+  trip_gid: BFC1
   arrival_time: !ruby/object:ActiveSupport::TimeWithZone
     utc: &1 2000-01-01 08:20:00.000000000 Z
     zone: &2 !ruby/object:ActiveSupport::TimeZone
@@ -266,13 +249,12 @@ StopTime_17:
     utc: &3 2000-01-01 08:20:00.000000000 Z
     zone: *2
     time: *3
-  stop_id: BULLFROG
+  stop_gid: BULLFROG
   stop_sequence: 1
 
 ---
 StopTime_18:
-  gtfs_id: BFC1|2
-  trip_id: BFC1
+  trip_gid: BFC1
   arrival_time: !ruby/object:ActiveSupport::TimeWithZone
     utc: &1 2000-01-01 09:20:00.000000000 Z
     zone: &2 !ruby/object:ActiveSupport::TimeZone
@@ -282,13 +264,12 @@ StopTime_18:
     utc: &3 2000-01-01 09:20:00.000000000 Z
     zone: *2
     time: *3
-  stop_id: FUR_CREEK_RES
+  stop_gid: FUR_CREEK_RES
   stop_sequence: 2
 
 ---
 StopTime_19:
-  gtfs_id: BFC2|1
-  trip_id: BFC2
+  trip_gid: BFC2
   arrival_time: !ruby/object:ActiveSupport::TimeWithZone
     utc: &1 2000-01-01 11:00:00.000000000 Z
     zone: &2 !ruby/object:ActiveSupport::TimeZone
@@ -298,13 +279,12 @@ StopTime_19:
     utc: &3 2000-01-01 11:00:00.000000000 Z
     zone: *2
     time: *3
-  stop_id: FUR_CREEK_RES
+  stop_gid: FUR_CREEK_RES
   stop_sequence: 1
 
 ---
 StopTime_20:
-  gtfs_id: BFC2|2
-  trip_id: BFC2
+  trip_gid: BFC2
   arrival_time: !ruby/object:ActiveSupport::TimeWithZone
     utc: &1 2000-01-01 12:00:00.000000000 Z
     zone: &2 !ruby/object:ActiveSupport::TimeZone
@@ -314,13 +294,12 @@ StopTime_20:
     utc: &3 2000-01-01 12:00:00.000000000 Z
     zone: *2
     time: *3
-  stop_id: BULLFROG
+  stop_gid: BULLFROG
   stop_sequence: 2
 
 ---
 StopTime_21:
-  gtfs_id: AAMV1|1
-  trip_id: AAMV1
+  trip_gid: AAMV1
   arrival_time: !ruby/object:ActiveSupport::TimeWithZone
     utc: &1 2000-01-01 08:00:00.000000000 Z
     zone: &2 !ruby/object:ActiveSupport::TimeZone
@@ -330,13 +309,12 @@ StopTime_21:
     utc: &3 2000-01-01 08:00:00.000000000 Z
     zone: *2
     time: *3
-  stop_id: BEATTY_AIRPORT
+  stop_gid: BEATTY_AIRPORT
   stop_sequence: 1
 
 ---
 StopTime_22:
-  gtfs_id: AAMV1|2
-  trip_id: AAMV1
+  trip_gid: AAMV1
   arrival_time: !ruby/object:ActiveSupport::TimeWithZone
     utc: &1 2000-01-01 09:00:00.000000000 Z
     zone: &2 !ruby/object:ActiveSupport::TimeZone
@@ -346,13 +324,12 @@ StopTime_22:
     utc: &3 2000-01-01 09:00:00.000000000 Z
     zone: *2
     time: *3
-  stop_id: AMV
+  stop_gid: AMV
   stop_sequence: 2
 
 ---
 StopTime_23:
-  gtfs_id: AAMV2|1
-  trip_id: AAMV2
+  trip_gid: AAMV2
   arrival_time: !ruby/object:ActiveSupport::TimeWithZone
     utc: &1 2000-01-01 10:00:00.000000000 Z
     zone: &2 !ruby/object:ActiveSupport::TimeZone
@@ -362,13 +339,12 @@ StopTime_23:
     utc: &3 2000-01-01 10:00:00.000000000 Z
     zone: *2
     time: *3
-  stop_id: AMV
+  stop_gid: AMV
   stop_sequence: 1
 
 ---
 StopTime_24:
-  gtfs_id: AAMV2|2
-  trip_id: AAMV2
+  trip_gid: AAMV2
   arrival_time: !ruby/object:ActiveSupport::TimeWithZone
     utc: &1 2000-01-01 11:00:00.000000000 Z
     zone: &2 !ruby/object:ActiveSupport::TimeZone
@@ -378,13 +354,12 @@ StopTime_24:
     utc: &3 2000-01-01 11:00:00.000000000 Z
     zone: *2
     time: *3
-  stop_id: BEATTY_AIRPORT
+  stop_gid: BEATTY_AIRPORT
   stop_sequence: 2
 
 ---
 StopTime_25:
-  gtfs_id: AAMV3|1
-  trip_id: AAMV3
+  trip_gid: AAMV3
   arrival_time: !ruby/object:ActiveSupport::TimeWithZone
     utc: &1 2000-01-01 13:00:00.000000000 Z
     zone: &2 !ruby/object:ActiveSupport::TimeZone
@@ -394,13 +369,12 @@ StopTime_25:
     utc: &3 2000-01-01 13:00:00.000000000 Z
     zone: *2
     time: *3
-  stop_id: BEATTY_AIRPORT
+  stop_gid: BEATTY_AIRPORT
   stop_sequence: 1
 
 ---
 StopTime_26:
-  gtfs_id: AAMV3|2
-  trip_id: AAMV3
+  trip_gid: AAMV3
   arrival_time: !ruby/object:ActiveSupport::TimeWithZone
     utc: &1 2000-01-01 14:00:00.000000000 Z
     zone: &2 !ruby/object:ActiveSupport::TimeZone
@@ -410,13 +384,12 @@ StopTime_26:
     utc: &3 2000-01-01 14:00:00.000000000 Z
     zone: *2
     time: *3
-  stop_id: AMV
+  stop_gid: AMV
   stop_sequence: 2
 
 ---
 StopTime_27:
-  gtfs_id: AAMV4|1
-  trip_id: AAMV4
+  trip_gid: AAMV4
   arrival_time: !ruby/object:ActiveSupport::TimeWithZone
     utc: &1 2000-01-01 15:00:00.000000000 Z
     zone: &2 !ruby/object:ActiveSupport::TimeZone
@@ -426,13 +399,12 @@ StopTime_27:
     utc: &3 2000-01-01 15:00:00.000000000 Z
     zone: *2
     time: *3
-  stop_id: AMV
+  stop_gid: AMV
   stop_sequence: 1
 
 ---
 StopTime_28:
-  gtfs_id: AAMV4|2
-  trip_id: AAMV4
+  trip_gid: AAMV4
   arrival_time: !ruby/object:ActiveSupport::TimeWithZone
     utc: &1 2000-01-01 16:00:00.000000000 Z
     zone: &2 !ruby/object:ActiveSupport::TimeZone
@@ -442,5 +414,5 @@ StopTime_28:
     utc: &3 2000-01-01 16:00:00.000000000 Z
     zone: *2
     time: *3
-  stop_id: BEATTY_AIRPORT
+  stop_gid: BEATTY_AIRPORT
   stop_sequence: 2

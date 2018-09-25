@@ -17,6 +17,6 @@ class StopsController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_stop
-    @stop = Stop.find(params[:id])
+    @stop = Stop.find_by_stop_gid(params[:id])
   end
 end
