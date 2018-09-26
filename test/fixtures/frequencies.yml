@@ -1,5 +1,6 @@
 ---
 Frequency_1:
+  id: 1
   trip_gid: STBA
   start_time: !ruby/object:ActiveSupport::TimeWithZone
     utc: &1 2000-01-01 06:00:00.000000000 Z
@@ -11,143 +12,123 @@ Frequency_1:
     zone: *2
     time: *3
   headway_secs: 1800
-
----
 Frequency_2:
+  id: 2
   trip_gid: CITY1
   start_time: !ruby/object:ActiveSupport::TimeWithZone
-    utc: &1 2000-01-01 06:00:00.000000000 Z
-    zone: &2 !ruby/object:ActiveSupport::TimeZone
-      name: Etc/UTC
-    time: *1
-  end_time: !ruby/object:ActiveSupport::TimeWithZone
-    utc: &3 2000-01-01 07:59:59.000000000 Z
+    utc: &4 2000-01-01 06:00:00.000000000 Z
     zone: *2
-    time: *3
+    time: *4
+  end_time: !ruby/object:ActiveSupport::TimeWithZone
+    utc: &5 2000-01-01 07:59:59.000000000 Z
+    zone: *2
+    time: *5
   headway_secs: 1800
-
----
 Frequency_3:
+  id: 3
   trip_gid: CITY2
   start_time: !ruby/object:ActiveSupport::TimeWithZone
-    utc: &1 2000-01-01 06:00:00.000000000 Z
-    zone: &2 !ruby/object:ActiveSupport::TimeZone
-      name: Etc/UTC
-    time: *1
-  end_time: !ruby/object:ActiveSupport::TimeWithZone
-    utc: &3 2000-01-01 07:59:59.000000000 Z
+    utc: &6 2000-01-01 06:00:00.000000000 Z
     zone: *2
-    time: *3
+    time: *6
+  end_time: !ruby/object:ActiveSupport::TimeWithZone
+    utc: &7 2000-01-01 07:59:59.000000000 Z
+    zone: *2
+    time: *7
   headway_secs: 1800
-
----
 Frequency_4:
+  id: 4
   trip_gid: CITY1
   start_time: !ruby/object:ActiveSupport::TimeWithZone
-    utc: &1 2000-01-01 08:00:00.000000000 Z
-    zone: &2 !ruby/object:ActiveSupport::TimeZone
-      name: Etc/UTC
-    time: *1
-  end_time: !ruby/object:ActiveSupport::TimeWithZone
-    utc: &3 2000-01-01 09:59:59.000000000 Z
+    utc: &8 2000-01-01 08:00:00.000000000 Z
     zone: *2
-    time: *3
+    time: *8
+  end_time: !ruby/object:ActiveSupport::TimeWithZone
+    utc: &9 2000-01-01 09:59:59.000000000 Z
+    zone: *2
+    time: *9
   headway_secs: 600
-
----
 Frequency_5:
+  id: 5
   trip_gid: CITY2
   start_time: !ruby/object:ActiveSupport::TimeWithZone
-    utc: &1 2000-01-01 08:00:00.000000000 Z
-    zone: &2 !ruby/object:ActiveSupport::TimeZone
-      name: Etc/UTC
-    time: *1
-  end_time: !ruby/object:ActiveSupport::TimeWithZone
-    utc: &3 2000-01-01 09:59:59.000000000 Z
+    utc: &10 2000-01-01 08:00:00.000000000 Z
     zone: *2
-    time: *3
+    time: *10
+  end_time: !ruby/object:ActiveSupport::TimeWithZone
+    utc: &11 2000-01-01 09:59:59.000000000 Z
+    zone: *2
+    time: *11
   headway_secs: 600
-
----
 Frequency_6:
+  id: 6
   trip_gid: CITY1
   start_time: !ruby/object:ActiveSupport::TimeWithZone
-    utc: &1 2000-01-01 10:00:00.000000000 Z
-    zone: &2 !ruby/object:ActiveSupport::TimeZone
-      name: Etc/UTC
-    time: *1
-  end_time: !ruby/object:ActiveSupport::TimeWithZone
-    utc: &3 2000-01-01 15:59:59.000000000 Z
+    utc: &12 2000-01-01 10:00:00.000000000 Z
     zone: *2
-    time: *3
+    time: *12
+  end_time: !ruby/object:ActiveSupport::TimeWithZone
+    utc: &13 2000-01-01 15:59:59.000000000 Z
+    zone: *2
+    time: *13
   headway_secs: 1800
-
----
 Frequency_7:
+  id: 7
   trip_gid: CITY2
   start_time: !ruby/object:ActiveSupport::TimeWithZone
-    utc: &1 2000-01-01 10:00:00.000000000 Z
-    zone: &2 !ruby/object:ActiveSupport::TimeZone
-      name: Etc/UTC
-    time: *1
-  end_time: !ruby/object:ActiveSupport::TimeWithZone
-    utc: &3 2000-01-01 15:59:59.000000000 Z
+    utc: &14 2000-01-01 10:00:00.000000000 Z
     zone: *2
-    time: *3
+    time: *14
+  end_time: !ruby/object:ActiveSupport::TimeWithZone
+    utc: &15 2000-01-01 15:59:59.000000000 Z
+    zone: *2
+    time: *15
   headway_secs: 1800
-
----
 Frequency_8:
+  id: 8
   trip_gid: CITY1
   start_time: !ruby/object:ActiveSupport::TimeWithZone
-    utc: &1 2000-01-01 16:00:00.000000000 Z
-    zone: &2 !ruby/object:ActiveSupport::TimeZone
-      name: Etc/UTC
-    time: *1
-  end_time: !ruby/object:ActiveSupport::TimeWithZone
-    utc: &3 2000-01-01 18:59:59.000000000 Z
+    utc: &16 2000-01-01 16:00:00.000000000 Z
     zone: *2
-    time: *3
+    time: *16
+  end_time: !ruby/object:ActiveSupport::TimeWithZone
+    utc: &17 2000-01-01 18:59:59.000000000 Z
+    zone: *2
+    time: *17
   headway_secs: 600
-
----
 Frequency_9:
+  id: 9
   trip_gid: CITY2
   start_time: !ruby/object:ActiveSupport::TimeWithZone
-    utc: &1 2000-01-01 16:00:00.000000000 Z
-    zone: &2 !ruby/object:ActiveSupport::TimeZone
-      name: Etc/UTC
-    time: *1
-  end_time: !ruby/object:ActiveSupport::TimeWithZone
-    utc: &3 2000-01-01 18:59:59.000000000 Z
+    utc: &18 2000-01-01 16:00:00.000000000 Z
     zone: *2
-    time: *3
+    time: *18
+  end_time: !ruby/object:ActiveSupport::TimeWithZone
+    utc: &19 2000-01-01 18:59:59.000000000 Z
+    zone: *2
+    time: *19
   headway_secs: 600
-
----
 Frequency_10:
+  id: 10
   trip_gid: CITY1
   start_time: !ruby/object:ActiveSupport::TimeWithZone
-    utc: &1 2000-01-01 19:00:00.000000000 Z
-    zone: &2 !ruby/object:ActiveSupport::TimeZone
-      name: Etc/UTC
-    time: *1
-  end_time: !ruby/object:ActiveSupport::TimeWithZone
-    utc: &3 2000-01-01 22:00:00.000000000 Z
+    utc: &20 2000-01-01 19:00:00.000000000 Z
     zone: *2
-    time: *3
+    time: *20
+  end_time: !ruby/object:ActiveSupport::TimeWithZone
+    utc: &21 2000-01-01 22:00:00.000000000 Z
+    zone: *2
+    time: *21
   headway_secs: 1800
-
----
 Frequency_11:
+  id: 11
   trip_gid: CITY2
   start_time: !ruby/object:ActiveSupport::TimeWithZone
-    utc: &1 2000-01-01 19:00:00.000000000 Z
-    zone: &2 !ruby/object:ActiveSupport::TimeZone
-      name: Etc/UTC
-    time: *1
-  end_time: !ruby/object:ActiveSupport::TimeWithZone
-    utc: &3 2000-01-01 22:00:00.000000000 Z
+    utc: &22 2000-01-01 19:00:00.000000000 Z
     zone: *2
-    time: *3
+    time: *22
+  end_time: !ruby/object:ActiveSupport::TimeWithZone
+    utc: &23 2000-01-01 22:00:00.000000000 Z
+    zone: *2
+    time: *23
   headway_secs: 1800

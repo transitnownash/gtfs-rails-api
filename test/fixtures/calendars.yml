@@ -1,5 +1,6 @@
 ---
 Calendar_1:
+  id: 1
   service_gid: FULLW
   monday: true
   tuesday: true
@@ -10,12 +11,15 @@ Calendar_1:
   sunday: true
   start_date: 2007-01-01
   end_date: 2010-12-31
-
----
 Calendar_2:
+  id: 2
   service_gid: WE
+  monday: false
+  tuesday: false
+  wednesday: false
+  thursday: false
+  friday: false
   saturday: true
   sunday: true
   start_date: 2007-01-01
   end_date: 2010-12-31
-

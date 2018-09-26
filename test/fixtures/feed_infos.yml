@@ -1,9 +1,9 @@
 ---
 FeedInfo_1:
+  id: 1
   feed_publisher_name: Google Sample Data
   feed_publisher_url: https://google.com
   feed_lang: en
   feed_start_date: 2006-07-01
   feed_end_date: 2006-07-31
   feed_version: '1.0'
-

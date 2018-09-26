@@ -2,6 +2,7 @@ class CreateTrips < ActiveRecord::Migration[5.2]
   def change
     create_table :trips do |t|
       t.string :route_gid, null: false
+      t.integer :route_id, null: false
       t.string :service_gid, null: false
       t.string :trip_gid, null: false
       t.string :trip_headsign

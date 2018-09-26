@@ -1,19 +1,17 @@
 ---
 FareRule_1:
+  id: 1
   fare_gid: p
   route_gid: AB
-
----
 FareRule_2:
+  id: 2
   fare_gid: p
   route_gid: STBA
-
----
 FareRule_3:
+  id: 3
   fare_gid: p
   route_gid: BFC
-
----
 FareRule_4:
+  id: 4
   fare_gid: a
   route_gid: AAMV

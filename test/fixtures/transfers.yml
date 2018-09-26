@@ -1,18 +1,17 @@
 ---
 Transfer_1:
+  id: 1
   from_stop_gid: S6
   to_stop_gid: S7
   transfer_type: '2'
   min_transfer_time: 300
-
----
 Transfer_2:
+  id: 2
   from_stop_gid: S7
   to_stop_gid: S6
   transfer_type: '3'
-
----
 Transfer_3:
+  id: 3
   from_stop_gid: S23
   to_stop_gid: S7
   transfer_type: '1'

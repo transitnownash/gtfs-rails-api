@@ -1,6 +1,6 @@
 class StopTime < ApplicationRecord
-  has_one :trip
-  has_one :stop
+  belongs_to :trips
+  belongs_to :stops
 
   def self.hash_from_gtfs(row)
     record = {}
@@ -9,7 +9,7 @@ class StopTime < ApplicationRecord
     record[:arrival_time] = row.arrival_time
     record[:departure_time] = row.departure_time
     record[:stop_gid] = row.stop_id
-    record[:stop_id] = Stop.find_by_stop_gid(row.stop_id)
+    record[:stop_id] = Stop.find_by_stop_gid(row.stop_id).id
     record[:stop_sequence] = row.stop_sequence
     record[:stop_headsign] = row.stop_headsign
     record[:pickup_type] = row.pickup_type

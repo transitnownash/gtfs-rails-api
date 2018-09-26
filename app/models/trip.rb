@@ -1,13 +1,15 @@
 class Trip < ApplicationRecord
-  has_one :calendar
-  has_one :route
-  has_many :shapes
+  belongs_to :route
   has_many :stop_times
+
+  def shape
+    Shape.where(shape_gid: shape_gid)
+  end
 
   def self.hash_from_gtfs(row)
     record = {}
     record[:route_gid] = row.route_id
-    record[:route_id] = Route.find_by_route_gid(row.route_id)
+    record[:route_id] = Route.find_by_route_gid(row.route_id).id
     record[:service_gid] = row.service_id
     record[:trip_gid] = row.id
     record[:trip_headsign] = row.headsign

@@ -20,7 +20,7 @@ class TripsController < ApplicationController
 
   # GET /trips/:id/shapes
   def show_shape
-    render json: @trip.shapes
+    render json: @trip.shape
   end
 
   private

@@ -146,6 +146,7 @@ ActiveRecord::Schema.define(version: 2018_09_19_033157) do
 
   create_table "trips", force: :cascade do |t|
     t.string "route_gid", null: false
+    t.integer "route_id", null: false
     t.string "service_gid", null: false
     t.string "trip_gid", null: false
     t.string "trip_headsign"
