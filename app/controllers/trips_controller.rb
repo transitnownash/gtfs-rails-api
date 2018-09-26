@@ -4,7 +4,6 @@ class TripsController < ApplicationController
   # GET /trips
   def index
     @trips = Trip.all
-
     render json: @trips
   end
 
@@ -27,6 +26,7 @@ class TripsController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_trip
-    @trip = Trip.find_by_trip_gid(params[:id])
+    @trip = Trip.find(params[:id])
+    raise 'NotFoundException' if @trip.nil?
   end
 end

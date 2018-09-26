@@ -15,6 +15,5 @@ Rails.application.routes.draw do
   resources :trips, only: %i[index show]
 
   get '/trips/:id/stop_times', to: 'trips#show_stop_times', as: 'trip_stop_times'
-
   get '/trips/:id/shape', to: 'trips#show_shape', as: 'trip_shape'
 end
