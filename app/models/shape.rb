@@ -1,4 +1,6 @@
 class Shape < ApplicationRecord
+  belongs_to :trip
+
   def self.hash_from_gtfs(row)
     record = {}
     record[:shape_gid] = row.id

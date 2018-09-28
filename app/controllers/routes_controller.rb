@@ -1,10 +1,9 @@
 class RoutesController < ApplicationController
-  before_action :set_route, only: [:show]
+  before_action :set_route, only: [:show, :show_trips]
 
   # GET /routes
   def index
     @routes = Route.all
-
     render json: @routes
   end
 
@@ -13,10 +12,16 @@ class RoutesController < ApplicationController
     render json: @route
   end
 
+  # GET /routes/1/trips
+  def show_trips
+    render json: @route.trips
+  end
+
   private
 
   # Use callbacks to share common setup or constraints between actions.
   def set_route
-    @route = Route.find(params[:id])
+    @route = Route.find_by_route_gid(params[:route_gid])
+    raise 'NotFoundException' if @route.nil?
   end
 end

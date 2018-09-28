@@ -2,7 +2,7 @@ require 'test_helper'
 
 class TripsControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @trip = trips(:Trip_1)
+    @trip = trips(:Trip_1).trip_gid
   end
 
   test "should get index" do
