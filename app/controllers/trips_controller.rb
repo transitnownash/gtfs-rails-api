@@ -3,8 +3,7 @@ class TripsController < ApplicationController
 
   # GET /trips
   def index
-    @trips = Trip.all
-    render json: @trips
+    render json: paginate_results(Trip.all)
   end
 
   # GET /trips/:id

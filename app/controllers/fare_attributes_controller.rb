@@ -3,9 +3,7 @@ class FareAttributesController < ApplicationController
 
   # GET /fare_attributes
   def index
-    @fare_attributes = FareAttribute.all
-
-    render json: @fare_attributes
+    render json: paginate_results(FareAttribute.all)
   end
 
   # GET /fare_attributes/1

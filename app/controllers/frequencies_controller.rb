@@ -3,9 +3,7 @@ class FrequenciesController < ApplicationController
 
   # GET /frequencies
   def index
-    @frequencies = Frequency.all
-
-    render json: @frequencies
+    render json: paginate_results(Frequency.all)
   end
 
   # GET /frequencies/1

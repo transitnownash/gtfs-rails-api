@@ -3,9 +3,7 @@ class FareRulesController < ApplicationController
 
   # GET /fare_rules
   def index
-    @fare_rules = FareRule.all
-
-    render json: @fare_rules
+    render json: paginate_results(FareRule.all)
   end
 
   # GET /fare_rules/1

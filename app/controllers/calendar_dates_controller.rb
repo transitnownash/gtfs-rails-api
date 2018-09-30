@@ -3,9 +3,7 @@ class CalendarDatesController < ApplicationController
 
   # GET /calendar_dates
   def index
-    @calendar_dates = CalendarDate.all
-
-    render json: @calendar_dates
+    render json: paginate_results(CalendarDate.all)
   end
 
   # GET /calendar_dates/1

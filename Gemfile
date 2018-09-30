@@ -50,3 +50,5 @@ gem 'gtfs', '~> 0.2.5'
 
 # Handle bulk inserts
 gem 'bulk_insert', '~> 1.7'
+
+gem "will_paginate", "~> 3.1"

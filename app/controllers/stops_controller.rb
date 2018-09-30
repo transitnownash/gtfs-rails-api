@@ -3,9 +3,7 @@ class StopsController < ApplicationController
 
   # GET /stops
   def index
-    @stops = Stop.all
-
-    render json: @stops
+    render json: paginate_results(Stop.all)
   end
 
   # GET /stops/1
@@ -17,6 +15,7 @@ class StopsController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_stop
-    @stop = Stop.find(params[:id])
+    @stop = Stop.find_by_stop_gid(params[:stop_gid])
+    raise 'NotFoundException' if @stop.nil?
   end
 end

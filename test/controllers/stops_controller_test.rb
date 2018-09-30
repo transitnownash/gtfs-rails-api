@@ -2,7 +2,7 @@ require 'test_helper'
 
 class StopsControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @stop = stops(:Stop_1)
+    @stop = stops(:Stop_1).stop_gid
   end
 
   test "should get index" do

@@ -3,9 +3,7 @@ class CalendarsController < ApplicationController
 
   # GET /calendars
   def index
-    @calendars = Calendar.all
-
-    render json: @calendars
+    render json: paginate_results(Calendar.all)
   end
 
   # GET /calendars/1

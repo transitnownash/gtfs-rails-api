@@ -1,6 +1,8 @@
 class Shape < ApplicationRecord
   belongs_to :trip
 
+  default_scope { order(shape_pt_sequence: :asc) }
+
   def self.hash_from_gtfs(row)
     record = {}
     record[:shape_gid] = row.id

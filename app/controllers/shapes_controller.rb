@@ -3,9 +3,7 @@ class ShapesController < ApplicationController
 
   # GET /shapes
   def index
-    @shapes = Shape.all
-
-    render json: @shapes
+    render json: paginate_results(Shape.all)
   end
 
   # GET /shapes/1
@@ -17,6 +15,7 @@ class ShapesController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_shape
-    @shape = Shape.find(params[:id])
+    @shape = Shape.where(shape_gid: params[:shape_gid])
+    raise 'NotFoundException' if @shape.empty?
   end
 end

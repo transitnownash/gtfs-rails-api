@@ -2,6 +2,8 @@ class StopTime < ApplicationRecord
   belongs_to :trips
   belongs_to :stops
 
+  default_scope { order(stop_sequence: :asc) }
+
   def self.hash_from_gtfs(row)
     record = {}
     record[:trip_gid] = row.trip_id

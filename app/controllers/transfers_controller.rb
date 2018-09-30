@@ -3,9 +3,7 @@ class TransfersController < ApplicationController
 
   # GET /transfers
   def index
-    @transfers = Transfer.all
-
-    render json: @transfers
+    render json: paginate_results(Transfer.all)
   end
 
   # GET /transfers/1

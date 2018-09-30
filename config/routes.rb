@@ -13,8 +13,12 @@ Rails.application.routes.draw do
   get '/routes/:route_gid', to: 'routes#show', as: 'route'
   get '/routes/:route_gid/trips', to: 'routes#show_trips', as: 'route_trips'
 
-  resources :shapes, only: %i[index show]
-  resources :stops, only: %i[index show]
+  get '/shapes', to: 'shapes#index', as: 'shapes'
+  get '/shapes/:shape_gid', to: 'shapes#show', as: 'shape'
+  
+  get '/stops', to: 'stops#index', as: 'stops'
+  get '/stops/:stop_gid', to: 'stops#show', as: 'stop'
+
   resources :transfers, only: %i[index show]
 
   get '/trips', to: 'trips#index', as: 'trips'

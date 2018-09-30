@@ -3,9 +3,7 @@ class AgenciesController < ApplicationController
 
   # GET /agencies
   def index
-    @agencies = Agency.all
-
-    render json: @agencies
+    render json: paginate_results(Agency.all)
   end
 
   # GET /agencies/1

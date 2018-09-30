@@ -3,9 +3,7 @@ class FeedInfosController < ApplicationController
 
   # GET /feed_infos
   def index
-    @feed_infos = FeedInfo.all
-
-    render json: @feed_infos
+    render json: paginate_results(FeedInfo.all)
   end
 
   # GET /feed_infos/1
