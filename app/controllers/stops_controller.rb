@@ -11,6 +11,11 @@ class StopsController < ApplicationController
     render json: @stop
   end
 
+  # Get /stops/1/stop_times
+  def show_stop_times
+    render json: StopTime.where(stop_gid: params[:stop_gid])
+  end
+
   private
 
   # Use callbacks to share common setup or constraints between actions.

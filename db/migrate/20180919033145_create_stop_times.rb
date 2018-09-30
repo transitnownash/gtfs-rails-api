@@ -6,6 +6,7 @@ class CreateStopTimes < ActiveRecord::Migration[5.2]
       t.time :arrival_time, null: false
       t.time :departure_time, null: false
       t.string :stop_gid, null: false
+      t.integer :stop_id, null: false
       t.integer :stop_sequence, null: false
       t.string :stop_headsign
       t.string :pickup_type

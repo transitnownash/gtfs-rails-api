@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  root 'default#index'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
   resources :agencies, only: %i[index show]
@@ -6,7 +7,9 @@ Rails.application.routes.draw do
   resources :calendars, only: %i[index show]
   resources :fare_attributes, only: %i[index show]
   resources :fare_rules, only: %i[index show]
-  resources :feed_infos, only: %i[index show]
+
+  get '/feed_info', to: 'feed_infos#index', as: 'feed_info'
+
   resources :frequencies, only: %i[index show]
 
   get '/routes', to: 'routes#index', as: 'routes'
@@ -15,9 +18,10 @@ Rails.application.routes.draw do
 
   get '/shapes', to: 'shapes#index', as: 'shapes'
   get '/shapes/:shape_gid', to: 'shapes#show', as: 'shape'
-  
+
   get '/stops', to: 'stops#index', as: 'stops'
   get '/stops/:stop_gid', to: 'stops#show', as: 'stop'
+  get '/stops/:stop_gid/stop_times', to: 'stops#show_stop_times', as: 'stop_stop_times'
 
   resources :transfers, only: %i[index show]
 

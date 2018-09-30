@@ -2,7 +2,17 @@ class StopTime < ApplicationRecord
   belongs_to :trips
   belongs_to :stops
 
-  default_scope { order(stop_sequence: :asc) }
+  default_scope { order(arrival_time: :asc, stop_sequence: :asc) }
+  scope :future, -> { where(
+    'arrival_time > ? OR departure_time > ?',
+    DateTime.new(2000, 1, 1, DateTime.now.hour, DateTime.now.minute),
+    DateTime.new(2000, 1, 1, DateTime.now.hour, DateTime.now.minute)
+  ) }
+  scope :past, -> { where(
+    'arrival_time <= ? OR departure_time <= ?',
+    DateTime.new(2000, 1, 1, DateTime.now.hour, DateTime.now.minute),
+    DateTime.new(2000, 1, 1, DateTime.now.hour, DateTime.now.minute)
+  ) }
 
   def self.hash_from_gtfs(row)
     record = {}

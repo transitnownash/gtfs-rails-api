@@ -14,4 +14,9 @@ class StopsControllerTest < ActionDispatch::IntegrationTest
     get stop_url(@stop), as: :json
     assert_response :success
   end
+
+  test "should show stop stop times" do
+    get stop_stop_times_url(@stop), as: :json
+    assert_response :success
+  end
 end

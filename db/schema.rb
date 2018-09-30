@@ -111,6 +111,7 @@ ActiveRecord::Schema.define(version: 2018_09_19_033157) do
     t.time "arrival_time", null: false
     t.time "departure_time", null: false
     t.string "stop_gid", null: false
+    t.integer "stop_id", null: false
     t.integer "stop_sequence", null: false
     t.string "stop_headsign"
     t.string "pickup_type"
