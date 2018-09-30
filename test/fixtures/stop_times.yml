@@ -1,8 +1,8 @@
 ---
 StopTime_1:
-  id: 1
+  id: 179299
   trip_gid: STBA
-  trip_id: 3
+  trip_id: 4956
   arrival_time: !ruby/object:ActiveSupport::TimeWithZone
     utc: &1 2000-01-01 06:00:00.000000000 Z
     zone: &2 !ruby/object:ActiveSupport::TimeZone
@@ -13,11 +13,12 @@ StopTime_1:
     zone: *2
     time: *3
   stop_gid: STAGECOACH
+  stop_id: 2601
   stop_sequence: 1
 StopTime_2:
-  id: 2
+  id: 179300
   trip_gid: STBA
-  trip_id: 3
+  trip_id: 4956
   arrival_time: !ruby/object:ActiveSupport::TimeWithZone
     utc: &4 2000-01-01 06:20:00.000000000 Z
     zone: *2
@@ -27,11 +28,12 @@ StopTime_2:
     zone: *2
     time: *5
   stop_gid: BEATTY_AIRPORT
+  stop_id: 2599
   stop_sequence: 2
 StopTime_3:
-  id: 3
+  id: 179301
   trip_gid: CITY1
-  trip_id: 4
+  trip_id: 4957
   arrival_time: !ruby/object:ActiveSupport::TimeWithZone
     utc: &6 2000-01-01 06:00:00.000000000 Z
     zone: *2
@@ -41,11 +43,12 @@ StopTime_3:
     zone: *2
     time: *7
   stop_gid: STAGECOACH
+  stop_id: 2601
   stop_sequence: 1
 StopTime_4:
-  id: 4
+  id: 179302
   trip_gid: CITY1
-  trip_id: 4
+  trip_id: 4957
   arrival_time: !ruby/object:ActiveSupport::TimeWithZone
     utc: &8 2000-01-01 06:05:00.000000000 Z
     zone: *2
@@ -55,11 +58,12 @@ StopTime_4:
     zone: *2
     time: *9
   stop_gid: NANAA
+  stop_id: 2603
   stop_sequence: 2
 StopTime_5:
-  id: 5
+  id: 179303
   trip_gid: CITY1
-  trip_id: 4
+  trip_id: 4957
   arrival_time: !ruby/object:ActiveSupport::TimeWithZone
     utc: &10 2000-01-01 06:12:00.000000000 Z
     zone: *2
@@ -69,11 +73,12 @@ StopTime_5:
     zone: *2
     time: *11
   stop_gid: NADAV
+  stop_id: 2602
   stop_sequence: 3
 StopTime_6:
-  id: 6
+  id: 179304
   trip_gid: CITY1
-  trip_id: 4
+  trip_id: 4957
   arrival_time: !ruby/object:ActiveSupport::TimeWithZone
     utc: &12 2000-01-01 06:19:00.000000000 Z
     zone: *2
@@ -83,11 +88,12 @@ StopTime_6:
     zone: *2
     time: *13
   stop_gid: DADAN
+  stop_id: 2604
   stop_sequence: 4
 StopTime_7:
-  id: 7
+  id: 179305
   trip_gid: CITY1
-  trip_id: 4
+  trip_id: 4957
   arrival_time: !ruby/object:ActiveSupport::TimeWithZone
     utc: &14 2000-01-01 06:26:00.000000000 Z
     zone: *2
@@ -97,11 +103,12 @@ StopTime_7:
     zone: *2
     time: *15
   stop_gid: EMSI
+  stop_id: 2605
   stop_sequence: 5
 StopTime_8:
-  id: 8
+  id: 179306
   trip_gid: CITY2
-  trip_id: 5
+  trip_id: 4958
   arrival_time: !ruby/object:ActiveSupport::TimeWithZone
     utc: &16 2000-01-01 06:28:00.000000000 Z
     zone: *2
@@ -111,11 +118,12 @@ StopTime_8:
     zone: *2
     time: *17
   stop_gid: EMSI
+  stop_id: 2605
   stop_sequence: 1
 StopTime_9:
-  id: 9
+  id: 179307
   trip_gid: CITY2
-  trip_id: 5
+  trip_id: 4958
   arrival_time: !ruby/object:ActiveSupport::TimeWithZone
     utc: &18 2000-01-01 06:35:00.000000000 Z
     zone: *2
@@ -125,11 +133,12 @@ StopTime_9:
     zone: *2
     time: *19
   stop_gid: DADAN
+  stop_id: 2604
   stop_sequence: 2
 StopTime_10:
-  id: 10
+  id: 179308
   trip_gid: CITY2
-  trip_id: 5
+  trip_id: 4958
   arrival_time: !ruby/object:ActiveSupport::TimeWithZone
     utc: &20 2000-01-01 06:42:00.000000000 Z
     zone: *2
@@ -139,11 +148,12 @@ StopTime_10:
     zone: *2
     time: *21
   stop_gid: NADAV
+  stop_id: 2602
   stop_sequence: 3
 StopTime_11:
-  id: 11
+  id: 179309
   trip_gid: CITY2
-  trip_id: 5
+  trip_id: 4958
   arrival_time: !ruby/object:ActiveSupport::TimeWithZone
     utc: &22 2000-01-01 06:49:00.000000000 Z
     zone: *2
@@ -153,11 +163,12 @@ StopTime_11:
     zone: *2
     time: *23
   stop_gid: NANAA
+  stop_id: 2603
   stop_sequence: 4
 StopTime_12:
-  id: 12
+  id: 179310
   trip_gid: CITY2
-  trip_id: 5
+  trip_id: 4958
   arrival_time: !ruby/object:ActiveSupport::TimeWithZone
     utc: &24 2000-01-01 06:56:00.000000000 Z
     zone: *2
@@ -167,11 +178,12 @@ StopTime_12:
     zone: *2
     time: *25
   stop_gid: STAGECOACH
+  stop_id: 2601
   stop_sequence: 5
 StopTime_13:
-  id: 13
+  id: 179311
   trip_gid: AB1
-  trip_id: 1
+  trip_id: 4954
   arrival_time: !ruby/object:ActiveSupport::TimeWithZone
     utc: &26 2000-01-01 08:00:00.000000000 Z
     zone: *2
@@ -181,11 +193,12 @@ StopTime_13:
     zone: *2
     time: *27
   stop_gid: BEATTY_AIRPORT
+  stop_id: 2599
   stop_sequence: 1
 StopTime_14:
-  id: 14
+  id: 179312
   trip_gid: AB1
-  trip_id: 1
+  trip_id: 4954
   arrival_time: !ruby/object:ActiveSupport::TimeWithZone
     utc: &28 2000-01-01 08:10:00.000000000 Z
     zone: *2
@@ -195,11 +208,12 @@ StopTime_14:
     zone: *2
     time: *29
   stop_gid: BULLFROG
+  stop_id: 2600
   stop_sequence: 2
 StopTime_15:
-  id: 15
+  id: 179313
   trip_gid: AB2
-  trip_id: 2
+  trip_id: 4955
   arrival_time: !ruby/object:ActiveSupport::TimeWithZone
     utc: &30 2000-01-01 12:05:00.000000000 Z
     zone: *2
@@ -209,11 +223,12 @@ StopTime_15:
     zone: *2
     time: *31
   stop_gid: BULLFROG
+  stop_id: 2600
   stop_sequence: 1
 StopTime_16:
-  id: 16
+  id: 179314
   trip_gid: AB2
-  trip_id: 2
+  trip_id: 4955
   arrival_time: !ruby/object:ActiveSupport::TimeWithZone
     utc: &32 2000-01-01 12:15:00.000000000 Z
     zone: *2
@@ -223,11 +238,12 @@ StopTime_16:
     zone: *2
     time: *33
   stop_gid: BEATTY_AIRPORT
+  stop_id: 2599
   stop_sequence: 2
 StopTime_17:
-  id: 17
+  id: 179315
   trip_gid: BFC1
-  trip_id: 6
+  trip_id: 4959
   arrival_time: !ruby/object:ActiveSupport::TimeWithZone
     utc: &34 2000-01-01 08:20:00.000000000 Z
     zone: *2
@@ -237,11 +253,12 @@ StopTime_17:
     zone: *2
     time: *35
   stop_gid: BULLFROG
+  stop_id: 2600
   stop_sequence: 1
 StopTime_18:
-  id: 18
+  id: 179316
   trip_gid: BFC1
-  trip_id: 6
+  trip_id: 4959
   arrival_time: !ruby/object:ActiveSupport::TimeWithZone
     utc: &36 2000-01-01 09:20:00.000000000 Z
     zone: *2
@@ -251,11 +268,12 @@ StopTime_18:
     zone: *2
     time: *37
   stop_gid: FUR_CREEK_RES
+  stop_id: 2598
   stop_sequence: 2
 StopTime_19:
-  id: 19
+  id: 179317
   trip_gid: BFC2
-  trip_id: 7
+  trip_id: 4960
   arrival_time: !ruby/object:ActiveSupport::TimeWithZone
     utc: &38 2000-01-01 11:00:00.000000000 Z
     zone: *2
@@ -265,11 +283,12 @@ StopTime_19:
     zone: *2
     time: *39
   stop_gid: FUR_CREEK_RES
+  stop_id: 2598
   stop_sequence: 1
 StopTime_20:
-  id: 20
+  id: 179318
   trip_gid: BFC2
-  trip_id: 7
+  trip_id: 4960
   arrival_time: !ruby/object:ActiveSupport::TimeWithZone
     utc: &40 2000-01-01 12:00:00.000000000 Z
     zone: *2
@@ -279,11 +298,12 @@ StopTime_20:
     zone: *2
     time: *41
   stop_gid: BULLFROG
+  stop_id: 2600
   stop_sequence: 2
 StopTime_21:
-  id: 21
+  id: 179319
   trip_gid: AAMV1
-  trip_id: 8
+  trip_id: 4961
   arrival_time: !ruby/object:ActiveSupport::TimeWithZone
     utc: &42 2000-01-01 08:00:00.000000000 Z
     zone: *2
@@ -293,11 +313,12 @@ StopTime_21:
     zone: *2
     time: *43
   stop_gid: BEATTY_AIRPORT
+  stop_id: 2599
   stop_sequence: 1
 StopTime_22:
-  id: 22
+  id: 179320
   trip_gid: AAMV1
-  trip_id: 8
+  trip_id: 4961
   arrival_time: !ruby/object:ActiveSupport::TimeWithZone
     utc: &44 2000-01-01 09:00:00.000000000 Z
     zone: *2
@@ -307,11 +328,12 @@ StopTime_22:
     zone: *2
     time: *45
   stop_gid: AMV
+  stop_id: 2606
   stop_sequence: 2
 StopTime_23:
-  id: 23
+  id: 179321
   trip_gid: AAMV2
-  trip_id: 9
+  trip_id: 4962
   arrival_time: !ruby/object:ActiveSupport::TimeWithZone
     utc: &46 2000-01-01 10:00:00.000000000 Z
     zone: *2
@@ -321,11 +343,12 @@ StopTime_23:
     zone: *2
     time: *47
   stop_gid: AMV
+  stop_id: 2606
   stop_sequence: 1
 StopTime_24:
-  id: 24
+  id: 179322
   trip_gid: AAMV2
-  trip_id: 9
+  trip_id: 4962
   arrival_time: !ruby/object:ActiveSupport::TimeWithZone
     utc: &48 2000-01-01 11:00:00.000000000 Z
     zone: *2
@@ -335,11 +358,12 @@ StopTime_24:
     zone: *2
     time: *49
   stop_gid: BEATTY_AIRPORT
+  stop_id: 2599
   stop_sequence: 2
 StopTime_25:
-  id: 25
+  id: 179323
   trip_gid: AAMV3
-  trip_id: 10
+  trip_id: 4963
   arrival_time: !ruby/object:ActiveSupport::TimeWithZone
     utc: &50 2000-01-01 13:00:00.000000000 Z
     zone: *2
@@ -349,11 +373,12 @@ StopTime_25:
     zone: *2
     time: *51
   stop_gid: BEATTY_AIRPORT
+  stop_id: 2599
   stop_sequence: 1
 StopTime_26:
-  id: 26
+  id: 179324
   trip_gid: AAMV3
-  trip_id: 10
+  trip_id: 4963
   arrival_time: !ruby/object:ActiveSupport::TimeWithZone
     utc: &52 2000-01-01 14:00:00.000000000 Z
     zone: *2
@@ -363,11 +388,12 @@ StopTime_26:
     zone: *2
     time: *53
   stop_gid: AMV
+  stop_id: 2606
   stop_sequence: 2
 StopTime_27:
-  id: 27
+  id: 179325
   trip_gid: AAMV4
-  trip_id: 11
+  trip_id: 4964
   arrival_time: !ruby/object:ActiveSupport::TimeWithZone
     utc: &54 2000-01-01 15:00:00.000000000 Z
     zone: *2
@@ -377,11 +403,12 @@ StopTime_27:
     zone: *2
     time: *55
   stop_gid: AMV
+  stop_id: 2606
   stop_sequence: 1
 StopTime_28:
-  id: 28
+  id: 179326
   trip_gid: AAMV4
-  trip_id: 11
+  trip_id: 4964
   arrival_time: !ruby/object:ActiveSupport::TimeWithZone
     utc: &56 2000-01-01 16:00:00.000000000 Z
     zone: *2
@@ -391,4 +418,5 @@ StopTime_28:
     zone: *2
     time: *57
   stop_gid: BEATTY_AIRPORT
+  stop_id: 2599
   stop_sequence: 2

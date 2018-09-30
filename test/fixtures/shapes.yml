@@ -1,20 +1,20 @@
 ---
 Shape_1:
-  id: 1
+  id: 178229
   shape_gid: A_shp
   shape_pt_lat: !ruby/object:BigDecimal 45:0.3761956e2
   shape_pt_lon: !ruby/object:BigDecimal 45:-0.12248161e3
   shape_pt_sequence: 1
   shape_dist_traveled: !ruby/object:BigDecimal 27:0.0
 Shape_2:
-  id: 2
+  id: 178230
   shape_gid: A_shp
   shape_pt_lat: !ruby/object:BigDecimal 45:0.376443e2
   shape_pt_lon: !ruby/object:BigDecimal 45:-0.1224107e3
   shape_pt_sequence: 2
   shape_dist_traveled: !ruby/object:BigDecimal 45:0.6831e1
 Shape_3:
-  id: 3
+  id: 178231
   shape_gid: A_shp
   shape_pt_lat: !ruby/object:BigDecimal 45:0.3765863e2
   shape_pt_lon: !ruby/object:BigDecimal 45:-0.12230839e3
