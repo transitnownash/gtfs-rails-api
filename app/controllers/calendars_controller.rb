@@ -1,5 +1,5 @@
 class CalendarsController < ApplicationController
-  before_action :set_calendar, only: [:show]
+  before_action :set_calendar, only: [:show, :show_trips, :show_calendar_dates]
 
   # GET /calendars
   def index
@@ -11,10 +11,20 @@ class CalendarsController < ApplicationController
     render json: @calendar
   end
 
+  # GET /calendars/1/trips
+  def show_trips
+    render json: @calendar.trips
+  end
+
+  # GET /calendars/1/calendar_dates
+  def show_calendar_dates
+    render json: @calendar.calendar_dates
+  end
+
   private
 
   # Use callbacks to share common setup or constraints between actions.
   def set_calendar
-    @calendar = Calendar.find(params[:id])
+    @calendar = Calendar.find_by_service_gid(params[:service_gid])
   end
 end

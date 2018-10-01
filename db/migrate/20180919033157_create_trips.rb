@@ -4,6 +4,7 @@ class CreateTrips < ActiveRecord::Migration[5.2]
       t.string :route_gid, null: false
       t.integer :route_id, null: false
       t.string :service_gid, null: false
+      t.integer :calendar_id, null: false
       t.string :trip_gid, null: false
       t.string :trip_headsign
       t.string :trip_short_name

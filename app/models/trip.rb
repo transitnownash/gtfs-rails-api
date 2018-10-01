@@ -1,5 +1,6 @@
 class Trip < ApplicationRecord
   belongs_to :route
+  belongs_to :calendar
   has_many :stop_times
 
   def shape
@@ -11,6 +12,7 @@ class Trip < ApplicationRecord
     record[:route_gid] = row.route_id
     record[:route_id] = Route.find_by_route_gid(row.route_id).id
     record[:service_gid] = row.service_id
+    record[:calendar_id] = Calendar.find_by_service_gid(row.service_id).id
     record[:trip_gid] = row.id
     record[:trip_headsign] = row.headsign
     record[:trip_short_name] = row.short_name

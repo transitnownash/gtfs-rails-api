@@ -4,7 +4,12 @@ Rails.application.routes.draw do
 
   resources :agencies, only: %i[index show]
   resources :calendar_dates, only: %i[index show]
-  resources :calendars, only: %i[index show]
+
+  get '/calendars', to: 'calendars#index', as: 'calendars'
+  get '/calendars/:service_gid', to: 'calendars#show', as: 'calendar'
+  get '/calendars/:service_gid/trips', to: 'calendars#show_trips', as: 'calendar_trips'
+  get '/calendars/:service_gid/calendar_dates', to: 'calendars#show_calendar_dates', as: 'calendar_calendar_dates'
+
   resources :fare_attributes, only: %i[index show]
   resources :fare_rules, only: %i[index show]
 
