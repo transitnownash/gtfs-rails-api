@@ -1,0 +1,20 @@
+# service configuration for our database
+mysql:
+  container_name: gtfs-rails-api-mysql
+  image: mysql:5.6
+  ports:
+    - "53306:3306"
+  environment:
+    MYSQL_ALLOW_EMPTY_PASSWORD: 1
+
+# service configuration for our web server
+web:
+  container_name: gtfs-rails-api-web
+  build: .
+  env_file: .env
+  volumes:
+    - .:/app
+  ports:
+    - "3000:3000"
+  links:
+    - mysql
