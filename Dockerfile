@@ -1,4 +1,4 @@
-FROM ruby:2.3-slim 
+FROM ruby:2.5.1-slim 
 
 # Install apt based dependencies required to run Rails as 
 # well as RubyGems. As the Ruby image itself is based on a 
