@@ -21,4 +21,5 @@ test:
   database: db/test.sqlite3
 
 production:
-    url: <%= ENV['DATABASE_URL'] %>
+  adapter: mysql2
+  url: <%= ENV['DATABASE_URL'] %>
