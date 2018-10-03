@@ -13,12 +13,12 @@ class CalendarsController < ApplicationController
 
   # GET /calendars/1/trips
   def show_trips
-    render json: @calendar.trips
+    render json: paginate_results(@calendar.trips)
   end
 
   # GET /calendars/1/calendar_dates
   def show_calendar_dates
-    render json: @calendar.calendar_dates
+    render json: paginate_results(@calendar.calendar_dates)
   end
 
   private

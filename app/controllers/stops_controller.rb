@@ -13,7 +13,7 @@ class StopsController < ApplicationController
 
   # Get /stops/1/stop_times
   def show_stop_times
-    render json: StopTime.where(stop_gid: params[:stop_gid])
+    render json: paginate_results(StopTime.where(stop_gid: params[:stop_gid]))
   end
 
   private

@@ -13,7 +13,7 @@ class TripsController < ApplicationController
 
   # GET /trips/:id/stop_times
   def show_stop_times
-    render json: @trip.stop_times
+    render json: paginate_results(@trip.stop_times)
   end
 
   # GET /trips/:id/shapes
