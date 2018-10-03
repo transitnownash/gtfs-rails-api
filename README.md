@@ -1,24 +1,27 @@
-# README
+# General Transit Feed Specification (GTFS) Rails API
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This Ruby on Rails application provides a JSON API representation of the data contained in a given GTFS feed from a local transit provider.
 
-Things you may want to cover:
+# Requirements
 
-* Ruby version
+## Production
+- Ruby 2.5+
+- Bundler
+- MySQL
 
-* System dependencies
+## Development
 
-* Configuration
+_All of the requirements above are spec'd out in the `Dockerfile` and `docker-compose.yml` files._
 
-* Database creation
+- [Docker](https://docs.docker.com/)
+- [Docker Compose](https://docs.docker.com/compose/)
 
-* Database initialization
+# Installation
 
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+1. Clone the repository into a project directory
+1. Copy `.env-dist` to `.env` and update connection information
+1. Run `docker-compose up -d` to bring up the web server and database server
+1. Run `docker exec -it gtfs-rails-api-web bash` to access running instance
+1. Run `bundle exec rake db:setup` to create the database and run the migrations
+1. Run `bundle exec rake import:all` to process the data from the GTFS feed
+1. Browse to `http://localhost:3000` to browse API endpoints
