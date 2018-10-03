@@ -13,7 +13,7 @@ class RoutesController < ApplicationController
 
   # GET /routes/1/trips
   def show_trips
-    render json: @route.trips
+    render json: paginate_results(@route.trips)
   end
 
   private

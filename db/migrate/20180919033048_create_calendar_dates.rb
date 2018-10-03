@@ -2,6 +2,7 @@ class CreateCalendarDates < ActiveRecord::Migration[5.2]
   def change
     create_table :calendar_dates do |t|
       t.string :service_gid, null: false
+      t.integer :calendar_id, null: false
       t.date :date, null: false
       t.string :exception_type, null: false
 

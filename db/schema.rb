@@ -26,6 +26,7 @@ ActiveRecord::Schema.define(version: 2018_09_19_033157) do
 
   create_table "calendar_dates", force: :cascade do |t|
     t.string "service_gid", null: false
+    t.integer "calendar_id", null: false
     t.date "date", null: false
     t.string "exception_type", null: false
     t.index ["service_gid", "date"], name: "index_calendar_dates_on_service_gid_and_date", unique: true
@@ -149,6 +150,7 @@ ActiveRecord::Schema.define(version: 2018_09_19_033157) do
     t.string "route_gid", null: false
     t.integer "route_id", null: false
     t.string "service_gid", null: false
+    t.integer "calendar_id", null: false
     t.string "trip_gid", null: false
     t.string "trip_headsign"
     t.string "trip_short_name"
