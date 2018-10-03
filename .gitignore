@@ -31,3 +31,6 @@
 
 # Ignore local environment variables
 .env
+
+# Ignore local ruby version
+.ruby-version
