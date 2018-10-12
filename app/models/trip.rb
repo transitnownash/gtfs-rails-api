@@ -16,7 +16,7 @@ class Trip < ApplicationRecord
     record[:trip_gid] = row.id
     record[:trip_headsign] = row.headsign
     record[:trip_short_name] = row.short_name
-    record[:direction_gid] = row.direction_id
+    record[:direction_id] = row.direction_id
     record[:block_gid] = row.block_id
     record[:shape_gid] = row.shape_id
     record[:wheelchair_accessible] = row.wheelchair_accessible

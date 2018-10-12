@@ -8,7 +8,7 @@ class CreateTrips < ActiveRecord::Migration[5.2]
       t.string :trip_gid, null: false
       t.string :trip_headsign
       t.string :trip_short_name
-      t.string :direction_gid
+      t.string :direction_id
       t.string :block_gid
       t.string :shape_gid
       t.string :wheelchair_accessible

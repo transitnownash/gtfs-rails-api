@@ -5,8 +5,8 @@ class CreateStops < ActiveRecord::Migration[5.2]
       t.string :stop_code
       t.string :stop_name, null: false
       t.string :stop_desc
-      t.decimal :stop_lat, null: false
-      t.decimal :stop_lon, null: false
+      t.decimal :stop_lat, { precision: 10, scale: 6, null: false }
+      t.decimal :stop_lon, { precision: 10, scale: 6, null: false }
       t.string :zone_gid
       t.string :stop_url
       t.string :location_type
