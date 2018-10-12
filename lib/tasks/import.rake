@@ -1,6 +1,5 @@
 namespace :import do
-  return if ENV['GTFS_URL'].nil?
-  @source = GTFS::Source.build ENV['GTFS_URL']
+  @source = if ENV['GTFS_URL'].nil? then nil else GTFS::Source.build ENV['GTFS_URL']
 
   task default: 'import:all'
 
