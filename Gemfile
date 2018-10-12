@@ -52,7 +52,7 @@ gem 'gtfs', '~> 0.2.5'
 # Handle bulk inserts
 gem 'bulk_insert', '~> 1.7'
 
-gem "will_paginate", "~> 3.1"
+gem 'will_paginate', '~> 3.1'
 
 # Added at 2018-10-02 12:13:46 -0500 by yeargism:
-gem "mysql2", "~> 0.5.2"
+gem 'mysql2', '~> 0.5.2'
