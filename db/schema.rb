@@ -48,7 +48,7 @@ ActiveRecord::Schema.define(version: 2018_09_19_033157) do
 
   create_table "fare_attributes", force: :cascade do |t|
     t.string "fare_gid", null: false
-    t.decimal "price", null: false
+    t.decimal "price", precision: 10, null: false
     t.string "currency_type", null: false
     t.string "payment_method", null: false
     t.string "agency_gid"
@@ -99,10 +99,10 @@ ActiveRecord::Schema.define(version: 2018_09_19_033157) do
 
   create_table "shapes", force: :cascade do |t|
     t.string "shape_gid", null: false
-    t.decimal "shape_pt_lat", null: false
-    t.decimal "shape_pt_lon", null: false
+    t.decimal "shape_pt_lat", precision: 10, scale: 6, null: false
+    t.decimal "shape_pt_lon", precision: 10, scale: 6, null: false
     t.integer "shape_pt_sequence", null: false
-    t.decimal "shape_dist_traveled"
+    t.decimal "shape_dist_traveled", precision: 10, scale: 6
     t.index ["shape_gid", "shape_pt_sequence"], name: "index_shapes_on_shape_gid_and_shape_pt_sequence", unique: true
   end
 
@@ -117,7 +117,7 @@ ActiveRecord::Schema.define(version: 2018_09_19_033157) do
     t.string "stop_headsign"
     t.string "pickup_type"
     t.string "drop_off_type"
-    t.decimal "shape_dist_traveled"
+    t.decimal "shape_dist_traveled", precision: 10, scale: 6
     t.string "timepoint"
     t.index ["trip_gid", "stop_sequence"], name: "index_stop_times_on_trip_gid_and_stop_sequence", unique: true
   end
@@ -127,8 +127,8 @@ ActiveRecord::Schema.define(version: 2018_09_19_033157) do
     t.string "stop_code"
     t.string "stop_name", null: false
     t.string "stop_desc"
-    t.decimal "stop_lat", null: false
-    t.decimal "stop_lon", null: false
+    t.decimal "stop_lat", precision: 10, scale: 6, null: false
+    t.decimal "stop_lon", precision: 10, scale: 6, null: false
     t.string "zone_gid"
     t.string "stop_url"
     t.string "location_type"
@@ -154,7 +154,7 @@ ActiveRecord::Schema.define(version: 2018_09_19_033157) do
     t.string "trip_gid", null: false
     t.string "trip_headsign"
     t.string "trip_short_name"
-    t.string "direction_gid"
+    t.string "direction_id"
     t.string "block_gid"
     t.string "shape_gid"
     t.string "wheelchair_accessible"
