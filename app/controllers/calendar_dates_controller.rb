@@ -8,13 +8,13 @@ class CalendarDatesController < ApplicationController
 
   # GET /calendar_dates/1
   def show
-    render json: @calendar_date
+    render json: paginate_results(@calendar_date)
   end
 
   private
 
   # Use callbacks to share common setup or constraints between actions.
   def set_calendar_date
-    @calendar_date = CalendarDate.find(params[:id])
+    @calendar_date = CalendarDate.where(service_gid: params[:service_gid])
   end
 end

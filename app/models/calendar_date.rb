@@ -1,4 +1,6 @@
 class CalendarDate < ApplicationRecord
+  default_scope { order(date: :asc) }
+
   def self.hash_from_gtfs(row)
     calendar = Calendar.find_by_service_gid(row.service_id)
 
