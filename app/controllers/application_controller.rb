@@ -7,8 +7,8 @@ class ApplicationController < ActionController::API
     data = records.paginate(page: page, per_page: per_page)
     {
       total: records.count,
-      per_page: page,
-      page: per_page,
+      page: page,
+      per_page: per_page,
       data: data
     }
   end
