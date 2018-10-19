@@ -3,7 +3,8 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
   resources :agencies, only: %i[index show]
-  resources :calendar_dates, only: %i[index show]
+  get '/calendar_dates', to: 'calendar_dates#index', as: 'calendar_dates'
+  get '/calendar_dates/:service_gid', to: 'calendar_dates#show', as: 'calendar_date'
 
   get '/calendars', to: 'calendars#index', as: 'calendars'
   get '/calendars/:service_gid', to: 'calendars#show', as: 'calendar'
@@ -27,6 +28,9 @@ Rails.application.routes.draw do
   get '/stops', to: 'stops#index', as: 'stops'
   get '/stops/:stop_gid', to: 'stops#show', as: 'stop'
   get '/stops/:stop_gid/stop_times', to: 'stops#show_stop_times', as: 'stop_stop_times'
+
+  get '/stop_times', to: 'stop_times#index', as: 'stop_times'
+  get '/stop_times/:stop_gid', to: 'stop_times#show', as: 'stop_time'
 
   resources :transfers, only: %i[index show]
 
