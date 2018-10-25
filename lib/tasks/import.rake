@@ -158,16 +158,18 @@ namespace :import do
     puts 'shapes.txt'
     begin
       shapes = {}
-      Shape.bulk_insert do |worker|
-        @source.each_shape do |row|
-          shapes[row.id] = { shape_gid: row.id, shape_points: [] } unless shapes[row.id]
-          shapes[row.id][:shape_points] << {
-            shape_pt_lat: row.pt_lat,
-            shape_pt_lon: row.pt_lon,
-            shape_pt_sequence: row.pt_sequence,
-            shape_dist_traveled: row.dist_traveled
-          }
-        end
+      @source.each_shape do |row|
+        shapes[row.id] = { shape_gid: row.id, shape_points: [] } unless shapes[row.id]
+        shapes[row.id][:shape_points] << {
+          lat: row.pt_lat,
+          lon: row.pt_lon,
+          sequence: row.pt_sequence,
+          dist_traveled: row.dist_traveled
+        }
+      end
+      Shape.bulk_insert(set_size: 25) do |worker|
+        # Reconnect database (previous block hits timeout limit)
+        ActiveRecord::Base.clear_active_connections!
         shapes.each do |_, row|
           worker.add(Shape.hash_from_gtfs(row))
         end
