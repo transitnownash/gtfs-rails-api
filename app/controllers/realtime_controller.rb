@@ -34,18 +34,18 @@ class RealtimeController < ApplicationController
   def alerts
     return render json: 'Missing GTFS_REALTIME_ALERTS_URL' if ENV['GTFS_REALTIME_ALERTS_URL'].nil?
     expires_in 10.seconds, public: true
-    alerts = Rails.cache.fetch('/realtime/alerts.json', expires_in: 10.seconds) do
-      alerts = []
+    messages = Rails.cache.fetch('/realtime/alerts.json', expires_in: 10.seconds) do
+      messages = []
       data = Net::HTTP.get(URI.parse(ENV['GTFS_REALTIME_ALERTS_URL']))
       feed = Transit_realtime::FeedMessage.decode(data)
       feed.entity.each do |entity|
         entity = entity.to_hash
         entity[:alert][:cause] = ALERT_CAUSES[entity[:alert][:cause]] unless entity[:alert][:cause].nil?
         entity[:alert][:effect] = ALERT_EFFECTS[entity[:alert][:effect]] unless entity[:alert][:effect].nil?
-        alerts << entity
+        messages << entity
       end
     end
-    render json: alerts
+    render json: messages
   end
 
   def vehicle_positions
