@@ -51,28 +51,30 @@ class RealtimeController < ApplicationController
   def vehicle_positions
     return render json: 'Missing GTFS_REALTIME_VEHICLE_POSITIONS_URL' if ENV['GTFS_REALTIME_VEHICLE_POSITIONS_URL'].nil?
     expires_in 10.seconds, public: true
-    Rails.cache.fetch('/realtime/vehicle_positions.json', expires_in: 10.seconds) do
+    positions = Rails.cache.fetch('/realtime/vehicle_positions.json', expires_in: 10.seconds) do
       positions = []
       data = Net::HTTP.get(URI.parse(ENV['GTFS_REALTIME_VEHICLE_POSITIONS_URL']))
       feed = Transit_realtime::FeedMessage.decode(data)
       feed.entity.each do |entity|
+        entity = entity.to_hash
         positions << entity
       end
-      render json: positions.to_json
     end
+    render json: positions
   end
 
   def trip_updates
     return render json: 'Missing GTFS_REALTIME_TRIP_UPDATES_URL' if ENV['GTFS_REALTIME_TRIP_UPDATES_URL'].nil?
     expires_in 10.seconds, public: true
-    Rails.cache.fetch('/realtime/trip_updates.json', expires_in: 10.seconds) do
+    updates = Rails.cache.fetch('/realtime/trip_updates.json', expires_in: 10.seconds) do
       updates = []
       data = Net::HTTP.get(URI.parse(ENV['GTFS_REALTIME_TRIP_UPDATES_URL']))
       feed = Transit_realtime::FeedMessage.decode(data)
       feed.entity.each do |entity|
+        entity = entity.to_hash
         updates << entity
       end
-      render json: updates.to_json
     end
+    render json: updates
   end
 end
