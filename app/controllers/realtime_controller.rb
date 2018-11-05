@@ -2,9 +2,6 @@ require 'protobuf'
 require 'google/transit/gtfs-realtime.pb'
 
 class RealtimeController < ApplicationController
-  class MissingConfiguration < StandardError
-  end
-
   ALERT_CAUSES = {
     0 => nil,
     1 => 'Unknown Cause',
@@ -35,7 +32,7 @@ class RealtimeController < ApplicationController
   }.freeze
 
   def alerts
-    raise MissingConfiguration, 'Missing GTFS_REALTIME_ALERTS_URL' if ENV['GTFS_REALTIME_ALERTS_URL'].nil?
+    return render json: 'Missing GTFS_REALTIME_ALERTS_URL' if ENV['GTFS_REALTIME_ALERTS_URL'].nil?
     expires_in 10.seconds, public: true
     Rails.cache.fetch('/realtime/alerts.json', expires_in: 10.seconds) do
       alerts = []
@@ -52,7 +49,7 @@ class RealtimeController < ApplicationController
   end
 
   def vehicle_positions
-    raise MissingConfiguration, 'Missing GTFS_REALTIME_VEHICLE_POSITIONS_URL' if ENV['GTFS_REALTIME_VEHICLE_POSITIONS_URL'].nil?
+    return render json: 'Missing GTFS_REALTIME_VEHICLE_POSITIONS_URL' if ENV['GTFS_REALTIME_VEHICLE_POSITIONS_URL'].nil?
     expires_in 10.seconds, public: true
     Rails.cache.fetch('/realtime/vehicle_positions.json', expires_in: 10.seconds) do
       positions = []
@@ -66,7 +63,7 @@ class RealtimeController < ApplicationController
   end
 
   def trip_updates
-    raise MissingConfiguration, 'Missing GTFS_REALTIME_TRIP_UPDATES_URL' if ENV['GTFS_REALTIME_TRIP_UPDATES_URL'].nil?
+    return render json: 'Missing GTFS_REALTIME_TRIP_UPDATES_URL' if ENV['GTFS_REALTIME_TRIP_UPDATES_URL'].nil?
     expires_in 10.seconds, public: true
     Rails.cache.fetch('/realtime/trip_updates.json', expires_in: 10.seconds) do
       updates = []
