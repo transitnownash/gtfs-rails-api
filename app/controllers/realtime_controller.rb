@@ -44,6 +44,7 @@ class RealtimeController < ApplicationController
         entity[:alert][:effect] = ALERT_EFFECTS[entity[:alert][:effect]] unless entity[:alert][:effect].nil?
         messages << entity
       end
+      messages
     end
     render json: messages
   end
@@ -59,6 +60,7 @@ class RealtimeController < ApplicationController
         entity = entity.to_hash
         positions << entity
       end
+      positions
     end
     render json: positions
   end
@@ -74,6 +76,7 @@ class RealtimeController < ApplicationController
         entity = entity.to_hash
         updates << entity
       end
+      updates
     end
     render json: updates
   end
