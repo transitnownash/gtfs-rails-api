@@ -99,11 +99,8 @@ ActiveRecord::Schema.define(version: 2018_09_19_033157) do
 
   create_table "shapes", force: :cascade do |t|
     t.string "shape_gid", null: false
-    t.decimal "shape_pt_lat", precision: 10, scale: 6, null: false
-    t.decimal "shape_pt_lon", precision: 10, scale: 6, null: false
-    t.integer "shape_pt_sequence", null: false
-    t.decimal "shape_dist_traveled", precision: 10, scale: 6
-    t.index ["shape_gid", "shape_pt_sequence"], name: "index_shapes_on_shape_gid_and_shape_pt_sequence", unique: true
+    t.text "shape_points", limit: 4_294_967_295, null: false
+    t.index ["shape_gid"], name: "index_shapes_on_shape_gid", unique: true
   end
 
   create_table "stop_times", force: :cascade do |t|

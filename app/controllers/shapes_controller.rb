@@ -15,7 +15,7 @@ class ShapesController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_shape
-    @shape = Shape.where(shape_gid: params[:shape_gid])
-    raise 'NotFoundException' if @shape.empty?
+    @shape = Shape.find_by_shape_gid(params[:shape_gid])
+    raise 'NotFoundException' if @shape.nil?
   end
 end

@@ -5,7 +5,8 @@ gem 'dotenv-rails'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.2.1'
-# Use sqlite3 as the database for Active Record
+
+gem 'mysql2', '~> 0.5.2'
 group :development, :test do
   gem 'sqlite3'
 end
@@ -49,10 +50,11 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 # Parse schedule
 gem 'gtfs', '~> 0.2.5'
 
+# GTFS Realtime
+gem 'gtfs-realtime-bindings'
+
 # Handle bulk inserts
 gem 'bulk_insert', '~> 1.7'
 
+# Paginate API results
 gem 'will_paginate', '~> 3.1'
-
-# Added at 2018-10-02 12:13:46 -0500 by yeargism:
-gem 'mysql2', '~> 0.5.2'

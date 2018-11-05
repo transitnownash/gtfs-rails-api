@@ -1,0 +1,36 @@
+{
+  "name": "GTFS Rails API",
+  "description": "Converts static and realtime GTFS data into JSON API.",
+  "repository": "https://github.com/stephenyeargin/gtfs-rails-api",
+  "logo": "https://raw.githubusercontent.com/stephenyeargin/wego-bus-map/master/public/apple-icon.png",
+  "keywords": ["ruby", "rails", "mysql", "transit", "gtfs"],
+  "addons": [
+    "cleardb"
+  ],
+  "env": {
+    "RAILS_MASTER_KEY": {
+      "description": "A secret key for verifying the integrity of signed cookies.",
+      "generator": "secret"
+    },
+    "DATABASE_URL": {
+      "description": "MySQL database connection.",
+      "value": "mysql2://username:password@host.example.com/gtfs_database"
+    },
+    "GTFS_URL": {
+      "description": "Static GTFS Zip File URL",
+      "value": "http://example.com/gtfs.zip"
+    },
+    "GTFS_REALTIME_ALERTS_URL": {
+      "description": "GTFS Realtime Alerts URL (Optional)",
+      "value": "http://example.com/alerts.pb"
+    },
+    "GTFS_REALTIME_TRIP_UPDATES_URL": {
+      "description": "GTFS Realtime Trip Updates URL (Optional)",
+      "value": "http://example.com/tripupdates.pb"
+    },
+    "GTFS_REALTIME_VEHICLE_POSITIONS_URL": {
+      "description": "GTFS Realtime Vehicle Positions URL (Optional)",
+      "value": "http://example.com/vehiclepositions.pb"
+    }
+  }
+}
