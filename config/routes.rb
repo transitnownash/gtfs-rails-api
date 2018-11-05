@@ -38,4 +38,8 @@ Rails.application.routes.draw do
   get '/trips/:trip_gid', to: 'trips#show', as: 'trip'
   get '/trips/:trip_gid/stop_times', to: 'trips#show_stop_times', as: 'trip_stop_times'
   get '/trips/:trip_gid/shape', to: 'trips#show_shape', as: 'trip_shape'
+
+  get '/realtime/alerts', to: 'realtime#alerts', as: 'realtime_alerts'
+  get '/realtime/vehicle_positions', to: 'realtime#vehicle_positions', as: 'realtime_vehicle_positions'
+  get '/realtime/trip_updates', to: 'realtime#trip_updates', as: 'realtime_trip_updates'
 end
