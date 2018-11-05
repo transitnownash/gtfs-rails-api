@@ -44,8 +44,8 @@ class RealtimeController < ApplicationController
         entity[:alert][:effect] = ALERT_EFFECTS[entity[:alert][:effect]] unless entity[:alert][:effect].nil?
         alerts << entity
       end
-      render json: alerts
     end
+    render json: alerts
   end
 
   def vehicle_positions
