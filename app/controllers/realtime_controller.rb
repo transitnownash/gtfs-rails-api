@@ -34,7 +34,7 @@ class RealtimeController < ApplicationController
   def alerts
     return render json: 'Missing GTFS_REALTIME_ALERTS_URL' if ENV['GTFS_REALTIME_ALERTS_URL'].nil?
     expires_in 10.seconds, public: true
-    Rails.cache.fetch('/realtime/alerts.json', expires_in: 10.seconds) do
+    alerts = Rails.cache.fetch('/realtime/alerts.json', expires_in: 10.seconds) do
       alerts = []
       data = Net::HTTP.get(URI.parse(ENV['GTFS_REALTIME_ALERTS_URL']))
       feed = Transit_realtime::FeedMessage.decode(data)
