@@ -21,6 +21,6 @@ class StopsController < ApplicationController
   # Use callbacks to share common setup or constraints between actions.
   def set_stop
     @stop = Stop.find_by_stop_gid(params[:stop_gid])
-    raise 'NotFoundException' if @stop.nil?
+    raise ActiveRecord::RecordNotFound if @stop.nil?
   end
 end
