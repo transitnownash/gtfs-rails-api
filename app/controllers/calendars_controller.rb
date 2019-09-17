@@ -3,7 +3,16 @@ class CalendarsController < ApplicationController
 
   # GET /calendars
   def index
-    render json: paginate_results(Calendar.all)
+    if params[:date]
+      begin
+        date = Date.parse(params[:date])
+        render json: paginate_results(Calendar.find_by_date(date))
+      rescue ArgumentError
+        raise 'Invalid date.'
+      end
+    else
+      render json: paginate_results(Calendar.all)
+    end
   end
 
   # GET /calendars/1

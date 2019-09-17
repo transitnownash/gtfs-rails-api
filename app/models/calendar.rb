@@ -2,11 +2,14 @@ class Calendar < ApplicationRecord
   has_many :calendar_dates
   has_many :trips
 
-  scope :active, -> { where(
-    'start_date <= ? AND end_date >= ?',
-    DateTime.now.to_time,
-    DateTime.now.to_time
-  ) }
+  scope :find_by_date, -> (date) {
+    dow = date.strftime('%A').downcase
+    where(
+      "start_date <= ? AND end_date >= ? AND #{dow} = 1",
+      date.to_time,
+      date.to_time
+    )
+  }
 
   def self.hash_from_gtfs(row)
     record = {}
