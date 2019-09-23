@@ -95,7 +95,7 @@ GEM
       middleware
       thor
       thread_safe
-    puma (4.1.1)
+    puma (4.2.0)
       nio4r (~> 2.0)
     rack (2.0.7)
     rack-cors (1.0.3)
@@ -164,7 +164,7 @@ DEPENDENCIES
   gtfs-realtime-bindings
   listen (>= 3.0.5, < 3.2)
   mysql2 (~> 0.5.2)
-  puma (~> 4.1)
+  puma (~> 4.2)
   rack-cors
   rails (~> 5.2.3)
   spring
