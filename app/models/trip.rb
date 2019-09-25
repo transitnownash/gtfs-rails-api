@@ -3,6 +3,15 @@ class Trip < ApplicationRecord
   belongs_to :calendar
   has_many :stop_times
 
+  scope :active, -> {
+    dow = Date.today.strftime('%A').downcase
+    joins(:calendar).where(
+      "start_date <= ? AND end_date >= ? AND #{dow} = 1",
+      Date.today,
+      Date.today
+    )
+  }
+
   def shape
     Shape.where(shape_gid: shape_gid)
   end

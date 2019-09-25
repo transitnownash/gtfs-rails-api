@@ -2,7 +2,16 @@ class Calendar < ApplicationRecord
   has_many :calendar_dates
   has_many :trips
 
-  scope :find_by_date, -> (date) {
+  scope :active, -> {
+    dow = Date.today.strftime('%A').downcase
+    where(
+      "start_date <= ? AND end_date >= ? AND #{dow} = 1",
+      Date.today.strftime('%Y-%m-%d'),
+      Date.today.strftime('%Y-%m-%d')
+    )
+  }
+
+  scope :active_on_date, -> (date) {
     dow = date.strftime('%A').downcase
     where(
       "start_date <= ? AND end_date >= ? AND #{dow} = 1",
