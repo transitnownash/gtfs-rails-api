@@ -1,6 +1,6 @@
 class StopTime < ApplicationRecord
-  belongs_to :trips
-  belongs_to :stops
+  belongs_to :trip
+  belongs_to :stop
 
   default_scope { order(arrival_time: :asc, stop_sequence: :asc) }
   scope :future, -> { where(
