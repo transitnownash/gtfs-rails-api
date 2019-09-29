@@ -6,12 +6,15 @@ class Trip < ApplicationRecord
   scope :active, -> {
     dow = Date.today.strftime('%A').downcase
     joins(:calendar)
-    .where(
-      "start_date <= ? AND end_date >= ? AND #{dow} = 1",
-      Date.today,
-      Date.today
-    )
-    .where('service_gid NOT IN (SELECT cd.service_gid FROM calendar_dates cd WHERE cd.date != DATE(NOW()) AND cd.exception_type != 2)')
+      .where(
+        "start_date <= ? AND end_date >= ? AND #{dow} = 1",
+        Date.today,
+        Date.today
+      )
+      .where(
+        'service_gid NOT IN (SELECT cd.service_gid FROM calendar_dates cd WHERE cd.date != DATE(?) AND cd.exception_type != 2)',
+        Date.today
+      )
   }
 
   def shape
