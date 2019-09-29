@@ -12,7 +12,7 @@ class Trip < ApplicationRecord
         Date.today
       )
       .where(
-        'calendar.id NOT IN (SELECT cd.calendar_id FROM calendar_dates cd WHERE cd.date != DATE(?) AND cd.exception_type != 2)',
+        'trips.calendar_id NOT IN (SELECT cd.calendar_id FROM calendar_dates cd WHERE cd.date != DATE(?) AND cd.exception_type != 2)',
         Date.today
       )
   }
