@@ -2,8 +2,8 @@ Rails.application.routes.draw do
   root 'default#index'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
-  get '/agencies', to: 'agency#index', as: 'agencies'
-  get '/agencies/:agency_gid', to: 'agency#show', as: 'agency'
+  get '/agencies', to: 'agencies#index', as: 'agencies'
+  get '/agencies/:agency_gid', to: 'agencies#show', as: 'agency'
 
   get '/calendar_dates', to: 'calendar_dates#index', as: 'calendar_dates'
   get '/calendar_dates/:service_gid', to: 'calendar_dates#show', as: 'calendar_date'
