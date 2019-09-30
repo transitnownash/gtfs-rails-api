@@ -5,7 +5,7 @@ class NextbusController < ApplicationController
     nextbus = StopTime
               .joins('JOIN trips t ON t.id = stop_times.trip_id')
               .joins('JOIN routes r ON t.route_id = r.id')
-              .where('r.route_gid = ?', params[:route_gid])
+              .where('r.route_gid = ? OR r.route_short_name', params[:route_gid], params[:route_gid])
               .where('stop_times.stop_sequence = ?', 1)
               .where('direction_id = ?', params[:direction_id])
               .where("service_gid IN (SELECT s.service_gid FROM calendars s WHERE #{Date.today.strftime('%A').downcase} = 1 AND DATE(NOW()) BETWEEN s.start_date AND s.end_date)")
@@ -23,8 +23,9 @@ class NextbusController < ApplicationController
     nextbus = StopTime
               .joins('JOIN trips t ON t.id = stop_times.trip_id')
               .joins('JOIN routes r ON t.route_id = r.id')
-              .where('r.route_gid = ?', params[:route_gid])
-              .where('stop_times.stop_gid = ?', params[:stop_gid])
+              .joins('JOIN stops s ON s.id = stop_times.stop_id')
+              .where('r.route_gid = ? OR r.route_short_name = ?', params[:route_gid], params[:route_gid])
+              .where('s.stop_gid = ? OR s.stop_code = ?', params[:stop_gid], params[:stop_gid])
               .where('direction_id = ?', params[:direction_id])
               .where("service_gid IN (SELECT s.service_gid FROM calendars s WHERE #{Date.today.strftime('%A').downcase} = 1 AND DATE(NOW()) BETWEEN s.start_date AND s.end_date)")
               .where('service_gid NOT IN (SELECT cd.service_gid FROM calendar_dates cd WHERE cd.date != DATE(NOW()) AND cd.exception_type != 2)')
