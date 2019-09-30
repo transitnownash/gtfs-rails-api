@@ -21,6 +21,7 @@ class RoutesController < ApplicationController
   # Use callbacks to share common setup or constraints between actions.
   def set_route
     @route = Route.find_by_route_gid(params[:route_gid])
+    @route = Route.find_by_route_short_name(params[:route_gid]) if @route.nil?
     raise 'NotFoundException' if @route.nil?
   end
 end
