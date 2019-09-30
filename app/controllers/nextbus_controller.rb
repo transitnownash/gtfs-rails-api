@@ -5,7 +5,7 @@ class NextbusController < ApplicationController
     nextbus = StopTime
               .joins('JOIN trips t ON t.id = stop_times.trip_id')
               .joins('JOIN routes r ON t.route_id = r.id')
-              .where('r.route_gid = ? OR r.route_short_name', params[:route_gid], params[:route_gid])
+              .where('r.route_gid = ? OR r.route_short_name = ?', params[:route_gid], params[:route_gid])
               .where('stop_times.stop_sequence = ?', 1)
               .where('direction_id = ?', params[:direction_id])
               .where("service_gid IN (SELECT s.service_gid FROM calendars s WHERE #{Date.today.strftime('%A').downcase} = 1 AND DATE(NOW()) BETWEEN s.start_date AND s.end_date)")
