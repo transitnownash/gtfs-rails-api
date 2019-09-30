@@ -34,3 +34,6 @@
 
 # Ignore local ruby version
 .ruby-version
+
+# WhiskeyDisk deploy config
+config/deploy.yml

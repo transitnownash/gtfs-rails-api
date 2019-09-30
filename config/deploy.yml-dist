@@ -1,0 +1,7 @@
+production:
+  domain: "user@hostname"
+  deploy_to: "/path/to/gtfs-rails-app"
+  repository: "git@github.com:/stephenyeargin/gtfs-rails-app.git"
+  branch: "master"
+  post_deploy_script: "config/deploy/restart.sh"
+  
