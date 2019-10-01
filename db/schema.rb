@@ -114,7 +114,7 @@ ActiveRecord::Schema.define(version: 2018_09_19_033157) do
     t.string "stop_headsign"
     t.string "pickup_type"
     t.string "drop_off_type"
-    t.decimal "shape_dist_traveled", precision: 10, scale: 6
+    t.decimal "shape_dist_traveled", precision: 16, scale: 6
     t.string "timepoint"
     t.index ["trip_gid", "stop_sequence"], name: "index_stop_times_on_trip_gid_and_stop_sequence", unique: true
   end

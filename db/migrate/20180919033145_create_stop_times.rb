@@ -11,7 +11,7 @@ class CreateStopTimes < ActiveRecord::Migration[5.2]
       t.string :stop_headsign
       t.string :pickup_type
       t.string :drop_off_type
-      t.decimal :shape_dist_traveled, { precision: 10, scale: 6 }
+      t.decimal :shape_dist_traveled, { precision: 16, scale: 6 }
       t.string :timepoint
 
       t.index [:trip_gid, :stop_sequence], unique: true
