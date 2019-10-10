@@ -31,5 +31,9 @@ module GtfsApi
     # Middleware like session, flash, cookies can be added back manually.
     # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
+
+    # Configure timezone
+    config.time_zone = ENV['RAILS_TIMEZONE'] ||= 'Central Time (US & Canada)'
+    config.active_record.default_timezone = :utc
   end
 end
