@@ -2,8 +2,6 @@ class NextbusController < ApplicationController
   # GET /nextbus/route-:route_gid/direction-:direction_id
   def show
     route = Route.find_by_route_gid(params[:route_gid])
-    now = DateTime.now
-    compareDate = DateTime.new(2000, 1, 1, now.hour, now.minute)
     nextbus = StopTime
               .joins('JOIN trips t ON t.id = stop_times.trip_id')
               .joins('JOIN routes r ON t.route_id = r.id')
@@ -15,16 +13,13 @@ class NextbusController < ApplicationController
               .order('stop_times.arrival_time')
     render json: {
       route: route,
-      past: nextbus.where('stop_times.arrival_time < ?', compareDate).as_json(include: [:trip, :stop]),
-      future: nextbus.where('stop_times.arrival_time > ?', compareDate).as_json(include: [:trip, :stop])
+      nextbus: nextbus.as_json(include: [:trip, :stop])
     }
   end
 
   # GET /nextbus/route-:route_gid/direction-:direction_id/stop-:stop_gid
   def show_by_stop
     route = Route.find_by_route_gid(params[:route_gid])
-    now = DateTime.now
-    compareDate = DateTime.new(2000, 1, 1, now.hour, now.minute)
     nextbus = StopTime
               .joins('JOIN trips t ON t.id = stop_times.trip_id')
               .joins('JOIN routes r ON t.route_id = r.id')
@@ -37,8 +32,7 @@ class NextbusController < ApplicationController
               .order('stop_times.arrival_time')
     render json: {
       route: route,
-      past: nextbus.where('stop_times.arrival_time < ?', compareDate).as_json(include: [:trip, :stop]),
-      future: nextbus.where('stop_times.arrival_time > ?', compareDate).as_json(include: [:trip, :stop])
+      nextbus: nextbus.as_json(include: [:trip, :stop])
     }
   end
 end
