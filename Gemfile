@@ -6,7 +6,7 @@ gem 'dotenv-rails'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.2.3'
 
-gem 'mysql2', '~> 0.5.2'
+gem 'mysql2', '~> 0.5.3'
 group :development, :test do
   gem 'sqlite3', '~> 1.4.1'
 end
