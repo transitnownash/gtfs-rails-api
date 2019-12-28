@@ -75,8 +75,8 @@ ActiveRecord::Schema.define(version: 2018_09_19_033157) do
 
   create_table "frequencies", force: :cascade do |t|
     t.string "trip_gid", null: false
-    t.time "start_time", null: false
-    t.time "end_time", null: false
+    t.string "start_time", null: false
+    t.string "end_time", null: false
     t.integer "headway_secs", null: false
     t.string "exact_times"
     t.index ["trip_gid", "start_time", "end_time"], name: "index_frequencies_on_trip_gid_and_start_time_and_end_time", unique: true
@@ -106,8 +106,8 @@ ActiveRecord::Schema.define(version: 2018_09_19_033157) do
   create_table "stop_times", force: :cascade do |t|
     t.string "trip_gid", null: false
     t.integer "trip_id", null: false
-    t.time "arrival_time", null: false
-    t.time "departure_time", null: false
+    t.string "arrival_time", null: false
+    t.string "departure_time", null: false
     t.string "stop_gid", null: false
     t.integer "stop_id", null: false
     t.integer "stop_sequence", null: false

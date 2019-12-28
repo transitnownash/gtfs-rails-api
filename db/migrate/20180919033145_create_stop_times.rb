@@ -3,8 +3,8 @@ class CreateStopTimes < ActiveRecord::Migration[5.2]
     create_table :stop_times do |t|
       t.string :trip_gid, null: false
       t.integer :trip_id, null: false
-      t.time :arrival_time, null: false
-      t.time :departure_time, null: false
+      t.string :arrival_time, null: false
+      t.string :departure_time, null: false
       t.string :stop_gid, null: false
       t.integer :stop_id, null: false
       t.integer :stop_sequence, null: false
