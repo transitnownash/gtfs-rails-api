@@ -20,6 +20,7 @@ namespace :import do
     Rake::Task['import:frequencies'].invoke
     Rake::Task['import:transfers'].invoke
     Rake::Task['import:feed_info'].invoke
+    Rake::Task['import:trips_start_end'].invoke
   end
 
   desc 'Truncates existing tables'
@@ -232,6 +233,19 @@ namespace :import do
       end
     rescue Errno::ENOENT
       puts '[warning] File does not exist.'
+    end
+  end
+
+  desc 'Calculate start / end times for trips'
+  task trips_start_end: :environment do
+    puts 'Adding start/end times to trips ...'
+    Trip.all.each do |trip|
+      stop_times = trip.stop_times
+      if trip.stop_times.count > 0
+        trip.start_time = stop_times.first.departure_time
+        trip.end_time = stop_times.last.arrival_time
+        trip.save!
+      end
     end
   end
 end

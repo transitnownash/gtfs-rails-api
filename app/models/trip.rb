@@ -3,6 +3,8 @@ class Trip < ApplicationRecord
   belongs_to :calendar
   has_many :stop_times
 
+  default_scope { order(start_time: :asc) }
+
   scope :active, -> {
     dow = Date.today.strftime('%A').downcase
     joins(:calendar)
@@ -18,7 +20,11 @@ class Trip < ApplicationRecord
   }
 
   def shape
-    Shape.where(shape_gid: shape_gid)
+    Shape.find_by_shape_gid(shape_gid)
+  end
+
+  def as_json(_options = {})
+   super include: [:stop_times, shape: {only: [:id, :shape_gid, :points], methods: :points}]
   end
 
   def self.hash_from_gtfs(row)
@@ -34,7 +40,7 @@ class Trip < ApplicationRecord
     record[:block_gid] = row.block_id
     record[:shape_gid] = row.shape_id
     record[:wheelchair_accessible] = row.wheelchair_accessible
-    # record[:bikes_allowed] = row.bikes_allowed
+    record[:bikes_allowed] = row.bikes_allowed
     record
   end
 end

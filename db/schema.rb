@@ -156,6 +156,8 @@ ActiveRecord::Schema.define(version: 2018_09_19_033157) do
     t.string "shape_gid"
     t.string "wheelchair_accessible"
     t.string "bikes_allowed"
+    t.string "start_time"
+    t.string "end_time"
     t.index ["trip_gid"], name: "index_trips_on_trip_gid", unique: true
   end
 
