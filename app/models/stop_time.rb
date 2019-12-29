@@ -21,7 +21,7 @@ class StopTime < ApplicationRecord
     record[:pickup_type] = row.pickup_type
     record[:drop_off_type] = row.drop_off_type
     record[:shape_dist_traveled] = row.shape_dist_traveled
-    # record[:timepoint] = row.timepoint
+    record[:timepoint] = row.timepoint
 
     record
   end
