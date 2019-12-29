@@ -48,7 +48,7 @@ end
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 # Parse schedule
-gem 'gtfs', '~> 0.2.5'
+gem 'gtfs', git: 'https://github.com/nerdEd/gtfs'
 
 # GTFS Realtime
 gem 'gtfs-realtime-bindings'
