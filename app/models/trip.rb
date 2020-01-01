@@ -10,12 +10,12 @@ class Trip < ApplicationRecord
     joins(:calendar)
       .where(
         "start_date <= ? AND end_date >= ? AND #{dow} = 1",
-        Date.today,
-        Date.today
+        Time.current.strftime('%Y-%m-%d'),
+        Time.current.strftime('%Y-%m-%d')
       )
       .where(
-        'trips.calendar_id NOT IN (SELECT cd.calendar_id FROM calendar_dates cd WHERE cd.date = DATE(?) AND cd.exception_type = 2)',
-        Date.today
+        'trips.calendar_id NOT IN (SELECT cd.calendar_id FROM calendar_dates cd WHERE cd.date = ? AND cd.exception_type = 2)',
+        Time.current.strftime('%Y-%m-%d')
       )
   }
 
