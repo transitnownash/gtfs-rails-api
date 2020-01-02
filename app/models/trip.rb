@@ -6,17 +6,8 @@ class Trip < ApplicationRecord
   default_scope { order(start_time: :asc) }
 
   scope :active, -> {
-    dow = Date.today.strftime('%A').downcase
     joins(:calendar)
-      .where(
-        "start_date <= ? AND end_date >= ? AND #{dow} = 1",
-        Time.current.strftime('%Y-%m-%d'),
-        Time.current.strftime('%Y-%m-%d')
-      )
-      .where(
-        'trips.calendar_id NOT IN (SELECT cd.calendar_id FROM calendar_dates cd WHERE cd.date = ? AND cd.exception_type = 2)',
-        Time.current.strftime('%Y-%m-%d')
-      )
+      .where(calendar_id: Calendar.active)
   }
 
   def shape
