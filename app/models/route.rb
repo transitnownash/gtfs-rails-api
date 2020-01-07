@@ -2,6 +2,8 @@ class Route < ApplicationRecord
   has_one :agency
   has_many :trips
 
+  default_scope { order(route_sort_order: 'asc', route_short_name: 'asc') }
+
   def self.hash_from_gtfs(row)
     record = {}
     record[:route_gid] = row.id
