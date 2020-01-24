@@ -57,7 +57,7 @@ GEM
     builder (3.2.4)
     bulk_insert (1.7.0)
       activerecord (>= 3.2.0)
-    byebug (11.1.0)
+    byebug (11.1.1)
     concurrent-ruby (1.1.5)
     crass (1.0.5)
     dotenv (2.7.5)
