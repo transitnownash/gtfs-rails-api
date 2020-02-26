@@ -57,4 +57,4 @@ gem 'gtfs-realtime-bindings'
 gem 'bulk_insert', '~> 1.7'
 
 # Paginate API results
-gem 'will_paginate', '~> 3.2'
+gem 'will_paginate', '~> 3.3'
