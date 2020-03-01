@@ -99,7 +99,7 @@ GEM
       middleware
       thor
       thread_safe
-    puma (4.3.2)
+    puma (4.3.3)
       nio4r (~> 2.0)
     rack (2.0.8)
     rack-cors (1.1.1)
