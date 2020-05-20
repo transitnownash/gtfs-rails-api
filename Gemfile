@@ -54,7 +54,7 @@ gem 'gtfs', git: 'https://github.com/nerdEd/gtfs'
 gem 'gtfs-realtime-bindings'
 
 # Handle bulk inserts
-gem 'bulk_insert', '~> 1.7'
+gem 'bulk_insert', '~> 1.8'
 
 # Paginate API results
 gem 'will_paginate', '~> 3.3'
