@@ -94,6 +94,7 @@ ActiveRecord::Schema.define(version: 2018_09_19_033157) do
     t.string "route_color"
     t.string "route_text_color"
     t.integer "route_sort_order"
+    t.boolean "active"
     t.index ["route_gid"], name: "index_routes_on_route_gid", unique: true
   end
 
