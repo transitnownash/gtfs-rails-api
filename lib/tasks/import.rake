@@ -248,4 +248,22 @@ namespace :import do
       end
     end
   end
+
+  desc 'Find and deactivate expired routes'
+  task routes_expired: :environment do
+    active_route_ids = []
+    Route.all.each do |route|
+      route.trips.each do |trip|
+        if trip.calendar.end_date.future?
+          puts "[#{route.route_gid}] #{route.route_short_name} - #{route.route_long_name}"
+          active_route_ids.push(route.id)
+          break 2
+        end
+      end
+    end
+    # Set all of them to inactive
+    Route.all.update_all(active: false)
+    # Update the active ones
+    Route.where(id: active_route_ids).update_all(active: true)
+  end
 end
