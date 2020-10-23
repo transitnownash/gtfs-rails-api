@@ -2,6 +2,8 @@ require 'protobuf'
 require 'google/transit/gtfs-realtime.pb'
 
 class RealtimeController < ApplicationController
+  CACHE_TTL = 5
+
   ALERT_CAUSES = {
     0 => nil,
     1 => 'Unknown Cause',
@@ -33,8 +35,8 @@ class RealtimeController < ApplicationController
 
   def alerts
     return render json: 'Missing GTFS_REALTIME_ALERTS_URL' if ENV['GTFS_REALTIME_ALERTS_URL'].nil?
-    expires_in 10.seconds, public: true
-    messages = Rails.cache.fetch('/realtime/alerts.json', expires_in: 10.seconds) do
+    expires_in CACHE_TTL.seconds, public: true
+    messages = Rails.cache.fetch('/realtime/alerts.json', expires_in: CACHE_TTL.seconds) do
       messages = []
       data = Net::HTTP.get(URI.parse(ENV['GTFS_REALTIME_ALERTS_URL']))
       feed = Transit_realtime::FeedMessage.decode(data)
@@ -51,8 +53,8 @@ class RealtimeController < ApplicationController
 
   def vehicle_positions
     return render json: 'Missing GTFS_REALTIME_VEHICLE_POSITIONS_URL' if ENV['GTFS_REALTIME_VEHICLE_POSITIONS_URL'].nil?
-    expires_in 10.seconds, public: true
-    positions = Rails.cache.fetch('/realtime/vehicle_positions.json', expires_in: 10.seconds) do
+    expires_in CACHE_TTL.seconds, public: true
+    positions = Rails.cache.fetch('/realtime/vehicle_positions.json', expires_in: CACHE_TTL.seconds) do
       positions = []
       data = Net::HTTP.get(URI.parse(ENV['GTFS_REALTIME_VEHICLE_POSITIONS_URL']))
       feed = Transit_realtime::FeedMessage.decode(data)
@@ -67,8 +69,8 @@ class RealtimeController < ApplicationController
 
   def trip_updates
     return render json: 'Missing GTFS_REALTIME_TRIP_UPDATES_URL' if ENV['GTFS_REALTIME_TRIP_UPDATES_URL'].nil?
-    expires_in 10.seconds, public: true
-    updates = Rails.cache.fetch('/realtime/trip_updates.json', expires_in: 10.seconds) do
+    expires_in CACHE_TTL.seconds, public: true
+    updates = Rails.cache.fetch('/realtime/trip_updates.json', expires_in: CACHE_TTL.seconds) do
       updates = []
       data = Net::HTTP.get(URI.parse(ENV['GTFS_REALTIME_TRIP_UPDATES_URL']))
       feed = Transit_realtime::FeedMessage.decode(data)
