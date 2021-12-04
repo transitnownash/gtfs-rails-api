@@ -35,5 +35,6 @@ class CalendarsController < ApplicationController
   # Use callbacks to share common setup or constraints between actions.
   def set_calendar
     @calendar = Calendar.find_by_service_gid(params[:service_gid])
+    raise ActionController::RoutingError.new('Not Found') if @calendar.nil?
   end
 end

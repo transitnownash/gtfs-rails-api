@@ -16,5 +16,6 @@ class TransfersController < ApplicationController
   # Use callbacks to share common setup or constraints between actions.
   def set_transfer
     @transfer = Transfer.find(params[:id])
+    raise ActionController::RoutingError.new('Not Found') if @transfer.nil?
   end
 end

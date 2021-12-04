@@ -22,6 +22,6 @@ class StopsController < ApplicationController
   def set_stop
     @stop = Stop.find_by_stop_gid(params[:stop_gid])
     @stop = Stop.find_by_stop_code(params[:stop_gid]) if @stop.nil?
-    raise 'NotFoundException' if @stop.nil?
+    raise ActionController::RoutingError.new('Not Found') if @stop.nil?
   end
 end

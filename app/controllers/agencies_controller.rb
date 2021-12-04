@@ -16,5 +16,6 @@ class AgenciesController < ApplicationController
   # Use callbacks to share common setup or constraints between actions.
   def set_agency
     @agency = Agency.find_by_agency_gid(params[:agency_gid])
+    raise ActionController::RoutingError.new('Not Found') if @agency.nil?
   end
 end
