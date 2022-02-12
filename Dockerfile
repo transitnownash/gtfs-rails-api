@@ -1,4 +1,4 @@
-FROM ruby:2.5.1-slim 
+FROM ruby:2.7.0
 
 # Install apt based dependencies required to run Rails as 
 # well as RubyGems. As the Ruby image itself is based on a 
@@ -9,7 +9,6 @@ RUN apt-get update && apt-get install -y \
   git \
   sqlite3 \
   libsqlite3-dev \
-  mysql-client \
   default-libmysqlclient-dev \
   libxml2 \
   vim
