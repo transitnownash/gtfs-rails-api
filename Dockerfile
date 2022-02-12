@@ -7,8 +7,6 @@ RUN apt-get update && apt-get install -y \
   build-essential \ 
   nodejs \
   git \
-  sqlite3 \
-  libsqlite3-dev \
   default-libmysqlclient-dev \
   libxml2 \
   vim
@@ -28,6 +26,9 @@ RUN gem install bundler && bundle install --jobs 20 --retry 5
 
 # Copy the main application.
 COPY . ./
+
+# Clean up prior PID file if exists
+RUN rm -rf tmp/pids/server.pid
 
 # Expose port 3000 to the Docker host, so we can access it 
 # from the outside.

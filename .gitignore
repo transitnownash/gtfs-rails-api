@@ -7,34 +7,34 @@
 # Ignore bundler config.
 /.bundle
 
-# Ignore the default SQLite database.
-/db/*.sqlite3
-/db/*.sqlite3-journal
-
 # Ignore all logfiles and tempfiles.
 /log/*
 /tmp/*
 !/log/.keep
 !/tmp/.keep
 
-# Ignore uploaded files in development
+# Ignore pidfiles, but keep the directory.
+/tmp/pids/*
+!/tmp/pids/
+!/tmp/pids/.keep
+
+# Ignore uploaded files in development.
 /storage/*
 !/storage/.keep
-
-.byebug_history
+/tmp/storage/*
+!/tmp/storage/
+!/tmp/storage/.keep
 
 # Ignore master key for decrypting credentials and more.
 /config/master.key
 
-# Ignore vendor gems
-/vendor
-
-# Ignore local environment variables
-.env
-
-# Ignore local ruby version
-.ruby-version
+# DotEnv
+.env.local
+.env.*.local
 
 # WhiskeyDisk deploy config
 config/deploy.yml
 .whiskey_disk_git_changes
+
+# rbenv/rvm
+.ruby-version

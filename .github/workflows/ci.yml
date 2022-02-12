@@ -1,0 +1,42 @@
+name: Run CI Tasks
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    services:
+      mysql:
+        image: mysql:5.7
+        env:
+          MYSQL_ALLOW_EMPTY_PASSWORD: false
+          MYSQL_ROOT_PASSWORD: rails
+          MYSQL_DATABASE: gtfs_rails_api
+        ports:
+          - 3306/tcp
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+
+    strategy:
+        matrix:
+          ruby-version: ['2.7', '3.0']
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ${{ matrix.ruby-version }}
+          bundler-cache: true # runs 'bundle install' and caches installed gems automatically
+
+      - name: Run Tests
+        env:
+          RAILS_ENV: test
+          DATABASE_URL: mysql2://root:rails@127.0.0.1:${{ job.services.mysql.ports['3306'] }}/gtfs_rails_api_test
+        run: |
+          bin/rails db:reset
+          bin/rails test
