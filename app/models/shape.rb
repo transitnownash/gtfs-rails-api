@@ -1,6 +1,4 @@
 class Shape < ApplicationRecord
-  belongs_to :trip
-
   def as_json(_options = {})
     super(
       only: [:id, :shape_gid],
