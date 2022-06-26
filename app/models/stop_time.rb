@@ -5,7 +5,7 @@ class StopTime < ApplicationRecord
   default_scope { order(arrival_time: :asc, stop_sequence: :asc) }
 
   def as_json(_options = {})
-   super include: [:stop]
+    super include: [:stop]
   end
 
   def self.hash_from_gtfs(row)

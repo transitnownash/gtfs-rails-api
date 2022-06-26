@@ -12,7 +12,7 @@ class Trip < ApplicationRecord
   }
 
   def as_json(_options = {})
-    super include: [:stop_times, shape: {only: [:id, :shape_gid, :points], methods: :points}]
+    super include: [shape: {only: [:id, :shape_gid, :points], methods: :points}, stop_times: {methods: :stop}]
   end
 
   def self.hash_from_gtfs(row)
