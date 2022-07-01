@@ -11,6 +11,10 @@ class Trip < ApplicationRecord
       .where(calendar_id: Calendar.active)
   }
 
+  def block
+    Trip.where(block_gid: block_gid)
+  end
+
   def as_json(_options = {})
     super include: [shape: {only: [:id, :shape_gid, :points], methods: :points}, stop_times: {methods: :stop}]
   end

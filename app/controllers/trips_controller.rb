@@ -1,5 +1,5 @@
 class TripsController < ApplicationController
-  before_action :set_trip, only: [:show, :show_stop_times, :show_shape]
+  before_action :set_trip, only: [:show, :show_stop_times, :show_shape, :show_block]
 
   # GET /trips
   def index
@@ -19,6 +19,11 @@ class TripsController < ApplicationController
   # GET /trips/:id/shape
   def show_shape
     render json: @trip.shape
+  end
+
+  # GET /trips/:id/block
+  def show_block
+    render json: @trip.block
   end
 
   private
