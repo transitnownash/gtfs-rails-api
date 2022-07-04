@@ -7,8 +7,21 @@ class Trip < ApplicationRecord
   default_scope { order(start_time: :asc) }
 
   scope :active, -> {
-    joins(:calendar)
-      .where(calendar_id: Calendar.active)
+    dow = Time.current.strftime('%A').downcase
+    today = Date.today.strftime('%Y-%m-%d')
+    where("
+      service_gid IN (
+        SELECT c1.service_gid FROM calendars c1
+        WHERE
+          #{dow} = 1 AND
+          '#{today}' BETWEEN start_date AND end_date
+          AND c1.service_gid NOT IN (
+            SELECT c2.service_gid FROM calendar_dates c2 WHERE date = '#{today}' AND exception_type = 2
+          )
+        UNION
+        SELECT c3.service_gid FROM calendar_dates c3 WHERE c3.date = '#{today}' AND exception_type = 1
+      )
+    ")
   }
 
   def block
