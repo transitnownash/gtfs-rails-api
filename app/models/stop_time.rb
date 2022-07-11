@@ -1,6 +1,6 @@
 class StopTime < ApplicationRecord
   belongs_to :trip
-  belongs_to :stop
+  has_one :stop, foreign_key: :stop_gid, primary_key: :stop_gid
 
   default_scope { order(arrival_time: :asc, stop_sequence: :asc) }
 

@@ -13,7 +13,7 @@ class RoutesController < ApplicationController
 
   # GET /routes/1/trips
   def show_trips
-    render json: paginate_results(@route.trips.active)
+    render json: paginate_results(@route.trips.active.includes(:shape, :stop_times, :stops))
   end
 
   private

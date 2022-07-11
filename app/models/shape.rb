@@ -1,4 +1,6 @@
 class Shape < ApplicationRecord
+  has_many :trips
+
   def as_json(_options = {})
     super(
       only: [:id, :shape_gid],

@@ -45,7 +45,4 @@ Rails.application.routes.draw do
   get '/realtime/alerts', to: 'realtime#alerts', as: 'realtime_alerts'
   get '/realtime/vehicle_positions', to: 'realtime#vehicle_positions', as: 'realtime_vehicle_positions'
   get '/realtime/trip_updates', to: 'realtime#trip_updates', as: 'realtime_trip_updates'
-
-  get '/nextbus/route-:route_gid/direction-:direction_id', to: 'nextbus#show', as: 'nextbus'
-  get '/nextbus/route-:route_gid/direction-:direction_id/stop-:stop_gid', to: 'nextbus#show_by_stop', as: 'nextbus_stop'
 end

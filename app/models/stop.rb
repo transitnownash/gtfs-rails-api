@@ -1,6 +1,4 @@
 class Stop < ApplicationRecord
-  has_many :stop_times
-
   def self.hash_from_gtfs(row)
     record = {}
     record[:stop_gid] = row.id
