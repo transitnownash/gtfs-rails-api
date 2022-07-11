@@ -25,7 +25,7 @@ class Trip < ApplicationRecord
   }
 
   def block
-    Trip.where(block_gid: block_gid)
+    Trip.where(block_gid: block_gid).includes(:shape, :stop_times, { stop_times: :stop })
   end
 
   def as_json(_options = {})
