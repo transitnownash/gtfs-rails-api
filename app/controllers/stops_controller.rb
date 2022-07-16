@@ -19,7 +19,7 @@ class StopsController < ApplicationController
   # Get /stops/1/trips
   def show_trips
     render json: paginate_results(
-      Trip.includes(:shape, :stop_times, { stop_times: :stop }).where(stop_times: { stop_gid: params[:stop_gid] })
+      Trip.active.includes(:shape, :stop_times, { stop_times: :stop }).where(stop_times: { stop_gid: params[:stop_gid] })
     )
   end
 
