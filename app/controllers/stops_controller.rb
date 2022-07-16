@@ -16,6 +16,13 @@ class StopsController < ApplicationController
     render json: paginate_results(StopTime.where(stop_gid: params[:stop_gid]))
   end
 
+  # Get /stops/1/trips
+  def show_trips
+    render json: paginate_results(
+      Trip.includes(:shape, :stop_times, { stop_times: :stop }).where(stop_times: { stop_gid: params[:stop_gid] })
+    )
+  end
+
   private
 
   # Use callbacks to share common setup or constraints between actions.
