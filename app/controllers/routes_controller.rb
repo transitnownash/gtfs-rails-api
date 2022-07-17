@@ -16,6 +16,11 @@ class RoutesController < ApplicationController
     render json: paginate_results(@route.trips.active.includes(:shape, :stop_times, { stop_times: :stop }))
   end
 
+  # GET /routes/1/shapes
+  def show_shapes
+    render json: paginate_results(Shape.includes(:trips).where(trips: { route_gid: params[:route_gid] }))
+  end
+
   private
 
   # Use callbacks to share common setup or constraints between actions.

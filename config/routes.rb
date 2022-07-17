@@ -23,6 +23,7 @@ Rails.application.routes.draw do
   get '/routes', to: 'routes#index', as: 'routes'
   get '/routes/:route_gid', to: 'routes#show', as: 'route'
   get '/routes/:route_gid/trips', to: 'routes#show_trips', as: 'route_trips'
+  get '/routes/:route_gid/shapes', to: 'routes#show_shapes', as: 'route_shapes'
 
   get '/shapes', to: 'shapes#index', as: 'shapes'
   get '/shapes/:shape_gid', to: 'shapes#show', as: 'shape'
