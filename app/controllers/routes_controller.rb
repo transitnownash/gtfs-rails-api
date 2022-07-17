@@ -3,7 +3,7 @@ class RoutesController < ApplicationController
 
   # GET /routes
   def index
-    render json: paginate_results(Route.where(active: true))
+    render json: paginate_results(Route.all)
   end
 
   # GET /routes/1
@@ -25,8 +25,8 @@ class RoutesController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_route
-    @route = Route.find_by(route_gid: params[:route_gid], active: true)
-    @route = Route.find_by(route_short_name: params[:route_gid], active: true) if @route.nil?
+    @route = Route.find_by(route_gid: params[:route_gid])
+    @route = Route.find_by(route_short_name: params[:route_gid]) if @route.nil?
     raise ActionController::RoutingError.new('Not Found') if @route.nil?
   end
 end

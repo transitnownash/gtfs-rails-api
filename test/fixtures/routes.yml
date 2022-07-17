@@ -7,7 +7,6 @@ Route_1:
   route_short_name: '10'
   route_long_name: Airport - Bullfrog
   route_type: '3'
-  active: true
 Route_2:
   id: 114
   route_gid: BFC
@@ -16,7 +15,6 @@ Route_2:
   route_short_name: '20'
   route_long_name: Bullfrog - Furnace Creek Resort
   route_type: '3'
-  active: true
 Route_3:
   id: 115
   route_gid: STBA
@@ -25,7 +23,6 @@ Route_3:
   route_short_name: '30'
   route_long_name: Stagecoach - Airport Shuttle
   route_type: '3'
-  active: true
 Route_4:
   id: 116
   route_gid: CITY
@@ -34,7 +31,6 @@ Route_4:
   route_short_name: '40'
   route_long_name: City
   route_type: '3'
-  active: true
 Route_5:
   id: 117
   route_gid: AAMV
@@ -43,4 +39,3 @@ Route_5:
   route_short_name: '50'
   route_long_name: Airport - Amargosa Valley
   route_type: '3'
-  active: true

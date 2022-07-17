@@ -44,6 +44,7 @@ class Trip < ApplicationRecord
     record[:direction_id] = row.direction_id
     record[:block_gid] = row.block_id
     record[:shape_gid] = row.shape_id
+    record[:shape_id] = Shape.find_by_shape_gid(row.shape_id).id
     record[:wheelchair_accessible] = row.wheelchair_accessible
     record[:bikes_allowed] = row.bikes_allowed
     record

@@ -10,11 +10,11 @@ namespace :import do
     Rake::Task['import:routes'].invoke
     Rake::Task['import:calendar'].invoke
     Rake::Task['import:calendar_dates'].invoke
+    Rake::Task['import:shapes'].invoke
     Rake::Task['import:trips'].invoke
     Rake::Task['import:stop_times'].invoke
     Rake::Task['import:fare_attributes'].invoke
     Rake::Task['import:fare_rules'].invoke
-    Rake::Task['import:shapes'].invoke
     Rake::Task['import:frequencies'].invoke
     Rake::Task['import:transfers'].invoke
     Rake::Task['import:feed_info'].invoke
