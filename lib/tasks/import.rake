@@ -18,7 +18,6 @@ namespace :import do
     Rake::Task['import:frequencies'].invoke
     Rake::Task['import:transfers'].invoke
     Rake::Task['import:feed_info'].invoke
-    Rake::Task['import:routes_expired'].invoke
     Rake::Task['import:trips_start_end'].invoke
   end
 
@@ -248,28 +247,10 @@ namespace :import do
     end
   end
 
-  desc 'Find and deactivate expired routes'
-  task routes_expired: :environment do
-    active_route_ids = []
-    Route.all.each do |route|
-      route.trips.each do |trip|
-        if trip.calendar.end_date.future?
-          active_route_ids.push(route.id)
-          break 2
-        end
-      end
-    end
-    # Set all of them to inactive
-    Route.all.update_all(active: false)
-    # Update the active ones
-    Route.where(id: active_route_ids).update_all(active: true)
-  end
-
   desc 'Calculate start / end times for trips'
   task trips_start_end: :environment do
     puts 'Adding start/end times to trips ...'
     Trip.all.each do |trip|
-      next if trip.route.active == false
       stop_times = trip.stop_times
       if trip.stop_times.count > 0
         trip.start_time = stop_times.first.departure_time
