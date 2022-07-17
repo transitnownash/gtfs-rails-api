@@ -1,5 +1,5 @@
 class StopsController < ApplicationController
-  before_action :set_stop, only: [:show]
+  before_action :set_stop, only: [:show, :show_tops_time, :show_trips, :show_routes]
 
   # GET /stops
   def index
@@ -13,13 +13,20 @@ class StopsController < ApplicationController
 
   # Get /stops/1/stop_times
   def show_stop_times
-    render json: paginate_results(StopTime.where(stop_gid: params[:stop_gid]))
+    render json: paginate_results(StopTime.where(stop_gid: @stop.stop_gid))
   end
 
   # Get /stops/1/trips
   def show_trips
     render json: paginate_results(
-      Trip.active.includes(:shape, :stop_times, { stop_times: :stop }).where(stop_times: { stop_gid: params[:stop_gid] })
+      Trip.active.includes(:shape, :stop_times, { stop_times: :stop }).where(stop_times: { stop_gid: @stop.stop_gid })
+    )
+  end
+
+  # Get /stops/1/routes
+  def show_routes
+    render json: paginate_results(
+      Route.joins(trips: [:stop_times]).where(stop_times: { stop_gid: @stop.stop_gid }).distinct
     )
   end
 

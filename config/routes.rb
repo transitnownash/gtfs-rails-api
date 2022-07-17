@@ -33,6 +33,7 @@ Rails.application.routes.draw do
   get '/stops/:stop_gid', to: 'stops#show', as: 'stop'
   get '/stops/:stop_gid/stop_times', to: 'stops#show_stop_times', as: 'stop_stop_times'
   get '/stops/:stop_gid/trips', to: 'stops#show_trips', as: 'stop_trips'
+  get '/stops/:stop_gid/routes', to: 'stops#show_routes', as: 'stop_routes'
 
   get '/stop_times', to: 'stop_times#index', as: 'stop_times'
   get '/stop_times/:stop_gid', to: 'stop_times#show', as: 'stop_time'

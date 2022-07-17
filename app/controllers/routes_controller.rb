@@ -1,5 +1,5 @@
 class RoutesController < ApplicationController
-  before_action :set_route, only: [:show, :show_trips]
+  before_action :set_route, only: [:show, :show_trips, :show_shapes, :show_stops]
 
   # GET /routes
   def index
