@@ -18,6 +18,7 @@ namespace :import do
     Rake::Task['import:frequencies'].invoke
     Rake::Task['import:transfers'].invoke
     Rake::Task['import:feed_info'].invoke
+    Rake::Task['import:set_parent_stops'].invoke
     Rake::Task['import:trips_start_end'].invoke
   end
 
@@ -214,6 +215,15 @@ namespace :import do
       end
     rescue Errno::ENOENT
       puts '[warning] File does not exist.'
+    end
+  end
+
+  desc 'Set parent stop if null'
+  task set_parent_stops: :environment do
+    puts 'Setting parent stations ...'
+    Stop.where('parent_station_gid IS NOT NULL').each do |stop|
+      stop.parent_station_id = Stop.find_by(stop_gid: stop.parent_station_gid).id
+      stop.save!
     end
   end
 

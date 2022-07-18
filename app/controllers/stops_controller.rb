@@ -8,7 +8,7 @@ class StopsController < ApplicationController
 
   # GET /stops/1
   def show
-    render json: @stop
+    render json: @stop, methods: [:child_stops, :parent_station]
   end
 
   # Get /stops/1/stop_times

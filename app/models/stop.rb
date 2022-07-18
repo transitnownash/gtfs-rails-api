@@ -1,5 +1,7 @@
 class Stop < ApplicationRecord
   has_many :stop_times
+  has_many :child_stops, class_name: 'Stop', foreign_key: 'parent_station'
+  belongs_to :parent_station, class_name: 'Stop', optional: true
 
   def self.hash_from_gtfs(row)
     record = {}
@@ -12,7 +14,8 @@ class Stop < ApplicationRecord
     record[:zone_gid] = row.zone_id
     record[:stop_url] = row.url
     record[:location_type] = row.location_type
-    record[:parent_station] = row.parent_station
+    record[:parent_station_gid] = row.parent_station
+    # record[:parent_station_id] 
     record[:stop_timezone] = row.timezone
     record[:wheelchair_boarding] = row.wheelchair_boarding
     record

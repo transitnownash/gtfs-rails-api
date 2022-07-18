@@ -10,7 +10,8 @@ class CreateStops < ActiveRecord::Migration[7.0]
       t.string "zone_gid"
       t.string "stop_url"
       t.string "location_type"
-      t.string "parent_station"
+      t.string "parent_station_gid"
+      t.integer "parent_station_id"
       t.string "stop_timezone"
       t.string "wheelchair_boarding"
       t.index ["stop_gid"], name: "index_stops_on_stop_gid", unique: true

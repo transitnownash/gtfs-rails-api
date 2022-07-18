@@ -148,7 +148,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_17_040631) do
     t.string "zone_gid"
     t.string "stop_url"
     t.string "location_type"
-    t.string "parent_station"
+    t.string "parent_station_gid"
+    t.integer "parent_station_id"
     t.string "stop_timezone"
     t.string "wheelchair_boarding"
     t.datetime "created_at", null: false
