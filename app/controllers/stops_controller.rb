@@ -1,5 +1,5 @@
 class StopsController < ApplicationController
-  before_action :set_stop, only: [:show, :show_tops_time, :show_trips, :show_routes]
+  before_action :set_stop, only: [:show, :show_stop_times, :show_trips, :show_routes]
 
   # GET /stops
   def index
