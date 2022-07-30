@@ -9,13 +9,16 @@ class StopTime < ApplicationRecord
   end
 
   def self.hash_from_gtfs(row)
+    trip = Trip.find_by_trip_gid(row.trip_id)
+    stop = Stop.find_by_stop_gid(row.stop_id)
+
     record = {}
     record[:trip_gid] = row.trip_id
-    record[:trip_id] = Trip.find_by_trip_gid(row.trip_id).id
+    record[:trip] = trip.id unless trip.nil?
     record[:arrival_time] = row.arrival_time
     record[:departure_time] = row.departure_time
     record[:stop_gid] = row.stop_id
-    record[:stop_id] = Stop.find_by_stop_gid(row.stop_id).id
+    record[:stop_id] = stop.id unless stop.nil?
     record[:stop_sequence] = row.stop_sequence
     record[:stop_headsign] = row.stop_headsign
     record[:pickup_type] = row.pickup_type

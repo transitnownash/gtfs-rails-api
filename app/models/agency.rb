@@ -10,7 +10,7 @@ class Agency < ApplicationRecord
     record[:agency_lang] = row.lang
     record[:agency_phone] = row.phone
     record[:agency_fare_url] = row.fare_url
-    # record[:agency_email] = row.email
+    record[:agency_email] = row.email
     record
   end
 end

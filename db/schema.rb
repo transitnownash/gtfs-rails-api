@@ -86,6 +86,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_17_040631) do
 
   create_table "frequencies", charset: "utf8mb4", force: :cascade do |t|
     t.string "trip_gid", null: false
+    t.integer "trip_id"
     t.string "start_time", null: false
     t.string "end_time", null: false
     t.integer "headway_secs", null: false
@@ -122,11 +123,11 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_17_040631) do
 
   create_table "stop_times", charset: "utf8mb4", force: :cascade do |t|
     t.string "trip_gid", null: false
-    t.integer "trip_id", null: false
+    t.integer "trip_id"
     t.string "arrival_time", null: false
     t.string "departure_time", null: false
     t.string "stop_gid", null: false
-    t.integer "stop_id", null: false
+    t.integer "stop_id"
     t.integer "stop_sequence", null: false
     t.string "stop_headsign"
     t.string "pickup_type"
@@ -159,7 +160,9 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_17_040631) do
 
   create_table "transfers", charset: "utf8mb4", force: :cascade do |t|
     t.string "from_stop_gid", null: false
+    t.integer "from_stop_id"
     t.string "to_stop_gid", null: false
+    t.integer "to_stop_id"
     t.string "transfer_type", null: false
     t.integer "min_transfer_time"
     t.datetime "created_at", null: false
@@ -169,9 +172,9 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_17_040631) do
 
   create_table "trips", charset: "utf8mb4", force: :cascade do |t|
     t.string "route_gid", null: false
-    t.integer "route_id", null: false
+    t.integer "route_id"
     t.string "service_gid", null: false
-    t.integer "calendar_id", null: false
+    t.integer "calendar_id"
     t.string "trip_gid", null: false
     t.string "trip_headsign"
     t.string "trip_short_name"

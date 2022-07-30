@@ -33,18 +33,22 @@ class Trip < ApplicationRecord
   end
 
   def self.hash_from_gtfs(row)
+    route = Route.find_by_route_gid(row.route_id)
+    calendar = Calendar.find_by_service_gid(row.service_id)
+    shape = Shape.find_by_shape_gid(row.shape_id)
+
     record = {}
     record[:route_gid] = row.route_id
-    record[:route_id] = Route.find_by_route_gid(row.route_id).id
+    record[:route_id] = route.id unless route.nil?
     record[:service_gid] = row.service_id
-    record[:calendar_id] = Calendar.find_by_service_gid(row.service_id).id
+    record[:calendar_id] = calendar.id unless calendar.nil?
     record[:trip_gid] = row.id
     record[:trip_headsign] = row.headsign
     record[:trip_short_name] = row.short_name
     record[:direction_id] = row.direction_id
     record[:block_gid] = row.block_id
     record[:shape_gid] = row.shape_id
-    record[:shape_id] = Shape.find_by_shape_gid(row.shape_id).id
+    record[:shape_id] = shape.id unless shape.nil?
     record[:wheelchair_accessible] = row.wheelchair_accessible
     record[:bikes_allowed] = row.bikes_allowed
     record

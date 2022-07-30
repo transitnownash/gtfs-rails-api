@@ -3,7 +3,7 @@ class CreateRoutes < ActiveRecord::Migration[7.0]
     create_table :routes do |t|
       t.string "route_gid", null: false
       t.string "agency_gid"
-      t.integer "agency_id"
+      t.integer "agency_id", null: true
       t.string "route_short_name", null: false
       t.string "route_long_name", null: false
       t.string "route_desc"

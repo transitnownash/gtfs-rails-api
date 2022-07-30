@@ -2,6 +2,7 @@ class CreateFrequencies < ActiveRecord::Migration[7.0]
   def change
     create_table :frequencies do |t|
       t.string "trip_gid", null: false
+      t.integer "trip_id", null: true
       t.string "start_time", null: false
       t.string "end_time", null: false
       t.integer "headway_secs", null: false
