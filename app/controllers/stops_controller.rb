@@ -13,25 +13,25 @@ class StopsController < ApplicationController
 
   # Get /stops/1/stop_times
   def show_stop_times
-    render json: paginate_results(StopTime.where(stop_gid: @stop.stop_gid))
+    stop_gids = [@stop.stop_gid]
+    stop_gids += @stop.child_stops.map(&:stop_gid)
+    render json: paginate_results(StopTime.where(stop_gid: stop_gids))
   end
 
   # Get /stops/1/trips
   def show_trips
+    stop_gids = [@stop.stop_gid]
+    stop_gids += @stop.child_stops.map(&:stop_gid)
     render json: paginate_results(
-      Trip.active.includes(:shape, :stop_times, { stop_times: :stop }).where(stop_times: { stop_gid: @stop.stop_gid })
+      Trip.active.includes(:shape, :stop_times, { stop_times: :stop }).where(stop_times: { stop_gid: stop_gids })
     )
   end
 
   # Get /stops/1/routes
   def show_routes
-    child_stop_ids = @stop.child_stops.map(&:stop_gid)
-    routes = Route.joins(trips: [:stop_times])
-                  .where(stop_times: { stop_gid: @stop.stop_gid })
-                  .or(
-                    Route.joins(trips: [:stop_times]).where(stop_times: { stop_gid: child_stop_ids })
-                  ).distinct
-    render json: paginate_results(routes)
+    stop_gids = [@stop.stop_gid]
+    stop_gids += @stop.child_stops.map(&:stop_gid)
+    render json: paginate_results(Route.joins(trips: [:stop_times]).where(stop_times: { stop_gid: stop_gids }).distinct)
   end
 
   private
