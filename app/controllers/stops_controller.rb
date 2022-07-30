@@ -25,9 +25,13 @@ class StopsController < ApplicationController
 
   # Get /stops/1/routes
   def show_routes
-    render json: paginate_results(
-      Route.joins(trips: [:stop_times]).where(stop_times: { stop_gid: @stop.stop_gid }).distinct
-    )
+    child_stop_ids = @stop.child_stops.map(&:stop_gid)
+    routes = Route.joins(trips: [:stop_times])
+                  .where(stop_times: { stop_gid: @stop.stop_gid })
+                  .or(
+                    Route.joins(trips: [:stop_times]).where(stop_times: { stop_gid: child_stop_ids })
+                  ).distinct
+    render json: paginate_results(routes)
   end
 
   private
