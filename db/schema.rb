@@ -66,6 +66,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_17_040631) do
   create_table "fare_rules", charset: "utf8mb4", force: :cascade do |t|
     t.string "fare_gid", null: false
     t.string "route_gid"
+    t.integer "route_id"
     t.string "origin_gid"
     t.string "destination_gid"
     t.string "contains_gid"

@@ -6,7 +6,7 @@ class CalendarDate < ApplicationRecord
 
     record = {}
     record[:service_gid] = row.service_id
-    record[:calendar_id] = calendar ? calendar.id : 0
+    record[:calendar_id] = calendar.id unless calendar.nil?
     record[:date] = row.date
     record[:exception_type] = row.exception_type
     record

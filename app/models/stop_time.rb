@@ -14,7 +14,7 @@ class StopTime < ApplicationRecord
 
     record = {}
     record[:trip_gid] = row.trip_id
-    record[:trip] = trip.id unless trip.nil?
+    record[:trip_id] = trip.id unless trip.nil?
     record[:arrival_time] = row.arrival_time
     record[:departure_time] = row.departure_time
     record[:stop_gid] = row.stop_id
