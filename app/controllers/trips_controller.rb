@@ -3,7 +3,8 @@ class TripsController < ApplicationController
 
   # GET /trips
   def index
-    render json: paginate_results(Trip.active)
+    date = params[:date] unless params[:date].nil?
+    render json: paginate_results(Trip.active(date).includes(:shape, :stop_times, { stop_times: :stop }))
   end
 
   # GET /trips/:id

@@ -13,7 +13,8 @@ class RoutesController < ApplicationController
 
   # GET /routes/1/trips
   def show_trips
-    render json: paginate_results(@route.trips.active.includes(:shape, :stop_times, { stop_times: :stop }))
+    date = params[:date] unless params[:date].nil?
+    render json: paginate_results(@route.trips.active(date).includes(:shape, :stop_times, { stop_times: :stop }))
   end
 
   # GET /routes/1/shapes

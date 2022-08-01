@@ -6,9 +6,14 @@ class Trip < ApplicationRecord
 
   default_scope { order(start_time: :asc) }
 
-  scope :active, -> {
-    dow = Time.current.strftime('%A').downcase
-    today = Date.today.strftime('%Y-%m-%d')
+  scope :active, ->(date = nil) {
+    if date.nil?
+      dow = Time.current.strftime('%A').downcase
+      today = Date.today.strftime('%Y-%m-%d')
+    else
+      dow = Date.parse(date).strftime('%A').downcase
+      today = Date.parse(date).strftime('%Y-%m-%d')
+    end
     where("
       service_gid IN (
         SELECT c1.service_gid FROM calendars c1
