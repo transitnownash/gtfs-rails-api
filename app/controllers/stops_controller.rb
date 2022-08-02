@@ -6,6 +6,11 @@ class StopsController < ApplicationController
     render json: paginate_results(Stop.all)
   end
 
+  # GET /stops/near/36.166512/86.781581/100
+  def nearby
+    render json: paginate_results(Stop.within(params[:radius], origin: [params[:latitude], params[:longitude]]))
+  end
+
   # GET /stops/1
   def show
     render json: @stop, methods: [:child_stops, :parent_station]

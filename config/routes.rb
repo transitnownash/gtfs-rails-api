@@ -29,7 +29,11 @@ Rails.application.routes.draw do
   get '/shapes', to: 'shapes#index', as: 'shapes'
   get '/shapes/:shape_gid', to: 'shapes#show', as: 'shape'
 
+  latitude_regex = /(\+|-)?(?:90(?:(?:\.0{1,6})?)|(?:[0-9]|[1-8][0-9])(?:(?:\.[0-9]{1,6})?))/
+  longitude_regex = /(\+|-)?(?:180(?:(?:\.0{1,6})?)|(?:[0-9]|[1-9][0-9]|1[0-7][0-9])(?:(?:\.[0-9]{1,6})?))/
+
   get '/stops', to: 'stops#index', as: 'stops'
+  get '/stops/near/:latitude/:longitude/:radius', to: 'stops#nearby', as: 'stops_nearby', constraints: {latitude: latitude_regex, longitude: longitude_regex}
   get '/stops/:stop_gid', to: 'stops#show', as: 'stop'
   get '/stops/:stop_gid/stop_times', to: 'stops#show_stop_times', as: 'stop_stop_times'
   get '/stops/:stop_gid/trips', to: 'stops#show_trips', as: 'stop_trips'
