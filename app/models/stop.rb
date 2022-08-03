@@ -2,6 +2,10 @@ class Stop < ApplicationRecord
   has_many :stop_times
   has_many :child_stops, class_name: 'Stop', foreign_key: 'parent_station'
   belongs_to :parent_station, class_name: 'Stop', optional: true
+  acts_as_mappable lat_column_name: :stop_lat,
+                   lng_column_name: :stop_lon,
+                   distance_field_name: :distance,
+                   default_units: :meters
 
   def self.hash_from_gtfs(row)
     record = {}

@@ -60,3 +60,6 @@ gem 'bulk_insert', '~> 1.9'
 
 # Paginate API results
 gem 'will_paginate', '~> 3.3'
+gem "geokit-rails", "~> 2.3"
+
+gem "rexml", "~> 3.2"
