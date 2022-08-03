@@ -19,4 +19,14 @@ class RoutesControllerTest < ActionDispatch::IntegrationTest
     get route_trips_url(@route), as: :json
     assert_response :success
   end
+
+  test "should get route shapes" do
+    get route_shapes_url(@route), as: :json
+    assert_response :success
+  end
+
+  test "should get route stops" do
+    get route_stops_url(@route), as: :json
+    assert_response :success
+  end
 end

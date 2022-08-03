@@ -9,6 +9,8 @@ Trip_1:
   trip_headsign: to Bullfrog
   direction_id: '0'
   block_gid: '1'
+  shape_gid: 'A_shp'
+  shape_id: 178229
 Trip_2:
   id: 4955
   route_gid: AB
