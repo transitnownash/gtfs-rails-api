@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
 class AgenciesControllerTest < ActionDispatch::IntegrationTest
@@ -5,12 +7,12 @@ class AgenciesControllerTest < ActionDispatch::IntegrationTest
     @agency = agencies(:Agency_1).agency_gid
   end
 
-  test "should get index" do
+  test 'should get index' do
     get agencies_url, as: :json
     assert_response :success
   end
 
-  test "should show agency" do
+  test 'should show agency' do
     get agency_url(@agency), as: :json
     assert_response :success
   end

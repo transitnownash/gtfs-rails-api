@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Transfer < ApplicationRecord
   has_one :from_stop, class_name: 'Stop'
   has_one :to_stop, class_name: 'Stop'

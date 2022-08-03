@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class StopsController < ApplicationController
-  before_action :set_stop, only: [:show, :show_stop_times, :show_trips, :show_routes]
+  before_action :set_stop, only: %i[show show_stop_times show_trips show_routes]
 
   # GET /stops
   def index
@@ -15,7 +17,7 @@ class StopsController < ApplicationController
 
   # GET /stops/1
   def show
-    render json: @stop, methods: [:child_stops, :parent_station]
+    render json: @stop, methods: %i[child_stops parent_station]
   end
 
   # Get /stops/1/stop_times
@@ -48,6 +50,6 @@ class StopsController < ApplicationController
   def set_stop
     @stop = Stop.find_by_stop_gid(params[:stop_gid])
     @stop = Stop.find_by_stop_code(params[:stop_gid]) if @stop.nil?
-    raise ActionController::RoutingError.new('Not Found') if @stop.nil?
+    raise ActionController::RoutingError, 'Not Found' if @stop.nil?
   end
 end

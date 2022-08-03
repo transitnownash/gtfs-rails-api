@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
 class StopsControllerTest < ActionDispatch::IntegrationTest
@@ -5,7 +7,7 @@ class StopsControllerTest < ActionDispatch::IntegrationTest
     @stop = stops(:Stop_1).stop_gid
   end
 
-  test "should get index" do
+  test 'should get index' do
     get stops_url, as: :json
     json_response = JSON.parse(response.body)
     assert_equal 9, json_response['total']
@@ -13,7 +15,7 @@ class StopsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  test "should show stop" do
+  test 'should show stop' do
     get stop_url(@stop), as: :json
     json_response = JSON.parse(response.body)
     assert_equal 'FUR_CREEK_RES', json_response['stop_gid']
@@ -22,7 +24,7 @@ class StopsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  test "should show stop stop times" do
+  test 'should show stop stop times' do
     get stop_stop_times_url(@stop), as: :json
     json_response = JSON.parse(response.body)
     assert_equal 2, json_response['total']
@@ -30,7 +32,7 @@ class StopsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  test "should get nearby stop" do
+  test 'should get nearby stop' do
     get stops_nearby_url({ longitude: -117.133, latitude: 36.425 }), as: :json
     assert_response :success
     json_response = JSON.parse(response.body)
@@ -40,8 +42,8 @@ class StopsControllerTest < ActionDispatch::IntegrationTest
     assert_equal '-117.133162', json_response['data'][0]['stop_lon']
   end
 
-  test "should get nearby stops with a wider radius" do
-    get stops_nearby_url({ longitude: -117.133, latitude: 36.425, radius: 25000 }), as: :json
+  test 'should get nearby stops with a wider radius' do
+    get stops_nearby_url({ longitude: -117.133, latitude: 36.425, radius: 25_000 }), as: :json
     assert_response :success
     json_response = JSON.parse(response.body)
     assert_equal 1, json_response['total']
@@ -50,12 +52,12 @@ class StopsControllerTest < ActionDispatch::IntegrationTest
     assert_equal '-117.133162', json_response['data'][0]['stop_lon']
   end
 
-  test "should show stop trips" do
+  test 'should show stop trips' do
     get stop_trips_url(@stop), as: :json
     assert_response :success
   end
 
-  test "should show stop routes" do
+  test 'should show stop routes' do
     get stop_routes_url(@stop), as: :json
     assert_response :success
   end

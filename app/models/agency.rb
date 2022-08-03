@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Agency < ApplicationRecord
   has_many :routes
 

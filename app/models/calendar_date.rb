@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CalendarDate < ApplicationRecord
   default_scope { order(date: :asc) }
 

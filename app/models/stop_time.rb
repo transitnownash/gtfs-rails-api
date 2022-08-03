@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class StopTime < ApplicationRecord
   belongs_to :trip
   has_one :stop, foreign_key: :stop_gid, primary_key: :stop_gid

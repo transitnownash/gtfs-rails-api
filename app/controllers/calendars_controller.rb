@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class CalendarsController < ApplicationController
-  before_action :set_calendar, only: [:show, :show_trips, :show_calendar_dates]
+  before_action :set_calendar, only: %i[show show_trips show_calendar_dates]
 
   # GET /calendars
   def index
@@ -26,6 +28,6 @@ class CalendarsController < ApplicationController
   # Use callbacks to share common setup or constraints between actions.
   def set_calendar
     @calendar = Calendar.find_by_service_gid(params[:service_gid])
-    raise ActionController::RoutingError.new('Not Found') if @calendar.nil?
+    raise ActionController::RoutingError, 'Not Found' if @calendar.nil?
   end
 end

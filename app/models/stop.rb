@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Stop < ApplicationRecord
   has_many :stop_times
   has_many :child_stops, class_name: 'Stop', foreign_key: 'parent_station'
@@ -19,7 +21,7 @@ class Stop < ApplicationRecord
     record[:stop_url] = row.url
     record[:location_type] = row.location_type
     record[:parent_station_gid] = row.parent_station
-    # record[:parent_station_id] 
+    # record[:parent_station_id]
     record[:stop_timezone] = row.timezone
     record[:wheelchair_boarding] = row.wheelchair_boarding
     record

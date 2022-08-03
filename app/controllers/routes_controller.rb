@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class RoutesController < ApplicationController
-  before_action :set_route, only: [:show, :show_trips, :show_shapes, :show_stops]
+  before_action :set_route, only: %i[show show_trips show_shapes show_stops]
 
   # GET /routes
   def index
@@ -35,6 +37,6 @@ class RoutesController < ApplicationController
   def set_route
     @route = Route.find_by(route_gid: params[:route_gid])
     @route = Route.find_by(route_short_name: params[:route_gid]) if @route.nil?
-    raise ActionController::RoutingError.new('Not Found') if @route.nil?
+    raise ActionController::RoutingError, 'Not Found' if @route.nil?
   end
 end

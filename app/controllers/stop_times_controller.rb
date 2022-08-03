@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class StopTimesController < ApplicationController
   before_action :set_stop_time, only: [:show]
 
@@ -16,6 +18,6 @@ class StopTimesController < ApplicationController
   # Use callbacks to share common setup or constraints between actions.
   def set_stop_time
     @stop_times = StopTime.where(stop_gid: params[:stop_gid])
-    raise ActionController::RoutingError.new('Not Found') if @stop_times.empty?
+    raise ActionController::RoutingError, 'Not Found' if @stop_times.empty?
   end
 end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class TransfersController < ApplicationController
   before_action :set_transfer, only: [:show]
 
@@ -16,6 +18,6 @@ class TransfersController < ApplicationController
   # Use callbacks to share common setup or constraints between actions.
   def set_transfer
     @transfer = Transfer.find(params[:id])
-    raise ActionController::RoutingError.new('Not Found') if @transfer.nil?
+    raise ActionController::RoutingError, 'Not Found' if @transfer.nil?
   end
 end

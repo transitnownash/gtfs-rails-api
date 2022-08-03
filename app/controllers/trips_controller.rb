@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class TripsController < ApplicationController
-  before_action :set_trip, only: [:show, :show_stop_times, :show_shape, :show_block]
+  before_action :set_trip, only: %i[show show_stop_times show_shape show_block]
 
   # GET /trips
   def index
@@ -32,6 +34,6 @@ class TripsController < ApplicationController
   # Use callbacks to share common setup or constraints between actions.
   def set_trip
     @trip = Trip.includes(:shape, :stop_times, { stop_times: :stop }).find_by_trip_gid(params[:trip_gid])
-    raise ActionController::RoutingError.new('Not Found') if @trip.nil?
+    raise ActionController::RoutingError, 'Not Found' if @trip.nil?
   end
 end

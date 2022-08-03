@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 namespace :import do
   task default: 'import:all'
 
@@ -262,11 +264,11 @@ namespace :import do
     puts 'Adding start/end times to trips ...'
     Trip.all.each do |trip|
       stop_times = trip.stop_times
-      if trip.stop_times.count > 0
-        trip.start_time = stop_times.first.departure_time
-        trip.end_time = stop_times.last.arrival_time
-        trip.save!
-      end
+      next unless trip.stop_times.count.positive?
+
+      trip.start_time = stop_times.first.departure_time
+      trip.end_time = stop_times.last.arrival_time
+      trip.save!
     end
   end
 end

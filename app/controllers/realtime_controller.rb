@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'protobuf'
 require 'google/transit/gtfs-realtime.pb'
 
@@ -35,6 +37,7 @@ class RealtimeController < ApplicationController
 
   def alerts
     return render json: 'Missing GTFS_REALTIME_ALERTS_URL' if ENV['GTFS_REALTIME_ALERTS_URL'].nil?
+
     expires_in CACHE_TTL.seconds, public: true
     messages = Rails.cache.fetch('/realtime/alerts.json', expires_in: CACHE_TTL.seconds) do
       messages = []
@@ -53,6 +56,7 @@ class RealtimeController < ApplicationController
 
   def vehicle_positions
     return render json: 'Missing GTFS_REALTIME_VEHICLE_POSITIONS_URL' if ENV['GTFS_REALTIME_VEHICLE_POSITIONS_URL'].nil?
+
     expires_in CACHE_TTL.seconds, public: true
     positions = Rails.cache.fetch('/realtime/vehicle_positions.json', expires_in: CACHE_TTL.seconds) do
       positions = []
@@ -69,6 +73,7 @@ class RealtimeController < ApplicationController
 
   def trip_updates
     return render json: 'Missing GTFS_REALTIME_TRIP_UPDATES_URL' if ENV['GTFS_REALTIME_TRIP_UPDATES_URL'].nil?
+
     expires_in CACHE_TTL.seconds, public: true
     updates = Rails.cache.fetch('/realtime/trip_updates.json', expires_in: CACHE_TTL.seconds) do
       updates = []

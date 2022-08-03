@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Route < ApplicationRecord
   has_one :agency
   has_many :trips

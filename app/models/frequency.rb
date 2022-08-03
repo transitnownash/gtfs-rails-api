@@ -1,4 +1,6 @@
-class Frequency < ApplicationRecord  
+# frozen_string_literal: true
+
+class Frequency < ApplicationRecord
   def self.hash_from_gtfs(row)
     trip = Trip.find_by_trip_gid(row.trip_id)
 

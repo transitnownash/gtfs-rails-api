@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class FeedInfo < ApplicationRecord
   def self.hash_from_gtfs(row)
     record = {}

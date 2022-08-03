@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Trip < ApplicationRecord
   belongs_to :route
   belongs_to :calendar
@@ -6,7 +8,7 @@ class Trip < ApplicationRecord
 
   default_scope { order(start_time: :asc) }
 
-  scope :active, ->(date = nil) {
+  scope :active, lambda { |date = nil|
     if date.nil?
       dow = Time.current.strftime('%A').downcase
       today = Date.today.strftime('%Y-%m-%d')
@@ -34,7 +36,7 @@ class Trip < ApplicationRecord
   end
 
   def as_json(_options = {})
-    super include: [shape: {only: [:id, :shape_gid, :points], methods: :points}, stop_times: {methods: :stop}]
+    super include: [shape: { only: %i[id shape_gid points], methods: :points }, stop_times: { methods: :stop }]
   end
 
   def self.hash_from_gtfs(row)

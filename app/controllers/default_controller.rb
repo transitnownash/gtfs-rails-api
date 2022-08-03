@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class DefaultController < ApplicationController
   before_action :set_endpoints, only: [:index]
 
@@ -11,7 +13,8 @@ class DefaultController < ApplicationController
     @endpoints = []
     Rails.application.routes.routes.map do |route|
       path = route.path.spec.to_s
-      next if path =~ %r{^\/(rails|cable)}
+      next if path =~ %r{^/(rails|cable)}
+
       @endpoints << path.gsub('(.:format)', '.json')
     end
     @endpoints = @endpoints.uniq

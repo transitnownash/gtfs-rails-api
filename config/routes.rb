@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Rails.application.routes.draw do
   root 'default#index'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
@@ -33,7 +35,8 @@ Rails.application.routes.draw do
   longitude_regex = /(\+|-)?(?:180(?:(?:\.0{1,6})?)|(?:[0-9]|[1-9][0-9]|1[0-7][0-9])(?:(?:\.[0-9]{1,6})?))/
 
   get '/stops', to: 'stops#index', as: 'stops'
-  get '/stops/near/:latitude,:longitude(/:radius)', to: 'stops#nearby', as: 'stops_nearby', constraints: {latitude: latitude_regex, longitude: longitude_regex}
+  get '/stops/near/:latitude,:longitude(/:radius)', to: 'stops#nearby', as: 'stops_nearby',
+                                                    constraints: { latitude: latitude_regex, longitude: longitude_regex }
   get '/stops/:stop_gid', to: 'stops#show', as: 'stop'
   get '/stops/:stop_gid/stop_times', to: 'stops#show_stop_times', as: 'stop_stop_times'
   get '/stops/:stop_gid/trips', to: 'stops#show_trips', as: 'stop_trips'

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class FrequenciesController < ApplicationController
   before_action :set_frequency, only: [:show]
 
@@ -16,6 +18,6 @@ class FrequenciesController < ApplicationController
   # Use callbacks to share common setup or constraints between actions.
   def set_frequency
     @frequency = Frequency.find(params[:id])
-    raise ActionController::RoutingError.new('Not Found') if @frequency.nil?
+    raise ActionController::RoutingError, 'Not Found' if @frequency.nil?
   end
 end
