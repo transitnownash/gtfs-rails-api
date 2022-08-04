@@ -8,11 +8,11 @@ class StopsController < ApplicationController
     render json: paginate_results(Stop.all)
   end
 
-  # GET /stops/near/36.166512,86.781581
-  # GET /stops/near/36.166512,86.781581/100
+  # GET /stops/near/36.165,-86.78406
+  # GET /stops/near/36.165,-86.78406/100
   def nearby
     radius = params[:radius] || 100
-    render json: paginate_results(Stop.within(radius, origin: [params[:latitude], params[:longitude]]))
+    render json: paginate_results(Stop.within(radius, origin: [params[:latitude], params[:longitude]]).by_distance(origin: [params[:latitude], params[:longitude]]))
   end
 
   # GET /stops/1
