@@ -4,6 +4,7 @@ require 'test_helper'
 
 class TripsControllerTest < ActionDispatch::IntegrationTest
   setup do
+    travel_to Time.new(2022, 8, 4, 12, 0, 0)
     @trip = trips(:Trip_1).trip_gid
   end
 
