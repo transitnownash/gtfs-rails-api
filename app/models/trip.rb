@@ -9,7 +9,7 @@ class Trip < ApplicationRecord
   default_scope { order(start_time: :asc) }
 
   scope :active, lambda { |date = nil|
-    if date.nil?
+    if date.nil? || date.empty?
       dow = Time.current.strftime('%A').downcase
       today = Date.today.strftime('%Y-%m-%d')
     else
