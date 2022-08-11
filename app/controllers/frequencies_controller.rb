@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+##
+# Frequencies Controller
 class FrequenciesController < ApplicationController
   before_action :set_frequency, only: [:show]
 

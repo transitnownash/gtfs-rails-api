@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+##
+# Feed Info Model
 class FeedInfo < ApplicationRecord
   def self.hash_from_gtfs(row)
     record = {}

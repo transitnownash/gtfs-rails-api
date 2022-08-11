@@ -4,7 +4,7 @@ require 'test_helper'
 
 class FareRulesControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @fare_rule = fare_rules(:FareRule_1)
+    @fare_rule = fare_rules(:FareRule1)
   end
 
   test 'should get index' do

@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+##
+# Application Controller
 class ApplicationController < ActionController::API
   before_action :set_expires_in
 

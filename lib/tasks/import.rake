@@ -47,7 +47,7 @@ namespace :import do
   task agency: :environment do
     puts 'agency.txt'
     begin
-      @source = GTFS::Source.build ENV['GTFS_URL']
+      @source = GTFS::Source.build ENV.fetch('GTFS_URL', nil)
       Agency.bulk_insert do |worker|
         @source.each_agency do |row|
           worker.add(Agency.hash_from_gtfs(row))
@@ -62,7 +62,7 @@ namespace :import do
   task calendar_dates: :environment do
     puts 'calendar_dates.txt'
     begin
-      @source = GTFS::Source.build ENV['GTFS_URL']
+      @source = GTFS::Source.build ENV.fetch('GTFS_URL', nil)
       CalendarDate.bulk_insert do |worker|
         @source.each_calendar_date do |row|
           worker.add(CalendarDate.hash_from_gtfs(row))
@@ -77,7 +77,7 @@ namespace :import do
   task calendar: :environment do
     puts 'calendar.txt'
     begin
-      @source = GTFS::Source.build ENV['GTFS_URL']
+      @source = GTFS::Source.build ENV.fetch('GTFS_URL', nil)
       Calendar.bulk_insert do |worker|
         @source.each_calendar do |row|
           worker.add(Calendar.hash_from_gtfs(row))
@@ -92,7 +92,7 @@ namespace :import do
   task fare_attributes: :environment do
     puts 'fare_attributes.txt'
     begin
-      @source = GTFS::Source.build ENV['GTFS_URL']
+      @source = GTFS::Source.build ENV.fetch('GTFS_URL', nil)
       FareAttribute.bulk_insert do |worker|
         @source.each_fare_attribute do |row|
           worker.add(FareAttribute.hash_from_gtfs(row))
@@ -107,7 +107,7 @@ namespace :import do
   task fare_rules: :environment do
     puts 'fare_rules.txt'
     begin
-      @source = GTFS::Source.build ENV['GTFS_URL']
+      @source = GTFS::Source.build ENV.fetch('GTFS_URL', nil)
       FareRule.bulk_insert do |worker|
         @source.each_fare_rule do |row|
           worker.add(FareRule.hash_from_gtfs(row))
@@ -122,7 +122,7 @@ namespace :import do
   task feed_info: :environment do
     puts 'feed_info.txt'
     begin
-      @source = GTFS::Source.build ENV['GTFS_URL']
+      @source = GTFS::Source.build ENV.fetch('GTFS_URL', nil)
       FeedInfo.bulk_insert do |worker|
         @source.each_feed_info do |row|
           worker.add(FeedInfo.hash_from_gtfs(row))
@@ -137,7 +137,7 @@ namespace :import do
   task frequencies: :environment do
     puts 'frequencies.txt'
     begin
-      @source = GTFS::Source.build ENV['GTFS_URL']
+      @source = GTFS::Source.build ENV.fetch('GTFS_URL', nil)
       Frequency.bulk_insert do |worker|
         @source.each_frequency do |row|
           worker.add(Frequency.hash_from_gtfs(row))
@@ -152,7 +152,7 @@ namespace :import do
   task routes: :environment do
     puts 'routes.txt'
     begin
-      @source = GTFS::Source.build ENV['GTFS_URL']
+      @source = GTFS::Source.build ENV.fetch('GTFS_URL', nil)
       Route.bulk_insert do |worker|
         @source.each_route do |row|
           worker.add(Route.hash_from_gtfs(row))
@@ -167,7 +167,7 @@ namespace :import do
   task shapes: :environment do
     puts 'shapes.txt'
     begin
-      @source = GTFS::Source.build ENV['GTFS_URL']
+      @source = GTFS::Source.build ENV.fetch('GTFS_URL', nil)
       shapes = {}
       @source.each_shape do |row|
         shapes[row.id] = { shape_gid: row.id, shape_points: [] } unless shapes[row.id]
@@ -194,7 +194,7 @@ namespace :import do
   task stop_times: :environment do
     puts 'stop_times.txt'
     begin
-      @source = GTFS::Source.build ENV['GTFS_URL']
+      @source = GTFS::Source.build ENV.fetch('GTFS_URL', nil)
       StopTime.bulk_insert do |worker|
         @source.each_stop_time do |row|
           worker.add(StopTime.hash_from_gtfs(row))
@@ -209,7 +209,7 @@ namespace :import do
   task stops: :environment do
     puts 'stops.txt'
     begin
-      @source = GTFS::Source.build ENV['GTFS_URL']
+      @source = GTFS::Source.build ENV.fetch('GTFS_URL', nil)
       Stop.bulk_insert do |worker|
         @source.each_stop do |row|
           worker.add(Stop.hash_from_gtfs(row))
@@ -223,7 +223,7 @@ namespace :import do
   desc 'Set parent stop if null'
   task set_parent_stops: :environment do
     puts 'Setting parent stations ...'
-    Stop.where('parent_station_gid IS NOT NULL').each do |stop|
+    Stop.where.not(parent_station_gid: nil).each do |stop|
       stop.parent_station_id = Stop.find_by(stop_gid: stop.parent_station_gid).id
       stop.save!
     end
@@ -233,7 +233,7 @@ namespace :import do
   task transfers: :environment do
     puts 'transfers.txt'
     begin
-      @source = GTFS::Source.build ENV['GTFS_URL']
+      @source = GTFS::Source.build ENV.fetch('GTFS_URL', nil)
       Transfer.bulk_insert do |worker|
         @source.each_transfer do |row|
           worker.add(Transfer.hash_from_gtfs(row))
@@ -248,7 +248,7 @@ namespace :import do
   task trips: :environment do
     puts 'trips.txt'
     begin
-      @source = GTFS::Source.build ENV['GTFS_URL']
+      @source = GTFS::Source.build ENV.fetch('GTFS_URL', nil)
       Trip.bulk_insert do |worker|
         @source.each_trip do |row|
           worker.add(Trip.hash_from_gtfs(row))

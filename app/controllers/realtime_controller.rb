@@ -3,6 +3,8 @@
 require 'protobuf'
 require 'google/transit/gtfs-realtime.pb'
 
+##
+# Realtime Controller
 class RealtimeController < ApplicationController
   CACHE_TTL = 5
 
@@ -41,7 +43,7 @@ class RealtimeController < ApplicationController
     expires_in CACHE_TTL.seconds, public: true
     messages = Rails.cache.fetch('/realtime/alerts.json', expires_in: CACHE_TTL.seconds) do
       messages = []
-      data = Net::HTTP.get(URI.parse(ENV['GTFS_REALTIME_ALERTS_URL']))
+      data = Net::HTTP.get(URI.parse(ENV.fetch('GTFS_REALTIME_ALERTS_URL', nil)))
       feed = Transit_realtime::FeedMessage.decode(data)
       feed.entity.each do |entity|
         entity = entity.to_hash
@@ -60,7 +62,7 @@ class RealtimeController < ApplicationController
     expires_in CACHE_TTL.seconds, public: true
     positions = Rails.cache.fetch('/realtime/vehicle_positions.json', expires_in: CACHE_TTL.seconds) do
       positions = []
-      data = Net::HTTP.get(URI.parse(ENV['GTFS_REALTIME_VEHICLE_POSITIONS_URL']))
+      data = Net::HTTP.get(URI.parse(ENV.fetch('GTFS_REALTIME_VEHICLE_POSITIONS_URL', nil)))
       feed = Transit_realtime::FeedMessage.decode(data)
       feed.entity.each do |entity|
         entity = entity.to_hash
@@ -77,7 +79,7 @@ class RealtimeController < ApplicationController
     expires_in CACHE_TTL.seconds, public: true
     updates = Rails.cache.fetch('/realtime/trip_updates.json', expires_in: CACHE_TTL.seconds) do
       updates = []
-      data = Net::HTTP.get(URI.parse(ENV['GTFS_REALTIME_TRIP_UPDATES_URL']))
+      data = Net::HTTP.get(URI.parse(ENV.fetch('GTFS_REALTIME_TRIP_UPDATES_URL', nil)))
       feed = Transit_realtime::FeedMessage.decode(data)
       feed.entity.each do |entity|
         entity = entity.to_hash

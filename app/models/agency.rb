@@ -1,7 +1,9 @@
 # frozen_string_literal: true
 
+##
+# Agency Model
 class Agency < ApplicationRecord
-  has_many :routes
+  has_many :routes, dependent: :destroy
 
   def self.hash_from_gtfs(row)
     record = {}

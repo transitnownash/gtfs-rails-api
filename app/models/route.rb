@@ -1,14 +1,15 @@
 # frozen_string_literal: true
 
+##
+# Route Model
 class Route < ApplicationRecord
-  has_one :agency
-  has_many :trips
+  has_one :agency, dependent: :destroy
+  has_many :trips, dependent: :destroy
 
   default_scope { order(route_sort_order: 'asc', route_short_name: 'asc') }
 
   def self.hash_from_gtfs(row)
-    agency = Agency.find_by_agency_gid(row.agency_id)
-
+    agency = Agency.find_by(agency_gid: row.agency_id)
     record = {}
     record[:route_gid] = row.id
     record[:agency_gid] = row.agency_id

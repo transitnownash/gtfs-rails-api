@@ -4,7 +4,7 @@ require 'test_helper'
 
 class FrequenciesControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @frequency = frequencies(:Frequency_1)
+    @frequency = frequencies(:Frequency1)
   end
 
   test 'should get index' do

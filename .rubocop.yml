@@ -1,0 +1,7 @@
+AllCops:
+  NewCops: enable
+
+require:
+  - rubocop-rails
+
+inherit_from: .rubocop_todo.yml

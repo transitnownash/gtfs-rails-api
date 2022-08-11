@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+##
+# Create Feed Infos
 class CreateFeedInfos < ActiveRecord::Migration[7.0]
   def change
     create_table :feed_infos do |t|

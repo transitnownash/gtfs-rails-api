@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+##
+# Default Controller
 class DefaultController < ApplicationController
   before_action :set_endpoints, only: [:index]
 

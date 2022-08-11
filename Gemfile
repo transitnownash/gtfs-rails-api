@@ -44,8 +44,8 @@ group :development, :test do
 end
 
 group :development do
-  # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
-  # gem "spring"
+  gem 'rubocop', '~> 1.34'
+  gem 'rubocop-rails', '~> 2.15'
 end
 
 # 12-Factor App
@@ -61,7 +61,8 @@ gem 'gtfs-realtime-bindings'
 gem 'bulk_insert', '~> 1.9'
 
 # Paginate API results
-gem 'geokit-rails', '~> 2.3'
 gem 'will_paginate', '~> 3.3'
 
+# Search radius tooling
+gem 'geokit-rails', '~> 2.3'
 gem 'rexml', '~> 3.2'

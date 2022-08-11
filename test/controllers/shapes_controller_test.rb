@@ -4,7 +4,7 @@ require 'test_helper'
 
 class ShapesControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @shape = shapes(:Shape_1).shape_gid
+    @shape = shapes(:Shape1).shape_gid
   end
 
   test 'should get index' do

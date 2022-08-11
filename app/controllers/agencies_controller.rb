@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+##
+# Agencies Controller
 class AgenciesController < ApplicationController
   before_action :set_agency, only: [:show]
 
@@ -17,7 +19,7 @@ class AgenciesController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_agency
-    @agency = Agency.find_by_agency_gid(params[:agency_gid])
+    @agency = Agency.find_by(agency_gid: params[:agency_gid])
     raise ActionController::RoutingError, 'Not Found' if @agency.nil?
   end
 end

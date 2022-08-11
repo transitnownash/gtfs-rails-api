@@ -4,7 +4,7 @@ require 'test_helper'
 
 class TransfersControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @transfer = transfers(:Transfer_1)
+    @transfer = transfers(:Transfer1)
   end
 
   test 'should get index' do

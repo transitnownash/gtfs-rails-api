@@ -1,5 +1,5 @@
 ---
-StopTime_1:
+StopTime1:
   id: 179299
   trip_gid: STBA
   trip_id: 4956
@@ -15,7 +15,7 @@ StopTime_1:
   stop_gid: STAGECOACH
   stop_id: 5198
   stop_sequence: 1
-StopTime_2:
+StopTime2:
   id: 179300
   trip_gid: STBA
   trip_id: 4956
@@ -30,7 +30,7 @@ StopTime_2:
   stop_gid: BEATTY_AIRPORT
   stop_id: 5196
   stop_sequence: 2
-StopTime_3:
+StopTime3:
   id: 179301
   trip_gid: CITY1
   trip_id: 4957
@@ -45,7 +45,7 @@ StopTime_3:
   stop_gid: STAGECOACH
   stop_id: 5198
   stop_sequence: 1
-StopTime_4:
+StopTime4:
   id: 179302
   trip_gid: CITY1
   trip_id: 4957
@@ -60,7 +60,7 @@ StopTime_4:
   stop_gid: NANAA
   stop_id: 5200
   stop_sequence: 2
-StopTime_5:
+StopTime5:
   id: 179303
   trip_gid: CITY1
   trip_id: 4957
@@ -75,7 +75,7 @@ StopTime_5:
   stop_gid: NADAV
   stop_id: 5199
   stop_sequence: 3
-StopTime_6:
+StopTime6:
   id: 179304
   trip_gid: CITY1
   trip_id: 4957
@@ -90,7 +90,7 @@ StopTime_6:
   stop_gid: DADAN
   stop_id: 5201
   stop_sequence: 4
-StopTime_7:
+StopTime7:
   id: 179305
   trip_gid: CITY1
   trip_id: 4957
@@ -105,7 +105,7 @@ StopTime_7:
   stop_gid: EMSI
   stop_id: 5202
   stop_sequence: 5
-StopTime_8:
+StopTime8:
   id: 179306
   trip_gid: CITY2
   trip_id: 4958
@@ -120,7 +120,7 @@ StopTime_8:
   stop_gid: EMSI
   stop_id: 5202
   stop_sequence: 1
-StopTime_9:
+StopTime9:
   id: 179307
   trip_gid: CITY2
   trip_id: 4958
@@ -135,7 +135,7 @@ StopTime_9:
   stop_gid: DADAN
   stop_id: 5201
   stop_sequence: 2
-StopTime_10:
+StopTime10:
   id: 179308
   trip_gid: CITY2
   trip_id: 4958
@@ -150,7 +150,7 @@ StopTime_10:
   stop_gid: NADAV
   stop_id: 5199
   stop_sequence: 3
-StopTime_11:
+StopTime11:
   id: 179309
   trip_gid: CITY2
   trip_id: 4958
@@ -165,7 +165,7 @@ StopTime_11:
   stop_gid: NANAA
   stop_id: 5200
   stop_sequence: 4
-StopTime_12:
+StopTime12:
   id: 179310
   trip_gid: CITY2
   trip_id: 4958
@@ -180,7 +180,7 @@ StopTime_12:
   stop_gid: STAGECOACH
   stop_id: 5198
   stop_sequence: 5
-StopTime_13:
+StopTime13:
   id: 179311
   trip_gid: AB1
   trip_id: 4954
@@ -195,7 +195,7 @@ StopTime_13:
   stop_gid: BEATTY_AIRPORT
   stop_id: 5196
   stop_sequence: 1
-StopTime_14:
+StopTime14:
   id: 179312
   trip_gid: AB1
   trip_id: 4954
@@ -210,7 +210,7 @@ StopTime_14:
   stop_gid: BULLFROG
   stop_id: 5197
   stop_sequence: 2
-StopTime_15:
+StopTime15:
   id: 179313
   trip_gid: AB2
   trip_id: 4955
@@ -225,7 +225,7 @@ StopTime_15:
   stop_gid: BULLFROG
   stop_id: 5197
   stop_sequence: 1
-StopTime_16:
+StopTime16:
   id: 179314
   trip_gid: AB2
   trip_id: 4955
@@ -240,7 +240,7 @@ StopTime_16:
   stop_gid: BEATTY_AIRPORT
   stop_id: 5196
   stop_sequence: 2
-StopTime_17:
+StopTime17:
   id: 179315
   trip_gid: BFC1
   trip_id: 4959
@@ -255,7 +255,7 @@ StopTime_17:
   stop_gid: BULLFROG
   stop_id: 5197
   stop_sequence: 1
-StopTime_18:
+StopTime18:
   id: 179316
   trip_gid: BFC1
   trip_id: 4959
@@ -270,7 +270,7 @@ StopTime_18:
   stop_gid: FUR_CREEK_RES
   stop_id: 5195
   stop_sequence: 2
-StopTime_19:
+StopTime19:
   id: 179317
   trip_gid: BFC2
   trip_id: 4960
@@ -285,7 +285,7 @@ StopTime_19:
   stop_gid: FUR_CREEK_RES
   stop_id: 5195
   stop_sequence: 1
-StopTime_20:
+StopTime20:
   id: 179318
   trip_gid: BFC2
   trip_id: 4960
@@ -300,7 +300,7 @@ StopTime_20:
   stop_gid: BULLFROG
   stop_id: 5197
   stop_sequence: 2
-StopTime_21:
+StopTime21:
   id: 179319
   trip_gid: AAMV1
   trip_id: 4961
@@ -315,7 +315,7 @@ StopTime_21:
   stop_gid: BEATTY_AIRPORT
   stop_id: 5196
   stop_sequence: 1
-StopTime_22:
+StopTime22:
   id: 179320
   trip_gid: AAMV1
   trip_id: 4961
@@ -330,7 +330,7 @@ StopTime_22:
   stop_gid: AMV
   stop_id: 5203
   stop_sequence: 2
-StopTime_23:
+StopTime23:
   id: 179321
   trip_gid: AAMV2
   trip_id: 4962
@@ -345,7 +345,7 @@ StopTime_23:
   stop_gid: AMV
   stop_id: 5203
   stop_sequence: 1
-StopTime_24:
+StopTime24:
   id: 179322
   trip_gid: AAMV2
   trip_id: 4962
@@ -360,7 +360,7 @@ StopTime_24:
   stop_gid: BEATTY_AIRPORT
   stop_id: 5196
   stop_sequence: 2
-StopTime_25:
+StopTime25:
   id: 179323
   trip_gid: AAMV3
   trip_id: 4963
@@ -375,7 +375,7 @@ StopTime_25:
   stop_gid: BEATTY_AIRPORT
   stop_id: 5196
   stop_sequence: 1
-StopTime_26:
+StopTime26:
   id: 179324
   trip_gid: AAMV3
   trip_id: 4963
@@ -390,7 +390,7 @@ StopTime_26:
   stop_gid: AMV
   stop_id: 5203
   stop_sequence: 2
-StopTime_27:
+StopTime27:
   id: 179325
   trip_gid: AAMV4
   trip_id: 4964
@@ -405,7 +405,7 @@ StopTime_27:
   stop_gid: AMV
   stop_id: 5203
   stop_sequence: 1
-StopTime_28:
+StopTime28:
   id: 179326
   trip_gid: AAMV4
   trip_id: 4964

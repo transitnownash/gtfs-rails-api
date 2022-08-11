@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+##
+# Create Fare Attributes
 class CreateFareAttributes < ActiveRecord::Migration[7.0]
   def change
     create_table :fare_attributes do |t|

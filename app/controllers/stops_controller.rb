@@ -12,7 +12,10 @@ class StopsController < ApplicationController
   # GET /stops/near/36.165,-86.78406/100
   def nearby
     radius = params[:radius] || 100
-    render json: paginate_results(Stop.within(radius, origin: [params[:latitude], params[:longitude]]).by_distance(origin: [params[:latitude], params[:longitude]]))
+    render json: paginate_results(Stop.within(radius,
+                                              origin: [params[:latitude],
+                                                       params[:longitude]]).by_distance(origin: [params[:latitude],
+                                                                                                 params[:longitude]]))
   end
 
   # GET /stops/1
@@ -48,8 +51,8 @@ class StopsController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_stop
-    @stop = Stop.find_by_stop_gid(params[:stop_gid])
-    @stop = Stop.find_by_stop_code(params[:stop_gid]) if @stop.nil?
+    @stop = Stop.find_by(stop_gid: params[:stop_gid])
+    @stop = Stop.find_by(stop_code: params[:stop_gid]) if @stop.nil?
     raise ActionController::RoutingError, 'Not Found' if @stop.nil?
   end
 end

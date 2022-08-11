@@ -4,7 +4,7 @@ require 'test_helper'
 
 class StopTimesControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @stop_times = stop_times(:StopTime_1).stop_gid
+    @stop_times = stop_times(:StopTime1).stop_gid
   end
 
   test 'should get index' do

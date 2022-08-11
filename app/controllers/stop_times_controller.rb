@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+##
+# Stop Times Controller
 class StopTimesController < ApplicationController
   before_action :set_stop_time, only: [:show]
 

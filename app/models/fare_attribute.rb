@@ -1,8 +1,10 @@
 # frozen_string_literal: true
 
+##
+# Fare Attribute Model
 class FareAttribute < ApplicationRecord
-  has_one :agency
-  has_many :fare_rules
+  has_one :agency, dependent: :destroy
+  has_many :fare_rules, dependent: :destroy
 
   def self.hash_from_gtfs(row)
     record = {}

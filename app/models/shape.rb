@@ -1,7 +1,9 @@
 # frozen_string_literal: true
 
+##
+# Shape Model
 class Shape < ApplicationRecord
-  has_many :trips
+  has_many :trips, dependent: :destroy
 
   def as_json(_options = {})
     super(

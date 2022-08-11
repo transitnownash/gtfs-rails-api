@@ -1,5 +1,5 @@
 ---
-Frequency_1:
+Frequency1:
   id: 1
   trip_gid: STBA
   start_time: !ruby/object:ActiveSupport::TimeWithZone
@@ -12,7 +12,7 @@ Frequency_1:
     zone: *2
     time: *3
   headway_secs: 1800
-Frequency_2:
+Frequency2:
   id: 2
   trip_gid: CITY1
   start_time: !ruby/object:ActiveSupport::TimeWithZone
@@ -24,7 +24,7 @@ Frequency_2:
     zone: *2
     time: *5
   headway_secs: 1800
-Frequency_3:
+Frequency3:
   id: 3
   trip_gid: CITY2
   start_time: !ruby/object:ActiveSupport::TimeWithZone
@@ -36,7 +36,7 @@ Frequency_3:
     zone: *2
     time: *7
   headway_secs: 1800
-Frequency_4:
+Frequency4:
   id: 4
   trip_gid: CITY1
   start_time: !ruby/object:ActiveSupport::TimeWithZone
@@ -48,7 +48,7 @@ Frequency_4:
     zone: *2
     time: *9
   headway_secs: 600
-Frequency_5:
+Frequency5:
   id: 5
   trip_gid: CITY2
   start_time: !ruby/object:ActiveSupport::TimeWithZone
@@ -60,7 +60,7 @@ Frequency_5:
     zone: *2
     time: *11
   headway_secs: 600
-Frequency_6:
+Frequency6:
   id: 6
   trip_gid: CITY1
   start_time: !ruby/object:ActiveSupport::TimeWithZone
@@ -72,7 +72,7 @@ Frequency_6:
     zone: *2
     time: *13
   headway_secs: 1800
-Frequency_7:
+Frequency7:
   id: 7
   trip_gid: CITY2
   start_time: !ruby/object:ActiveSupport::TimeWithZone
@@ -84,7 +84,7 @@ Frequency_7:
     zone: *2
     time: *15
   headway_secs: 1800
-Frequency_8:
+Frequency8:
   id: 8
   trip_gid: CITY1
   start_time: !ruby/object:ActiveSupport::TimeWithZone
@@ -96,7 +96,7 @@ Frequency_8:
     zone: *2
     time: *17
   headway_secs: 600
-Frequency_9:
+Frequency9:
   id: 9
   trip_gid: CITY2
   start_time: !ruby/object:ActiveSupport::TimeWithZone
@@ -108,7 +108,7 @@ Frequency_9:
     zone: *2
     time: *19
   headway_secs: 600
-Frequency_10:
+Frequency10:
   id: 10
   trip_gid: CITY1
   start_time: !ruby/object:ActiveSupport::TimeWithZone
@@ -120,7 +120,7 @@ Frequency_10:
     zone: *2
     time: *21
   headway_secs: 1800
-Frequency_11:
+Frequency11:
   id: 11
   trip_gid: CITY2
   start_time: !ruby/object:ActiveSupport::TimeWithZone

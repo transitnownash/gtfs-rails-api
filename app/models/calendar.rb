@@ -1,8 +1,10 @@
 # frozen_string_literal: true
 
+##
+# Calendar Model
 class Calendar < ApplicationRecord
-  has_many :calendar_dates
-  has_many :trips
+  has_many :calendar_dates, dependent: :destroy
+  has_many :trips, dependent: :destroy
 
   def self.hash_from_gtfs(row)
     record = {}

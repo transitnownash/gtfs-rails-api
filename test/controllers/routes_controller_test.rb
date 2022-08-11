@@ -4,7 +4,7 @@ require 'test_helper'
 
 class RoutesControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @route = routes(:Route_1).route_gid
+    @route = routes(:Route1).route_gid
   end
 
   test 'should get index' do

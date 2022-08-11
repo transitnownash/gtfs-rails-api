@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+##
+# Routes Controller
 class RoutesController < ApplicationController
   before_action :set_route, only: %i[show show_trips show_shapes show_stops]
 

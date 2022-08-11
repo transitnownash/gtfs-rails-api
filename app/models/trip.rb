@@ -1,17 +1,19 @@
 # frozen_string_literal: true
 
+##
+# Trip Model
 class Trip < ApplicationRecord
   belongs_to :route
   belongs_to :calendar
-  has_many :stop_times
-  has_one :shape, foreign_key: :shape_gid, primary_key: :shape_gid
+  has_many :stop_times, dependent: :destroy
+  has_one :shape, foreign_key: :shape_gid, primary_key: :shape_gid, inverse_of: :trips, dependent: :destroy
 
   default_scope { order(start_time: :asc) }
 
   scope :active, lambda { |date = nil|
-    if date.nil? || date.empty?
+    if date.blank?
       dow = Time.current.strftime('%A').downcase
-      today = Date.today.strftime('%Y-%m-%d')
+      today = Time.zone.today.strftime('%Y-%m-%d')
     else
       dow = Date.parse(date).strftime('%A').downcase
       today = Date.parse(date).strftime('%Y-%m-%d')
@@ -40,9 +42,9 @@ class Trip < ApplicationRecord
   end
 
   def self.hash_from_gtfs(row)
-    route = Route.find_by_route_gid(row.route_id)
-    calendar = Calendar.find_by_service_gid(row.service_id)
-    shape = Shape.find_by_shape_gid(row.shape_id)
+    route = Route.find_by(route_gid: row.route_id)
+    calendar = Calendar.find_by(service_gid: row.service_id)
+    shape = Shape.find_by(shape_gid: row.shape_id)
 
     record = {}
     record[:route_gid] = row.route_id

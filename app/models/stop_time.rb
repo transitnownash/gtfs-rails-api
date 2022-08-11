@@ -1,8 +1,10 @@
 # frozen_string_literal: true
 
+##
+# Stop Time Model
 class StopTime < ApplicationRecord
-  belongs_to :trip
-  has_one :stop, foreign_key: :stop_gid, primary_key: :stop_gid
+  belongs_to :trip, dependent: :destroy
+  has_one :stop, foreign_key: :stop_gid, primary_key: :stop_gid, inverse_of: :stop_times, dependent: :destroy
 
   default_scope { order(arrival_time: :asc, stop_sequence: :asc) }
 
@@ -11,9 +13,8 @@ class StopTime < ApplicationRecord
   end
 
   def self.hash_from_gtfs(row)
-    trip = Trip.find_by_trip_gid(row.trip_id)
-    stop = Stop.find_by_stop_gid(row.stop_id)
-
+    trip = Trip.find_by(trip_gid: row.trip_id)
+    stop = Stop.find_by(stop_gid: row.stop_id)
     record = {}
     record[:trip_gid] = row.trip_id
     record[:trip_id] = trip.id unless trip.nil?

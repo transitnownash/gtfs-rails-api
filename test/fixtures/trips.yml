@@ -1,5 +1,5 @@
 ---
-Trip_1:
+Trip1:
   id: 4954
   route_gid: AB
   route_id: 113
@@ -11,7 +11,7 @@ Trip_1:
   block_gid: '1'
   shape_gid: 'A_shp'
   shape_id: 178229
-Trip_2:
+Trip2:
   id: 4955
   route_gid: AB
   route_id: 113
@@ -21,7 +21,7 @@ Trip_2:
   trip_headsign: to Airport
   direction_id: '1'
   block_gid: '2'
-Trip_3:
+Trip3:
   id: 4956
   route_gid: STBA
   route_id: 115
@@ -29,7 +29,7 @@ Trip_3:
   calendar_id: 25
   trip_gid: STBA
   trip_headsign: Shuttle
-Trip_4:
+Trip4:
   id: 4957
   route_gid: CITY
   route_id: 116
@@ -37,7 +37,7 @@ Trip_4:
   calendar_id: 25
   trip_gid: CITY1
   direction_id: '0'
-Trip_5:
+Trip5:
   id: 4958
   route_gid: CITY
   route_id: 116
@@ -45,7 +45,7 @@ Trip_5:
   calendar_id: 25
   trip_gid: CITY2
   direction_id: '1'
-Trip_6:
+Trip6:
   id: 4959
   route_gid: BFC
   route_id: 114
@@ -55,7 +55,7 @@ Trip_6:
   trip_headsign: to Furnace Creek Resort
   direction_id: '0'
   block_gid: '1'
-Trip_7:
+Trip7:
   id: 4960
   route_gid: BFC
   route_id: 114
@@ -65,7 +65,7 @@ Trip_7:
   trip_headsign: to Bullfrog
   direction_id: '1'
   block_gid: '2'
-Trip_8:
+Trip8:
   id: 4961
   route_gid: AAMV
   route_id: 117
@@ -74,7 +74,7 @@ Trip_8:
   trip_gid: AAMV1
   trip_headsign: to Amargosa Valley
   direction_id: '0'
-Trip_9:
+Trip9:
   id: 4962
   route_gid: AAMV
   route_id: 117
@@ -83,7 +83,7 @@ Trip_9:
   trip_gid: AAMV2
   trip_headsign: to Airport
   direction_id: '1'
-Trip_10:
+Trip10:
   id: 4963
   route_gid: AAMV
   route_id: 117
@@ -92,7 +92,7 @@ Trip_10:
   trip_gid: AAMV3
   trip_headsign: to Amargosa Valley
   direction_id: '0'
-Trip_11:
+Trip11:
   id: 4964
   route_gid: AAMV
   route_id: 117

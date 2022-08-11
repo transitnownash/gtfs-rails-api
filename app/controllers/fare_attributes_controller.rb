@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+##
+# Fare Attributes Controller
 class FareAttributesController < ApplicationController
   before_action :set_fare_attribute, only: [:show]
 

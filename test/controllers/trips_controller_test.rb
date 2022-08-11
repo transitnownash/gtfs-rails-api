@@ -4,8 +4,8 @@ require 'test_helper'
 
 class TripsControllerTest < ActionDispatch::IntegrationTest
   setup do
-    travel_to Time.new(2022, 8, 4, 12, 0, 0)
-    @trip = trips(:Trip_1).trip_gid
+    travel_to Time.zone.local(2022, 8, 4, 12, 0, 0)
+    @trip = trips(:Trip1).trip_gid
   end
 
   test 'should get index' do

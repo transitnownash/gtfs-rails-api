@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+##
+# Create Shapes
 class CreateShapes < ActiveRecord::Migration[7.0]
   def change
     create_table :shapes do |t|

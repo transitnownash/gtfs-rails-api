@@ -1,9 +1,10 @@
 # frozen_string_literal: true
 
+##
+# Frequency Model
 class Frequency < ApplicationRecord
   def self.hash_from_gtfs(row)
-    trip = Trip.find_by_trip_gid(row.trip_id)
-
+    trip = Trip.find_by(trip_gid: row.trip_id)
     record = {}
     record[:trip_gid] = row.trip_id
     record[:trip_id] = trip.id unless trip.nil?

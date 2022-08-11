@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+##
+# Transfers Controller
 class TransfersController < ApplicationController
   before_action :set_transfer, only: [:show]
 

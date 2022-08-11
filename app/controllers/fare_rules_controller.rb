@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+##
+# Fare Rules Controller
 class FareRulesController < ApplicationController
   before_action :set_fare_rule, only: [:show]
 

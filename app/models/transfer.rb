@@ -1,13 +1,14 @@
 # frozen_string_literal: true
 
+##
+# Transfer Model
 class Transfer < ApplicationRecord
-  has_one :from_stop, class_name: 'Stop'
-  has_one :to_stop, class_name: 'Stop'
+  has_one :from_stop, class_name: 'Stop', dependent: :destroy
+  has_one :to_stop, class_name: 'Stop', dependent: :destroy
 
   def self.hash_from_gtfs(row)
-    from_stop = Stop.find_by_stop_gid(row.from_stop_id)
-    to_stop = Stop.find_by_stop_gid(row.to_stop_id)
-
+    from_stop = Stop.find_by(stop_gid: row.from_stop_id)
+    to_stop = Stop.find_by(stop_gid: row.to_stop_id)
     record = {}
     record[:from_stop_gid] = row.from_stop_id
     record[:from_stop_id] = from_stop.id unless from_stop.nil?

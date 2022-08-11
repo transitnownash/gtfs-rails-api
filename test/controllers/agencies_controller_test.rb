@@ -4,7 +4,7 @@ require 'test_helper'
 
 class AgenciesControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @agency = agencies(:Agency_1).agency_gid
+    @agency = agencies(:Agency1).agency_gid
   end
 
   test 'should get index' do

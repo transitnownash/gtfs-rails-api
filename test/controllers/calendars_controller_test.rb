@@ -4,7 +4,7 @@ require 'test_helper'
 
 class CalendarsControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @calendar = calendars(:Calendar_1).service_gid
+    @calendar = calendars(:Calendar1).service_gid
   end
 
   test 'should get index' do

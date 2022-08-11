@@ -1,12 +1,13 @@
 # frozen_string_literal: true
 
+##
+# Fare Rule Model
 class FareRule < ApplicationRecord
-  has_one :fare_attribute
-  has_one :route
+  has_one :fare_attribute, dependent: :destroy
+  has_one :route, dependent: :destroy
 
   def self.hash_from_gtfs(row)
-    route = Route.find_by_route_gid(row.route_id)
-
+    route = Route.find_by(route_gid: row.route_id)
     record = {}
     record[:fare_gid] = row.fare_id
     record[:route_gid] = row.route_id

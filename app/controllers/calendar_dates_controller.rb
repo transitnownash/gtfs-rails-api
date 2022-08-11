@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+##
+# Calendar Dates Controller
 class CalendarDatesController < ApplicationController
   before_action :set_calendar_date, only: [:show]
 

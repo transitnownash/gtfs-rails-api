@@ -1,11 +1,11 @@
 ---
-FareAttribute_1:
+FareAttribute1:
   id: 1
   fare_gid: p
   price: !ruby/object:BigDecimal 45:0.125e1
   currency_type: USD
   payment_method: '0'
-FareAttribute_2:
+FareAttribute2:
   id: 2
   fare_gid: a
   price: !ruby/object:BigDecimal 45:0.525e1

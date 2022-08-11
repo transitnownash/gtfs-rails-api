@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+##
+# Create Frequencies
 class CreateFrequencies < ActiveRecord::Migration[7.0]
   def change
     create_table :frequencies do |t|

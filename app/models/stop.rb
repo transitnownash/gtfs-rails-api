@@ -1,8 +1,10 @@
 # frozen_string_literal: true
 
+##
+# Stop Model
 class Stop < ApplicationRecord
-  has_many :stop_times
-  has_many :child_stops, class_name: 'Stop', foreign_key: 'parent_station'
+  has_many :stop_times, dependent: :destroy
+  has_many :child_stops, class_name: 'Stop', foreign_key: 'parent_station', inverse_of: :parent_station, dependent: :destroy
   belongs_to :parent_station, class_name: 'Stop', optional: true
   acts_as_mappable lat_column_name: :stop_lat,
                    lng_column_name: :stop_lon,
