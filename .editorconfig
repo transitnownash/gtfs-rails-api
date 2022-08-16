@@ -28,3 +28,6 @@ indent_size = 2
 
 [reg*.[ch]]
 indent_size = 2
+
+[*.rake]
+indent_size = 2

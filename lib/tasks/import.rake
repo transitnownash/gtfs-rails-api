@@ -22,6 +22,7 @@ namespace :import do
     Rake::Task['import:feed_info'].invoke
     Rake::Task['import:set_parent_stops'].invoke
     Rake::Task['import:trips_start_end'].invoke
+    Rake::Task['import:apply_overrides'].invoke
   end
 
   desc 'Truncates existing tables'
@@ -269,6 +270,18 @@ namespace :import do
       trip.start_time = stop_times.first.departure_time
       trip.end_time = stop_times.last.arrival_time
       trip.save!
+    end
+  end
+
+  desc 'Apply data overrides'
+  task apply_overrides: :environment do
+    return unless File.exist? Rails.root.join('overrides.yml')
+
+    puts 'Applying data overrides ...'
+    overrides = YAML.safe_load File.read(Rails.root.join('overrides.yml'))
+    overrides.each do |override|
+      instance = override['class'].constantize
+      instance.where(override['where']).update_all(override['update'])
     end
   end
 end
