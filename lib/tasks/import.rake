@@ -5,6 +5,7 @@ namespace :import do
 
   desc 'Import all available data'
   task all: :environment do
+    Rake::Task['import:verify'].invoke
     Rake::Task['import:clean'].invoke
 
     Rake::Task['import:agency'].invoke
@@ -23,6 +24,19 @@ namespace :import do
     Rake::Task['import:set_parent_stops'].invoke
     Rake::Task['import:trips_start_end'].invoke
     Rake::Task['import:apply_overrides'].invoke
+  end
+
+  desc 'Verifies configured GTFS feed is valid'
+  task verify: :environment do |t|
+    puts "Running #{t}"
+    begin
+      @source = GTFS::Source.build ENV.fetch('GTFS_URL', nil)
+      puts "Finished #{t}"
+    rescue GTFS::InvalidSourceException => e
+      puts "[ERROR] #{e.message}"
+      puts "[ERROR] GTFS zip at #{ENV.fetch('GTFS_URL')} is invalid."
+      exit 1
+    end
   end
 
   desc 'Truncates existing tables'
