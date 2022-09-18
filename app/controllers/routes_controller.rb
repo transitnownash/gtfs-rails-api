@@ -7,7 +7,8 @@ class RoutesController < ApplicationController
 
   # GET /routes
   def index
-    render json: paginate_results(Route.all)
+    date = params[:date] unless params[:date].nil?
+    render json: paginate_results(Route.active(date))
   end
 
   # GET /routes/1

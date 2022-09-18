@@ -8,6 +8,21 @@ class Route < ApplicationRecord
 
   default_scope { order(route_sort_order: 'asc', route_short_name: 'asc') }
 
+  scope :active, lambda { |date = nil|
+    if date.blank?
+      today = Time.zone.today.strftime('%Y-%m-%d')
+    else
+      today = Date.parse(date).strftime('%Y-%m-%d')
+    end
+    distinct
+      .joins('LEFT JOIN trips t ON t.route_id = routes.id')
+      .where("
+        t.service_gid IN (
+          SELECT c.service_gid FROM calendars c WHERE '#{today}' BETWEEN c.start_date AND c.end_date
+        )
+      ")
+  }
+
   def self.hash_from_gtfs(row)
     agency = Agency.find_by(agency_gid: row.agency_id)
     record = {}
