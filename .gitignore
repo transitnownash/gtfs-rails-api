@@ -41,3 +41,6 @@ config/deploy.yml
 
 # rbenv/rvm
 .ruby-version
+
+# GTFS Overrides
+overrides.yml
