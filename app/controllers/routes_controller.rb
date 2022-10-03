@@ -24,13 +24,15 @@ class RoutesController < ApplicationController
 
   # GET /routes/1/shapes
   def show_shapes
-    render json: paginate_results(Shape.includes(:trips).where(trips: { route_gid: params[:route_gid] }))
+    date = params[:date] unless params[:date].nil?
+    render json: paginate_results(Shape.includes(:trips).where(trips: { route_gid: params[:route_gid], id: Trip.active(date) }))
   end
 
   # GET /routes/1/stops
   def show_stops
+    date = params[:date] unless params[:date].nil?
     render json: paginate_results(
-      Stop.joins(stop_times: [:trip]).where(trip: { route_gid: params[:route_gid] }).distinct
+      Stop.joins(stop_times: [:trip]).where(trip: { route_gid: params[:route_gid], id: Trip.active(date) }).distinct
     )
   end
 
