@@ -3,7 +3,7 @@ services:
   # service configuration for our database
   mysql:
     container_name: gtfs-rails-api-mysql
-    image: mysql:5.6
+    image: mysql:5.7
     ports:
       - "53306:3306"
     environment:
@@ -13,7 +13,7 @@ services:
   web:
     container_name: gtfs-rails-api-web
     build: .
-    env_file: .env
+    env_file: .env.docker
     volumes:
       - .:/app
     ports:
