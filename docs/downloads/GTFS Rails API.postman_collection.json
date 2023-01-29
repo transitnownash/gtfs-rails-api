@@ -1,0 +1,926 @@
+{
+	"info": {
+		"_postman_id": "d2b37136-74d3-47e1-afe3-eedab1efe0d9",
+		"name": "GTFS Rails API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23134559"
+	},
+	"item": [
+		{
+			"name": "GTFS",
+			"item": [
+				{
+					"name": "/agencies.json",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/agencies.json",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"agencies.json"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/agencies/:agency_gid.json",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/agencies/:agency_gid.json",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"agencies",
+								":agency_gid.json"
+							],
+							"variable": [
+								{
+									"key": "agency_gid",
+									"value": "WeGo Public Transit"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/calendar_dates.json",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/calendar_dates.json",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"calendar_dates.json"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/calendar_dates/:service_gid.json",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/calendar_dates/:service_gid.json",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"calendar_dates",
+								":service_gid.json"
+							],
+							"variable": [
+								{
+									"key": "service_gid",
+									"value": "301_merged_280974"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/calendars.json",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/calendars.json",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"calendars.json"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/calendars/:service_gid.json",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/calendars/:service_gid.json",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"calendars",
+								":service_gid.json"
+							],
+							"variable": [
+								{
+									"key": "service_gid",
+									"value": "301_merged_280974"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/calendars/:service_gid/trips.json",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/calendars/:service_gid/trips.json",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"calendars",
+								":service_gid",
+								"trips.json"
+							],
+							"variable": [
+								{
+									"key": "service_gid",
+									"value": "301_merged_280974"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/calendars/:service_gid/calendar_dates.json",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/calendars/:service_gid/calendar_dates.json",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"calendars",
+								":service_gid",
+								"calendar_dates.json"
+							],
+							"variable": [
+								{
+									"key": "service_gid",
+									"value": "301_merged_280974"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/fare_attributes.json",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/fare_attributes.json",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"fare_attributes.json"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/fare_attributes/:gid.json",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/fare_attributes/:fare_attribute_gid.json",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"fare_attributes",
+								":fare_attribute_gid.json"
+							],
+							"variable": [
+								{
+									"key": "fare_attribute_gid",
+									"value": null
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/fare_rules.json",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/fare_rules.json",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"fare_rules.json"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/fare_rules/:fare_rule_gid.json",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/fare_rules/:fare_rule_gid.json",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"fare_rules",
+								":fare_rule_gid.json"
+							],
+							"variable": [
+								{
+									"key": "fare_rule_gid",
+									"value": null
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/fare_rules/:fare_rules_gid.json",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/frequencies/:fare_rules_gid.json",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"frequencies",
+								":fare_rules_gid.json"
+							],
+							"variable": [
+								{
+									"key": "fare_rules_gid",
+									"value": null
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/frequencies.json",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/frequencies.json",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"frequencies.json"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/frequencies/:frequency_gid.json",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/frequencies/:frequency_gid.json",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"frequencies",
+								":frequency_gid.json"
+							],
+							"variable": [
+								{
+									"key": "frequency_gid",
+									"value": null
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/routes.json",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/routes.json?date=2023-01-12",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"routes.json"
+							],
+							"query": [
+								{
+									"key": "date",
+									"value": "2023-01-12"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/routes/:route_gid.json",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/routes/:route_gid.json",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"routes",
+								":route_gid.json"
+							],
+							"variable": [
+								{
+									"key": "route_gid",
+									"value": "4"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/routes/:route_gid/trips.json",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/routes/:route_gid/trips.json",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"routes",
+								":route_gid",
+								"trips.json"
+							],
+							"variable": [
+								{
+									"key": "route_gid",
+									"value": "4"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/routes/:route_gid/shapes.json",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/routes/:route_gid/shapes.json",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"routes",
+								":route_gid",
+								"shapes.json"
+							],
+							"variable": [
+								{
+									"key": "route_gid",
+									"value": "4"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/routes/:route_gid/stops.json",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/routes/:route_gid/stops.json",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"routes",
+								":route_gid",
+								"stops.json"
+							],
+							"variable": [
+								{
+									"key": "route_gid",
+									"value": "4"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/shapes.json",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/shapes.json",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"shapes.json"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/shapes/:shape_gid.json",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/shapes/:shape_gid.json",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"shapes",
+								":shape_gid.json"
+							],
+							"variable": [
+								{
+									"key": "shape_gid",
+									"value": "16979"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/stops.json",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/stops.json",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"stops.json"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/stops/:stop_gid.json",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/stops/:stop_gid.json",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"stops",
+								":stop_gid.json"
+							],
+							"variable": [
+								{
+									"key": "stop_gid",
+									"value": "10AHERNN"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/stops/:stop_gid/stop_times.json",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/stops/:stop_gid/stop_times.json",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"stops",
+								":stop_gid",
+								"stop_times.json"
+							],
+							"variable": [
+								{
+									"key": "stop_gid",
+									"value": "10AHERNN"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/stops/:stop_gid/trips.json",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/stops/:stop_gid/trips.json",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"stops",
+								":stop_gid",
+								"trips.json"
+							],
+							"variable": [
+								{
+									"key": "stop_gid",
+									"value": "10AHERNN"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/stops/:stop_gid/routes.json",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/stops/:stop_gid/routes.json",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"stops",
+								":stop_gid",
+								"routes.json"
+							],
+							"variable": [
+								{
+									"key": "stop_gid",
+									"value": "10AHERNN"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/stop_times.json",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/stop_times.json",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"stop_times.json"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/stop_times/:stop_gid.json",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/stop_times/:stop_gid.json",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"stop_times",
+								":stop_gid.json"
+							],
+							"variable": [
+								{
+									"key": "stop_gid",
+									"value": "10AHERNN"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/transfers.json",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/transfers.json",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"transfers.json"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/transfers/:id.json",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/transfers/:id.json",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"transfers",
+								":id.json"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/trips.json",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/trips.json",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"trips.json"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/trips/:trip_gid.json",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/trips/:trip_gid.json",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"trips",
+								":trip_gid.json"
+							],
+							"variable": [
+								{
+									"key": "trip_gid",
+									"value": "276828"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/trips/:trip_gid/stop_times.json",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/trips/:trip_gid/stop_times.json",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"trips",
+								":trip_gid",
+								"stop_times.json"
+							],
+							"variable": [
+								{
+									"key": "trip_gid",
+									"value": "276828"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/trips/:trip_gid/shape.json",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/trips/:trip_gid/shape.json",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"trips",
+								":trip_gid",
+								"shape.json"
+							],
+							"variable": [
+								{
+									"key": "trip_gid",
+									"value": "276828"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/trips/:trip_gid/block.json",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/trips/:trip_gid/block.json",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"trips",
+								":trip_gid",
+								"block.json"
+							],
+							"variable": [
+								{
+									"key": "trip_gid",
+									"value": "276828"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "GTFS Realtime",
+			"item": [
+				{
+					"name": "/realtime/alerts.json",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/realtime/alerts.json",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"realtime",
+								"alerts.json"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/realtime/vehicle_positions.json",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/realtime/vehicle_positions.json",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"realtime",
+								"vehicle_positions.json"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/realtime/trip_updates.json",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/realtime/trip_updates.json",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"realtime",
+								"trip_updates.json"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "/",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "https://gtfs.transitnownash.org",
+			"type": "string"
+		}
+	]
+}

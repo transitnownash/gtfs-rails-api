@@ -1,0 +1,31 @@
+<html>
+    <head>
+        <title>GTFS Rails API</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+    </head>
+    <body>
+        <div class="container my-5">
+            <figure class="float-end m-5">
+                <a href="https://transitnownash.org/"><img src="https://github.com/transitnownash.png" alt="Transit Now Nashville logo" class="img-fluid"/></a>
+            </figure>
+            <h1>GTFS Rails API</h1>
+            <p>This Ruby on Rails application provides a JSON API representation of the data contained in a given GTFS feed from a local transit provider.</p>
+            <h2>Installation</h2>
+            <ol>
+                <li>Copy <code>.env</code> <code>.env.{environment}.local</code>, e.g. <code>.env.development.local</code></li>
+                <li>Update copied file to include correct settings</li>
+                <li>Run <code>bundle install</code></li>
+                <li>Run <code>bin/rails db:create</code></li>
+                <li>Run <code>bin/rails db:migrate</code></li>
+                <li>Run <code>bin/rails import:all</code></li>
+            </ol>
+            <h2>Overrides</h2>
+            <p>There may be certain attributes that are incorrect or missing in the GTFS file. The <tt>import:all</tt> task can apply corrections after the import has completed. To use this feature, copy <tt>overrides.yml.dist</tt> to <tt>overrides.yml</tt> and use the example to apply the needed changes.</p>
+            <h2>API Spec</h2>
+            <p><a href="downloads/GTFS Rails API.postman_collection.json" download>Download our Postman Collection</a></p>
+            <h2>Source Code</h2>
+            <a href="https://github.com/transitnownash/gtfs-rails-api/releases">GitHub Releases</a>
+        </div>
+    </body>
+</html>
