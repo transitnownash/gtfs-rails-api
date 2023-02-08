@@ -2,4 +2,4 @@
   where:
     route_gid: "90"
   update:
-    route_type: "3"
+    route_type: "2"
