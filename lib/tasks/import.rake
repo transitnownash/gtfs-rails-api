@@ -289,10 +289,10 @@ namespace :import do
 
   desc 'Apply data overrides'
   task apply_overrides: :environment do
-    return unless File.exist? Rails.root.join('overrides.yml')
+    next unless Rails.root.join('overrides.yml').exist?
 
     puts 'Applying data overrides ...'
-    overrides = YAML.safe_load File.read(Rails.root.join('overrides.yml'))
+    overrides = YAML.safe_load Rails.root.join('overrides.yml').read
     overrides.each do |override|
       instance = override['class'].constantize
       instance.where(override['where']).update_all(override['update'])
