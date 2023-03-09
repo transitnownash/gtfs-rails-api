@@ -34,7 +34,21 @@ class RealtimeController < ApplicationController
     6 => 'Modified Service',
     7 => 'Other Effect',
     8 => 'Unknown Effect',
-    9 => 'Stop Moved'
+    9 => 'Stop Moved',
+    10 => 'No Effect',
+    11 => 'Accessibility Issue'
+  }.freeze
+
+  OCCUPANCY_STATUSES = {
+    0 => 'Empty',
+    1 => 'Many Seats Available',
+    2 => 'Few Seats Available',
+    3 => 'Standing Room Only',
+    4 => 'Crushed Standing Room Only',
+    5 => 'Full',
+    6 => 'Not Accepting Passengers',
+    7 => 'No Data Available',
+    8 => 'Not Boardable'
   }.freeze
 
   def alerts
@@ -66,6 +80,7 @@ class RealtimeController < ApplicationController
       feed = Transit_realtime::FeedMessage.decode(data)
       feed.entity.each do |entity|
         entity = entity.to_hash
+        entity[:vehicle][:occupancy_status] = OCCUPANCY_STATUSES[entity[:vehicle][:occupancy_status]] unless entity[:vehicle][:occupancy_status].nil?
         positions << entity
       end
       positions
