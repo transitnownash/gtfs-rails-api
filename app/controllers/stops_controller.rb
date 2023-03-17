@@ -33,7 +33,6 @@ class StopsController < ApplicationController
   # Get /stops/1/trips
   def show_trips
     stop_gids = [@stop.stop_gid]
-    stop_gids += @stop.child_stops.map(&:stop_gid)
     date = params[:date] unless params[:date].nil?
     render json: paginate_results(
       Trip.active(date).includes(:shape, :stop_times, { stop_times: :stop }).where(stop_times: { stop_gid: stop_gids })
