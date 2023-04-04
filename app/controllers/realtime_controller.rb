@@ -51,6 +51,13 @@ class RealtimeController < ApplicationController
     8 => 'Not Boardable'
   }.freeze
 
+  SCHEDULE_RELATIONSHIPS = {
+    0 => 'Scheduled',
+    1 => 'Skipped',
+    2 => 'No Data',
+    3 => 'Unscheduled'
+  }
+
   def alerts
     return render json: 'Missing GTFS_REALTIME_ALERTS_URL' if ENV['GTFS_REALTIME_ALERTS_URL'].nil?
 
@@ -98,6 +105,15 @@ class RealtimeController < ApplicationController
       feed = Transit_realtime::FeedMessage.decode(data)
       feed.entity.each do |entity|
         entity = entity.to_hash
+        unless entity[:trip_update][:trip][:schedule_relationship].nil?
+          entity[:trip_update][:trip][:schedule_relationship] = SCHEDULE_RELATIONSHIPS[entity[:trip_update][:trip][:schedule_relationship]]
+        end
+        unless entity[:trip_update][:stop_time_update].nil?
+          entity[:trip_update][:stop_time_update] = entity[:trip_update][:stop_time_update].map do |stop_time|
+            stop_time[:schedule_relationship] = SCHEDULE_RELATIONSHIPS[stop_time[:schedule_relationship]] unless stop_time[:schedule_relationship].nil?
+            stop_time
+          end
+        end
         updates << entity
       end
       updates
