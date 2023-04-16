@@ -66,3 +66,9 @@ gem 'will_paginate', '~> 3.3'
 # Search radius tooling
 gem 'geokit-rails', '~> 2.3'
 gem 'rexml', '~> 3.2'
+
+gem "opentelemetry-sdk", "~> 1.2"
+
+gem "opentelemetry-exporter-otlp", "~> 0.24.0"
+
+gem "opentelemetry-instrumentation-all", "~> 0.33.0"
