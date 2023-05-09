@@ -1,7 +1,0 @@
-production:
-  domain: "user@hostname"
-  deploy_to: "/path/to/gtfs-rails-app"
-  repository: "git@github.com:/transitnownash/gtfs-rails-app.git"
-  branch: "main"
-  post_deploy_script: "config/deploy/post_deploy.sh"
-
