@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_07_17_040631) do
+ActiveRecord::Schema[7.0].define(version: 2023_08_19_161345) do
   create_table "agencies", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
     t.string "agency_gid"
     t.string "agency_name", null: false
@@ -137,6 +137,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_17_040631) do
     t.string "timepoint"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["stop_gid"], name: "index_stop_times_on_stop_gid"
+    t.index ["stop_id"], name: "index_stop_times_on_stop_id"
     t.index ["trip_gid", "stop_sequence"], name: "index_stop_times_on_trip_gid_and_stop_sequence", unique: true
   end
 
@@ -189,6 +191,13 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_17_040631) do
     t.string "end_time"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["block_gid"], name: "index_trips_on_block_gid"
+    t.index ["calendar_id"], name: "index_stop_times_on_service_id"
+    t.index ["route_gid"], name: "index_stop_times_on_route_gid"
+    t.index ["route_id"], name: "index_stop_times_on_route_id"
+    t.index ["service_gid"], name: "index_stop_times_on_service_gid"
+    t.index ["shape_gid"], name: "index_trips_on_shape_gid"
+    t.index ["shape_id"], name: "index_trips_on_shape_id"
     t.index ["trip_gid"], name: "index_trips_on_trip_gid", unique: true
   end
 
