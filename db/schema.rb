@@ -11,7 +11,7 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema[7.0].define(version: 2023_08_19_161345) do
-  create_table "agencies", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
+  create_table "agencies", charset: "utf8mb4", force: :cascade do |t|
     t.string "agency_gid"
     t.string "agency_name", null: false
     t.string "agency_url", null: false
@@ -25,7 +25,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_19_161345) do
     t.index ["agency_gid"], name: "index_agencies_on_agency_gid", unique: true
   end
 
-  create_table "calendar_dates", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
+  create_table "calendar_dates", charset: "utf8mb4", force: :cascade do |t|
     t.string "service_gid", null: false
     t.integer "calendar_id", null: false
     t.date "date", null: false
@@ -35,7 +35,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_19_161345) do
     t.index ["service_gid", "date"], name: "index_calendar_dates_on_service_gid_and_date", unique: true
   end
 
-  create_table "calendars", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
+  create_table "calendars", charset: "utf8mb4", force: :cascade do |t|
     t.string "service_gid", null: false
     t.boolean "monday", null: false
     t.boolean "tuesday", null: false
@@ -51,7 +51,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_19_161345) do
     t.index ["service_gid"], name: "index_calendars_on_service_gid", unique: true
   end
 
-  create_table "fare_attributes", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
+  create_table "fare_attributes", charset: "utf8mb4", force: :cascade do |t|
     t.string "fare_gid", null: false
     t.decimal "price", precision: 10, null: false
     t.string "currency_type", null: false
@@ -63,7 +63,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_19_161345) do
     t.index ["fare_gid"], name: "index_fare_attributes_on_fare_gid", unique: true
   end
 
-  create_table "fare_rules", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
+  create_table "fare_rules", charset: "utf8mb4", force: :cascade do |t|
     t.string "fare_gid", null: false
     t.string "route_gid"
     t.integer "route_id"
@@ -74,7 +74,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_19_161345) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "feed_infos", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
+  create_table "feed_infos", charset: "utf8mb4", force: :cascade do |t|
     t.string "feed_publisher_name", null: false
     t.string "feed_publisher_url", null: false
     t.string "feed_lang", null: false
@@ -85,7 +85,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_19_161345) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "frequencies", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
+  create_table "frequencies", charset: "utf8mb4", force: :cascade do |t|
     t.string "trip_gid", null: false
     t.integer "trip_id"
     t.string "start_time", null: false
@@ -97,7 +97,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_19_161345) do
     t.index ["trip_gid", "start_time", "end_time"], name: "index_frequencies_on_trip_gid_and_start_time_and_end_time", unique: true
   end
 
-  create_table "routes", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
+  create_table "routes", charset: "utf8mb4", force: :cascade do |t|
     t.string "route_gid", null: false
     t.string "agency_gid"
     t.integer "agency_id"
@@ -114,7 +114,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_19_161345) do
     t.index ["route_gid"], name: "index_routes_on_route_gid", unique: true
   end
 
-  create_table "shapes", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
+  create_table "shapes", charset: "utf8mb4", force: :cascade do |t|
     t.string "shape_gid", null: false
     t.text "shape_points", size: :long, null: false
     t.datetime "created_at", null: false
@@ -122,7 +122,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_19_161345) do
     t.index ["shape_gid"], name: "index_shapes_on_shape_gid", unique: true
   end
 
-  create_table "stop_times", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
+  create_table "stop_times", charset: "utf8mb4", force: :cascade do |t|
     t.string "trip_gid", null: false
     t.integer "trip_id"
     t.string "arrival_time", null: false
@@ -142,7 +142,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_19_161345) do
     t.index ["trip_gid", "stop_sequence"], name: "index_stop_times_on_trip_gid_and_stop_sequence", unique: true
   end
 
-  create_table "stops", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
+  create_table "stops", charset: "utf8mb4", force: :cascade do |t|
     t.string "stop_gid", null: false
     t.string "stop_code"
     t.string "stop_name", null: false
@@ -161,7 +161,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_19_161345) do
     t.index ["stop_gid"], name: "index_stops_on_stop_gid", unique: true
   end
 
-  create_table "transfers", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
+  create_table "transfers", charset: "utf8mb4", force: :cascade do |t|
     t.string "from_stop_gid", null: false
     t.integer "from_stop_id"
     t.string "to_stop_gid", null: false
@@ -173,7 +173,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_19_161345) do
     t.index ["from_stop_gid", "to_stop_gid"], name: "index_transfers_on_from_stop_gid_and_to_stop_gid", unique: true
   end
 
-  create_table "trips", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
+  create_table "trips", charset: "utf8mb4", force: :cascade do |t|
     t.string "route_gid", null: false
     t.integer "route_id"
     t.string "service_gid", null: false
