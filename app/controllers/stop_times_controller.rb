@@ -12,7 +12,7 @@ class StopTimesController < ApplicationController
 
   # GET /stop_times/1
   def show
-    render json: @stop_times
+    render json: paginate_results(@stop_times)
   end
 
   private

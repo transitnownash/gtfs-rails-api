@@ -17,9 +17,7 @@ Rails.application.routes.draw do
 
   resources :fare_attributes, only: %i[index show]
   resources :fare_rules, only: %i[index show]
-
-  get '/feed_info', to: 'feed_infos#index', as: 'feed_info'
-
+  resources :feed_infos, only: %i[index show]
   resources :frequencies, only: %i[index show]
 
   get '/routes', to: 'routes#index', as: 'routes'

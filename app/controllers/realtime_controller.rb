@@ -59,7 +59,7 @@ class RealtimeController < ApplicationController
   }
 
   def alerts
-    return render json: 'Missing GTFS_REALTIME_ALERTS_URL' if ENV['GTFS_REALTIME_ALERTS_URL'].nil?
+    return render json: 'Missing GTFS_REALTIME_ALERTS_URL' unless ENV.fetch 'GTFS_REALTIME_ALERTS_URL'
 
     expires_in CACHE_TTL.seconds, public: true
     messages = Rails.cache.fetch('/realtime/alerts.json', expires_in: CACHE_TTL.seconds) do
@@ -78,7 +78,7 @@ class RealtimeController < ApplicationController
   end
 
   def vehicle_positions
-    return render json: 'Missing GTFS_REALTIME_VEHICLE_POSITIONS_URL' if ENV['GTFS_REALTIME_VEHICLE_POSITIONS_URL'].nil?
+    return render json: 'Missing GTFS_REALTIME_VEHICLE_POSITIONS_URL' unless ENV.fetch 'GTFS_REALTIME_VEHICLE_POSITIONS_URL'
 
     expires_in CACHE_TTL.seconds, public: true
     positions = Rails.cache.fetch('/realtime/vehicle_positions.json', expires_in: CACHE_TTL.seconds) do
@@ -96,7 +96,7 @@ class RealtimeController < ApplicationController
   end
 
   def trip_updates
-    return render json: 'Missing GTFS_REALTIME_TRIP_UPDATES_URL' if ENV['GTFS_REALTIME_TRIP_UPDATES_URL'].nil?
+    return render json: 'Missing GTFS_REALTIME_TRIP_UPDATES_URL' unless ENV.fetch 'GTFS_REALTIME_TRIP_UPDATES_URL'
 
     expires_in CACHE_TTL.seconds, public: true
     updates = Rails.cache.fetch('/realtime/trip_updates.json', expires_in: CACHE_TTL.seconds) do

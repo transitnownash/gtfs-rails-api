@@ -1,0 +1,34 @@
+{
+    "id": "39543",
+    "alert": {
+        "active_period": [
+            {
+                "start": 1684523040,
+                "end": 32503701600
+            }
+        ],
+        "informed_entity": [
+            {
+                "route_id": "94",
+                "stop_id": "BRO10AEN"
+            }
+        ],
+        "effect": "Detour",
+        "header_text": {
+            "translation": [
+                {
+                    "text": "No Service at 10th \u0026 Broadway stop",
+                    "language": "en"
+                }
+            ]
+        },
+        "description_text": {
+            "translation": [
+                {
+                    "text": "Stop on Broadway at 10th out of service due to construction",
+                    "language": "en"
+                }
+            ]
+        }
+    }
+}

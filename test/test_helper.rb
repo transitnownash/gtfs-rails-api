@@ -3,6 +3,11 @@
 ENV['RAILS_ENV'] ||= 'test'
 require_relative '../config/environment'
 require 'rails/test_help'
+require 'webmock/minitest'
+
+# Code Coverage
+require 'simplecov'
+SimpleCov.start
 
 module ActiveSupport
   class TestCase
