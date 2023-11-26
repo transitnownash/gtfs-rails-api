@@ -69,8 +69,7 @@ GEM
     addressable (2.8.5)
       public_suffix (>= 2.0.2, < 6.0)
     ast (2.4.2)
-    base64 (0.1.1)
-    bootsnap (1.16.0)
+    bootsnap (1.17.0)
       msgpack (~> 1.2)
     builder (3.2.4)
     bulk_insert (1.9.0)
@@ -79,7 +78,7 @@ GEM
     crack (0.4.5)
       rexml
     crass (1.0.6)
-    date (3.3.3)
+    date (3.3.4)
     debug (1.8.0)
       irb (>= 1.5.0)
       reline (>= 0.3.1)
@@ -105,12 +104,12 @@ GEM
     i18n (1.14.1)
       concurrent-ruby (~> 1.0)
     io-console (0.6.0)
-    irb (1.8.1)
+    irb (1.9.1)
       rdoc
       reline (>= 0.3.8)
     json (2.6.3)
     language_server-protocol (3.17.0.3)
-    loofah (2.21.3)
+    loofah (2.22.0)
       crass (~> 1.0.2)
       nokogiri (>= 1.12.0)
     mail (2.8.1)
@@ -122,30 +121,24 @@ GEM
     method_source (1.0.0)
     middleware (0.1.0)
     mini_mime (1.1.5)
-    mini_portile2 (2.8.4)
     minitest (5.20.0)
     msgpack (1.7.2)
     multi_json (1.15.0)
     mysql2 (0.5.5)
-    net-imap (0.3.7)
+    net-imap (0.4.6)
       date
       net-protocol
     net-pop (0.1.2)
       net-protocol
-    net-protocol (0.2.1)
+    net-protocol (0.2.2)
       timeout
     net-smtp (0.4.0)
       net-protocol
-    nio4r (2.5.9)
-    nokogiri (1.15.4)
-      mini_portile2 (~> 2.8.2)
-      racc (~> 1.4)
-    nokogiri (1.15.4-x86_64-darwin)
-      racc (~> 1.4)
-    nokogiri (1.15.4-x86_64-linux)
+    nio4r (2.6.1)
+    nokogiri (1.15.5-x86_64-darwin)
       racc (~> 1.4)
     parallel (1.23.0)
-    parser (3.2.2.3)
+    parser (3.2.2.4)
       ast (~> 2.4.1)
       racc
     protobuf (3.10.7)
@@ -153,12 +146,12 @@ GEM
       middleware
       thor
       thread_safe
-    psych (5.1.0)
+    psych (5.1.1.1)
       stringio
-    public_suffix (5.0.3)
+    public_suffix (5.0.4)
     puma (5.6.7)
       nio4r (~> 2.0)
-    racc (1.7.1)
+    racc (1.7.3)
     rack (2.2.8)
     rack-cors (2.0.1)
       rack (>= 2.0.0)
@@ -193,47 +186,47 @@ GEM
       thor (~> 1.0)
       zeitwerk (~> 2.5)
     rainbow (3.1.1)
-    rake (13.0.6)
-    rdoc (6.5.0)
+    rake (13.1.0)
+    rdoc (6.6.0)
       psych (>= 4.0.0)
-    regexp_parser (2.8.1)
-    reline (0.3.8)
+    regexp_parser (2.8.2)
+    reline (0.4.0)
       io-console (~> 0.5)
     rexml (3.2.6)
-    rubocop (1.56.4)
-      base64 (~> 0.1.1)
+    rubocop (1.57.2)
       json (~> 2.3)
       language_server-protocol (>= 3.17.0)
       parallel (~> 1.10)
-      parser (>= 3.2.2.3)
+      parser (>= 3.2.2.4)
       rainbow (>= 2.2.2, < 4.0)
       regexp_parser (>= 1.8, < 3.0)
       rexml (>= 3.2.5, < 4.0)
       rubocop-ast (>= 1.28.1, < 2.0)
       ruby-progressbar (~> 1.7)
       unicode-display_width (>= 2.4.0, < 3.0)
-    rubocop-ast (1.29.0)
+    rubocop-ast (1.30.0)
       parser (>= 3.2.1.0)
-    rubocop-rails (2.21.2)
+    rubocop-rails (2.22.2)
       activesupport (>= 4.2.0)
       rack (>= 1.1)
       rubocop (>= 1.33.0, < 2.0)
+      rubocop-ast (>= 1.30.0, < 2.0)
     ruby-progressbar (1.13.0)
     rubyzip (1.3.0)
-    simplecov (0.21.2)
+    simplecov (0.22.0)
       docile (~> 1.1)
       simplecov-html (~> 0.11)
       simplecov_json_formatter (~> 0.1)
     simplecov-html (0.12.3)
     simplecov_json_formatter (0.1.4)
-    stringio (3.0.8)
-    thor (1.2.2)
+    stringio (3.0.9)
+    thor (1.3.0)
     thread_safe (0.3.6)
-    timeout (0.4.0)
+    timeout (0.4.1)
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
     unicode-display_width (2.5.0)
-    webmock (3.14.0)
+    webmock (3.19.1)
       addressable (>= 2.8.0)
       crack (>= 0.3.2)
       hashdiff (>= 0.4.0, < 2.0.0)
@@ -244,9 +237,7 @@ GEM
     zeitwerk (2.6.12)
 
 PLATFORMS
-  ruby
   x86_64-darwin-21
-  x86_64-linux
 
 DEPENDENCIES
   bootsnap
@@ -269,7 +260,7 @@ DEPENDENCIES
   will_paginate (~> 3.3)
 
 RUBY VERSION
-   ruby 2.7.0p0
+   ruby 3.0.3p157
 
 BUNDLED WITH
    2.4.12
