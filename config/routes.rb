@@ -17,9 +17,7 @@ Rails.application.routes.draw do
 
   resources :fare_attributes, only: %i[index show]
   resources :fare_rules, only: %i[index show]
-
-  get '/feed_info', to: 'feed_infos#index', as: 'feed_info'
-
+  resources :feed_infos, only: %i[index show]
   resources :frequencies, only: %i[index show]
 
   get '/routes', to: 'routes#index', as: 'routes'
@@ -46,9 +44,7 @@ Rails.application.routes.draw do
   get '/stops/:stop_gid/trips', to: 'stops#show_trips', as: 'stop_trips'
   get '/stops/:stop_gid/routes', to: 'stops#show_routes', as: 'stop_routes'
 
-  get '/stop_times', to: 'stop_times#index', as: 'stop_times'
-  get '/stop_times/:stop_gid', to: 'stop_times#show', as: 'stop_time'
-
+  resources :stop_times, only: %i[index show]
   resources :transfers, only: %i[index show]
 
   get '/trips', to: 'trips#index', as: 'trips'

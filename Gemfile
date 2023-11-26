@@ -51,6 +51,9 @@ end
 # 12-Factor App
 gem 'dotenv-rails', groups: %i[development test]
 
+# Mock HTTP requests
+gem 'webmock', groups: %i[development test]
+
 # Parse schedule
 gem 'gtfs'
 

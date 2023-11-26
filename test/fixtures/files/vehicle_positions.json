@@ -1,0 +1,23 @@
+{
+    "id": "120",
+    "vehicle": {
+        "trip": {
+            "trip_id": "295084",
+            "start_date": "20231124",
+            "route_id": "55",
+            "direction_id": 16
+        },
+        "position": {
+            "latitude": 36.144588470458984,
+            "longitude": -86.74955749511719,
+            "bearing": 292.0,
+            "speed": 8.493760108947754
+        },
+        "timestamp": 1700875756,
+        "vehicle": {
+            "id": "2062",
+            "label": "120"
+        },
+        "occupancy_status": "Many Seats Available"
+    }
+}

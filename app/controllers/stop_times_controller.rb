@@ -12,14 +12,14 @@ class StopTimesController < ApplicationController
 
   # GET /stop_times/1
   def show
-    render json: @stop_times
+    render json: @stop_time
   end
 
   private
 
   # Use callbacks to share common setup or constraints between actions.
   def set_stop_time
-    @stop_times = StopTime.where(stop_gid: params[:stop_gid])
-    raise ActionController::RoutingError, 'Not Found' if @stop_times.empty?
+    @stop_time = StopTime.find(params[:id])
+    raise ActionController::RoutingError, 'Not Found' if @stop_time.nil?
   end
 end
