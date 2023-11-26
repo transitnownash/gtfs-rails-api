@@ -55,7 +55,7 @@ gem 'dotenv-rails', groups: %i[development test]
 gem 'webmock', groups: %i[development test]
 
 # Code Coverage
-gem 'simplecov', require: false, group: %i[development test]
+gem 'simplecov', require: false
 
 # Parse schedule
 gem 'gtfs'
