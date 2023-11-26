@@ -44,7 +44,7 @@ Rails.application.routes.draw do
   get '/stops/:stop_gid/trips', to: 'stops#show_trips', as: 'stop_trips'
   get '/stops/:stop_gid/routes', to: 'stops#show_routes', as: 'stop_routes'
 
-  resources :stop_times, only: %i[index]
+  resources :stop_times, only: %i[index show]
   resources :transfers, only: %i[index show]
 
   get '/trips', to: 'trips#index', as: 'trips'
