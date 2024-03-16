@@ -78,10 +78,14 @@ namespace :import do
     puts 'calendar_dates.txt'
     begin
       @source = GTFS::Source.build ENV.fetch('GTFS_URL', nil)
-      CalendarDate.bulk_insert do |worker|
-        @source.each_calendar_date do |row|
-          worker.add(CalendarDate.hash_from_gtfs(row))
+      @source.each_calendar_date do |row|
+        date = CalendarDate.new(CalendarDate.hash_from_gtfs(row))
+        if date.calendar_id.nil?
+          puts "[ERROR] Calendar ID is nil for #{date.service_id} / #{date.date}"
+          next
         end
+
+        date.save
       end
     rescue Errno::ENOENT
       puts '[warning] File does not exist.'
