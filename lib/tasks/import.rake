@@ -81,7 +81,7 @@ namespace :import do
       @source.each_calendar_date do |row|
         date = CalendarDate.new(CalendarDate.hash_from_gtfs(row))
         if date.calendar_id.nil?
-          puts "[ERROR] Calendar ID is nil for #{date.service_id} / #{date.date}"
+          puts "[ERROR] Calendar ID is nil for #{date.inspect}"
           next
         end
 
@@ -287,7 +287,7 @@ namespace :import do
 
       trip.start_time = stop_times.first.departure_time
       trip.end_time = stop_times.last.arrival_time
-      trip.save!
+      trip.save! if trip.valid?
     end
   end
 
