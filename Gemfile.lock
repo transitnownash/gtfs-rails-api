@@ -149,7 +149,7 @@ GEM
       middleware
       thor
       thread_safe
-    psych (5.1.1.1)
+    psych (5.1.2)
       stringio
     public_suffix (5.0.4)
     puma (5.6.8)
@@ -190,7 +190,7 @@ GEM
       zeitwerk (~> 2.5)
     rainbow (3.1.1)
     rake (13.1.0)
-    rdoc (6.6.1)
+    rdoc (6.6.3.1)
       psych (>= 4.0.0)
     regexp_parser (2.8.3)
     reline (0.4.1)
