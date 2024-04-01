@@ -1,0 +1,26 @@
+---
+RetailLocation1:
+  location_code: 170
+  name: CVS Pharmacy
+  address: 4201 Clarksville Highway
+  city: Nashville
+  state: TN
+  zip: "37218"
+  is_active: 1
+  can_buy_media: 1
+  can_reload_media: 1
+  latitude: 36.216513
+  longitude: -86.837775
+
+RetailLocation2:
+  location_code: 858
+  name: Dollar General
+  address: 4201 CLARKSVILLE PIKE
+  city: Nashville
+  state: TN
+  zip: "37218"
+  is_active: 1
+  can_buy_media: 0
+  can_reload_media: 1
+  latitude: 36.21901
+  longitude: -86.837471
