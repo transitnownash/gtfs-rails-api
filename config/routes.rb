@@ -56,4 +56,7 @@ Rails.application.routes.draw do
   get '/realtime/alerts', to: 'realtime#alerts', as: 'realtime_alerts'
   get '/realtime/vehicle_positions', to: 'realtime#vehicle_positions', as: 'realtime_vehicle_positions'
   get '/realtime/trip_updates', to: 'realtime#trip_updates', as: 'realtime_trip_updates'
+
+  get '/retail_locations', to: 'retail_locations#index', as: 'retail_locations'
+  get '/retail_locations/:location_code', to: 'retail_locations#show', as: 'retail_location'
 end
