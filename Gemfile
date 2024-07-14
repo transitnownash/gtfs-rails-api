@@ -61,6 +61,7 @@ gem 'gtfs'
 gem 'gtfs-realtime-bindings'
 
 # Handle bulk inserts
+gem 'activerecord-import'
 gem 'bulk_insert', '~> 1.9'
 
 # Paginate API results

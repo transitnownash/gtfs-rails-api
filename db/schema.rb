@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_04_01_195630) do
+ActiveRecord::Schema[7.0].define(version: 2024_07_14_184344) do
   create_table "agencies", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
     t.string "agency_gid"
     t.string "agency_name", null: false
@@ -156,6 +156,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_04_01_195630) do
     t.index ["stop_gid"], name: "index_stop_times_on_stop_gid"
     t.index ["stop_id"], name: "index_stop_times_on_stop_id"
     t.index ["trip_gid", "stop_sequence"], name: "index_stop_times_on_trip_gid_and_stop_sequence", unique: true
+    t.index ["trip_gid"], name: "index_stop_times_on_trip_gid"
+    t.index ["trip_id"], name: "index_stop_times_on_trip_id"
   end
 
   create_table "stops", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|

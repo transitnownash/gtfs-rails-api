@@ -54,6 +54,8 @@ GEM
     activerecord (7.0.8.4)
       activemodel (= 7.0.8.4)
       activesupport (= 7.0.8.4)
+    activerecord-import (1.7.0)
+      activerecord (>= 4.2)
     activestorage (7.0.8.4)
       actionpack (= 7.0.8.4)
       activejob (= 7.0.8.4)
@@ -241,6 +243,7 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
+  activerecord-import
   bootsnap
   bulk_insert (~> 1.9)
   debug
@@ -263,4 +266,4 @@ RUBY VERSION
    ruby 3.0.3p157
 
 BUNDLED WITH
-   2.4.22
+   2.4.12

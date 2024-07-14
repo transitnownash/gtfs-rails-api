@@ -4,9 +4,9 @@ namespace :import do
   task default: 'import:all'
 
   desc 'Import all available data'
-  task all: :environment do
+  task all: :environment do |_t|
     Rake::Task['import:verify'].invoke
-    Rake::Task['import:clean'].invoke
+    Rake::Task['clean:all'].invoke
 
     Rake::Task['import:agency'].invoke
     Rake::Task['import:stops'].invoke
@@ -39,43 +39,24 @@ namespace :import do
     end
   end
 
-  desc 'Truncates existing tables'
-  task clean: :environment do |t|
-    puts "Running #{t}"
-    Agency.delete_all
-    CalendarDate.delete_all
-    Calendar.delete_all
-    FareAttribute.delete_all
-    FareRule.delete_all
-    FeedInfo.delete_all
-    Frequency.delete_all
-    Route.delete_all
-    Shape.delete_all
-    StopTime.delete_all
-    Stop.delete_all
-    Transfer.delete_all
-    Trip.delete_all
-    puts "Finished #{t}"
-  end
-
   desc 'Imports agency.txt'
-  task agency: :environment do
-    puts 'agency.txt'
+  task agency: :environment do |t|
+    puts "Running #{t}"
     begin
       @source = GTFS::Source.build ENV.fetch('GTFS_URL', nil)
-      Agency.bulk_insert do |worker|
+      Agency.bulk_insert(update_duplicates: true) do |worker|
         @source.each_agency do |row|
           worker.add(Agency.hash_from_gtfs(row))
         end
       end
     rescue Errno::ENOENT
-      puts '[warning] File does not exist.'
+      puts '[warning] agency.txt does not exist.'
     end
   end
 
   desc 'Imports calendar_dates.txt'
-  task calendar_dates: :environment do
-    puts 'calendar_dates.txt'
+  task calendar_dates: :environment do |t|
+    puts "Running #{t}"
     begin
       @source = GTFS::Source.build ENV.fetch('GTFS_URL', nil)
       @source.each_calendar_date do |row|
@@ -88,103 +69,103 @@ namespace :import do
         date.save
       end
     rescue Errno::ENOENT
-      puts '[warning] File does not exist.'
+      puts '[warning] calendar_dates.txt does not exist.'
     end
   end
 
   desc 'Imports calendar.txt'
-  task calendar: :environment do
-    puts 'calendar.txt'
+  task calendar: :environment do |t|
+    puts "Running #{t}"
     begin
       @source = GTFS::Source.build ENV.fetch('GTFS_URL', nil)
-      Calendar.bulk_insert do |worker|
+      Calendar.bulk_insert(update_duplicates: true) do |worker|
         @source.each_calendar do |row|
           worker.add(Calendar.hash_from_gtfs(row))
         end
       end
     rescue Errno::ENOENT
-      puts '[warning] File does not exist.'
+      puts '[warning] calendar.txt does not exist.'
     end
   end
 
   desc 'Imports fare_attributes.txt'
-  task fare_attributes: :environment do
-    puts 'fare_attributes.txt'
+  task fare_attributes: :environment do |t|
+    puts "Running #{t}"
     begin
       @source = GTFS::Source.build ENV.fetch('GTFS_URL', nil)
-      FareAttribute.bulk_insert do |worker|
+      FareAttribute.bulk_insert(update_duplicates: true) do |worker|
         @source.each_fare_attribute do |row|
           worker.add(FareAttribute.hash_from_gtfs(row))
         end
       end
     rescue Errno::ENOENT
-      puts '[warning] File does not exist.'
+      puts '[warning] fare_attributes.txt does not exist.'
     end
   end
 
-  desc 'Imports data from configured feed'
-  task fare_rules: :environment do
-    puts 'fare_rules.txt'
+  desc 'Imports fare_rules.txt'
+  task fare_rules: :environment do |t|
+    puts "Running #{t}"
     begin
       @source = GTFS::Source.build ENV.fetch('GTFS_URL', nil)
-      FareRule.bulk_insert do |worker|
+      FareRule.bulk_insert(update_duplicates: true) do |worker|
         @source.each_fare_rule do |row|
           worker.add(FareRule.hash_from_gtfs(row))
         end
       end
     rescue Errno::ENOENT
-      puts '[warning] File does not exist.'
+      puts '[warning] fare_rules.txt does not exist.'
     end
   end
 
   desc 'Imports feed_info.txt'
-  task feed_info: :environment do
-    puts 'feed_info.txt'
+  task feed_info: :environment do |t|
+    puts "Running #{t}"
     begin
       @source = GTFS::Source.build ENV.fetch('GTFS_URL', nil)
-      FeedInfo.bulk_insert do |worker|
+      FeedInfo.bulk_insert(update_duplicates: true) do |worker|
         @source.each_feed_info do |row|
           worker.add(FeedInfo.hash_from_gtfs(row))
         end
       end
     rescue Errno::ENOENT
-      puts '[warning] File does not exist.'
+      puts '[warning] feed_info.txt does not exist.'
     end
   end
 
   desc 'Imports frequencies.txt'
-  task frequencies: :environment do
-    puts 'frequencies.txt'
+  task frequencies: :environment do |t|
+    puts "Running #{t}"
     begin
       @source = GTFS::Source.build ENV.fetch('GTFS_URL', nil)
-      Frequency.bulk_insert do |worker|
+      Frequency.bulk_insert(update_duplicates: true) do |worker|
         @source.each_frequency do |row|
           worker.add(Frequency.hash_from_gtfs(row))
         end
       end
     rescue Errno::ENOENT
-      puts '[warning] File does not exist.'
+      puts '[warning] frequencies.txt does not exist.'
     end
   end
 
   desc 'Imports routes.txt'
-  task routes: :environment do
-    puts 'routes.txt'
+  task routes: :environment do |t|
+    puts "Running #{t}"
     begin
       @source = GTFS::Source.build ENV.fetch('GTFS_URL', nil)
-      Route.bulk_insert do |worker|
+      Route.bulk_insert(update_duplicates: true) do |worker|
         @source.each_route do |row|
           worker.add(Route.hash_from_gtfs(row))
         end
       end
     rescue Errno::ENOENT
-      puts '[warning] File does not exist.'
+      puts '[warning] routes.txt does not exist.'
     end
   end
 
   desc 'Imports shapes.txt'
-  task shapes: :environment do
-    puts 'shapes.txt'
+  task shapes: :environment do |t|
+    puts "Running #{t}"
     begin
       @source = GTFS::Source.build ENV.fetch('GTFS_URL', nil)
       shapes = {}
@@ -205,43 +186,43 @@ namespace :import do
         end
       end
     rescue Errno::ENOENT
-      puts '[warning] File does not exist.'
+      puts '[warning] shapes.txt does not exist.'
     end
   end
 
   desc 'Imports stop_times.txt'
-  task stop_times: :environment do
-    puts 'stop_times.txt'
+  task stop_times: :environment do |t|
+    puts "Running #{t}"
     begin
       @source = GTFS::Source.build ENV.fetch('GTFS_URL', nil)
-      StopTime.bulk_insert do |worker|
+      StopTime.bulk_insert(update_duplicates: true) do |worker|
         @source.each_stop_time do |row|
           worker.add(StopTime.hash_from_gtfs(row))
         end
       end
     rescue Errno::ENOENT
-      puts '[warning] File does not exist.'
+      puts '[warning] stop_times.txt does not exist.'
     end
   end
 
   desc 'Imports stops.txt'
-  task stops: :environment do
-    puts 'stops.txt'
+  task stops: :environment do |t|
+    puts "Running #{t}"
     begin
       @source = GTFS::Source.build ENV.fetch('GTFS_URL', nil)
-      Stop.bulk_insert do |worker|
+      Stop.bulk_insert(update_duplicates: true) do |worker|
         @source.each_stop do |row|
           worker.add(Stop.hash_from_gtfs(row))
         end
       end
     rescue Errno::ENOENT
-      puts '[warning] File does not exist.'
+      puts '[warning] stops.txt does not exist.'
     end
   end
 
   desc 'Set parent stop if null'
-  task set_parent_stops: :environment do
-    puts 'Setting parent stations ...'
+  task set_parent_stops: :environment do |t|
+    puts "Running #{t}"
     Stop.where.not(parent_station_gid: nil).each do |stop|
       stop.parent_station_id = Stop.find_by(stop_gid: stop.parent_station_gid).id
       stop.save!
@@ -249,53 +230,64 @@ namespace :import do
   end
 
   desc 'Imports transfers.txt'
-  task transfers: :environment do
-    puts 'transfers.txt'
+  task transfers: :environment do |t|
+    puts "Running #{t}"
     begin
       @source = GTFS::Source.build ENV.fetch('GTFS_URL', nil)
-      Transfer.bulk_insert do |worker|
+      Transfer.bulk_insert(update_duplicates: true) do |worker|
         @source.each_transfer do |row|
           worker.add(Transfer.hash_from_gtfs(row))
         end
       end
     rescue Errno::ENOENT
-      puts '[warning] File does not exist.'
+      puts '[warning] transfers.txt does not exist.'
     end
   end
 
   desc 'Import trips.txt'
-  task trips: :environment do
-    puts 'trips.txt'
+  task trips: :environment do |t|
+    puts "Running #{t}"
     begin
       @source = GTFS::Source.build ENV.fetch('GTFS_URL', nil)
-      Trip.bulk_insert do |worker|
+      Trip.bulk_insert(update_duplicates: true) do |worker|
         @source.each_trip do |row|
           worker.add(Trip.hash_from_gtfs(row))
         end
       end
     rescue Errno::ENOENT
-      puts '[warning] File does not exist.'
+      puts '[warning] trips.txt does not exist.'
     end
   end
 
   desc 'Calculate start / end times for trips'
-  task trips_start_end: :environment do
-    puts 'Adding start/end times to trips ...'
-    Trip.all.each do |trip|
+  task trips_start_end: :environment do |t|
+    puts "Running #{t}"
+
+    trips_to_update = []
+
+    Trip.includes(:stop_times).find_each(batch_size: 1000) do |trip|
       stop_times = trip.stop_times
-      next unless trip.stop_times.count.positive?
+      next unless stop_times.count.positive?
 
       trip.start_time = stop_times.first.departure_time
       trip.end_time = stop_times.last.arrival_time
-      trip.save! if trip.valid?
+
+      trips_to_update << trip if trip.valid?
+    end
+
+    # Bulk update all trips that need updating
+    unless trips_to_update.empty?
+      Trip.transaction do
+        Trip.import(trips_to_update, on_duplicate_key_update: %i[start_time end_time])
+      end
     end
   end
 
   desc 'Apply data overrides'
-  task apply_overrides: :environment do
+  task apply_overrides: :environment do |t|
     next unless Rails.root.join('overrides.yml').exist?
 
-    puts 'Applying data overrides ...'
+    puts "Running #{t}"
     overrides = YAML.safe_load Rails.root.join('overrides.yml').read
     overrides.each do |override|
       instance = override['class'].constantize
