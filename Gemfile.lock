@@ -238,6 +238,7 @@ GEM
 PLATFORMS
   arm64-darwin-22
   arm64-darwin-23
+  arm64-darwin-24
   x86_64-darwin-21
   x86_64-linux
 
@@ -262,7 +263,7 @@ DEPENDENCIES
   will_paginate (~> 3.3)
 
 RUBY VERSION
-   ruby 3.0.3p157
+   ruby 3.3.5p100
 
 BUNDLED WITH
    2.4.12
