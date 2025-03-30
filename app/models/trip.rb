@@ -34,11 +34,11 @@ class Trip < ApplicationRecord
   }
 
   def block
-    Trip.where(block_gid: block_gid).includes(:shape, :stop_times, { stop_times: :stop })
+    Trip.active.where(block_gid:).includes(:shape, :stop_times, { stop_times: :stop })
   end
 
   def as_json(_options = {})
-    super include: [shape: { only: %i[id shape_gid points], methods: :points }, stop_times: { methods: :stop }]
+    super(include: [shape: { only: %i[id shape_gid points], methods: :points }, stop_times: { methods: :stop }])
   end
 
   def self.hash_from_gtfs(row)

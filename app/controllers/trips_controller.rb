@@ -35,7 +35,7 @@ class TripsController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_trip
-    @trip = Trip.includes(:shape, :stop_times, { stop_times: :stop }).find_by(trip_gid: params[:trip_gid])
+    @trip = Trip.active.includes(:shape, :stop_times, { stop_times: :stop }).find_by(trip_gid: params[:trip_gid])
     raise ActionController::RoutingError, 'Not Found' if @trip.nil?
   end
 end
