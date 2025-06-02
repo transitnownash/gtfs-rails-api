@@ -118,6 +118,6 @@ class RealtimeController < ApplicationController
       end
       updates
     end
-    render json: updates
+    render json: updates.as_json
   end
 end

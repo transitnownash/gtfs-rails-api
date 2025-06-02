@@ -71,7 +71,7 @@ Rails.application.configure do
   config.active_support.report_deprecations = false
 
   # Use default logging formatter so that PID and timestamp are not suppressed.
-  config.log_formatter = ::Logger::Formatter.new
+  config.log_formatter = Logger::Formatter.new
 
   # Use a different logger for distributed setups.
   # require "syslog/logger"
@@ -85,4 +85,14 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+
+  # Optionally enable rack-mini-profiler in production for profiling (set via ENV)
+  Rack::MiniProfilerRails.initialize!(Rails.application) if ENV['RACK_MINI_PROFILER'] == 'true' && defined?(Rack::MiniProfiler)
+
+  # Use Oj for JSON serialization
+  Oj.optimize_rails
+
+  # For large datasets, prefer using fast_jsonapi for serialization in controllers/models.
+
+  # Use Rails.cache in controllers for caching frequent API responses where appropriate.
 end
