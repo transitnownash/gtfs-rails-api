@@ -132,7 +132,7 @@ GEM
     msgpack (1.7.2)
     multi_json (1.15.0)
     mysql2 (0.5.5)
-    net-imap (0.4.19)
+    net-imap (0.4.20)
       date
       net-protocol
     net-pop (0.1.2)
@@ -142,11 +142,11 @@ GEM
     net-smtp (0.4.0.1)
       net-protocol
     nio4r (2.7.3)
-    nokogiri (1.18.4-arm64-darwin)
+    nokogiri (1.18.8-arm64-darwin)
       racc (~> 1.4)
-    nokogiri (1.18.4-x86_64-darwin)
+    nokogiri (1.18.8-x86_64-darwin)
       racc (~> 1.4)
-    nokogiri (1.18.4-x86_64-linux-gnu)
+    nokogiri (1.18.8-x86_64-linux-gnu)
       racc (~> 1.4)
     oj (3.16.11)
       bigdecimal (>= 3.0)
