@@ -41,11 +41,15 @@ class StopsController < ApplicationController
   # Get /stops/1/trips
   def show_trips
     stop_gids = [@stop.stop_gid]
+    stop_gids += @stop.child_stops.map(&:stop_gid)
     date = params[:date] unless params[:date].nil?
     cache_key = "stops/#{@stop.stop_gid}/trips/#{date || 'all'}-page#{params[:page] || 1}-per#{params[:per_page] || 100}"
     result = Rails.cache.fetch(cache_key, expires_in: 5.minutes) do
       paginate_results(
-        Trip.active(date).includes(:shape, :stop_times, { stop_times: :stop }).where(stop_times: { stop_gid: stop_gids })
+        Trip.active(date)
+            .includes(:shape, :stop_times, { stop_times: :stop })
+            .where(stop_times: { stop_gid: stop_gids })
+            .distinct
       )
     end
     render json: result
