@@ -44,6 +44,8 @@ group :development, :test do
 end
 
 group :development do
+  gem 'bullet', '~> 8.0'
+  gem 'rack-mini-profiler', '~> 3.3'
   gem 'rubocop', '~> 1.34'
   gem 'rubocop-rails', '~> 2.15'
 end
@@ -70,3 +72,7 @@ gem 'will_paginate', '~> 3.3'
 # Search radius tooling
 gem 'geokit-rails', '~> 2.3'
 gem 'rexml', '~> 3.4'
+
+gem 'oj', '~> 3.16'
+
+gem 'fast_jsonapi', '~> 1.5'
