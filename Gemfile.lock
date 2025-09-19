@@ -91,6 +91,9 @@ GEM
     builder (3.3.0)
     bulk_insert (1.9.0)
       activerecord (>= 3.2.0)
+    bullet (8.0.8)
+      activesupport (>= 3.0.0)
+      uniform_notifier (~> 1.11)
     concurrent-ruby (1.3.5)
     connection_pool (2.5.4)
     crack (0.4.5)
@@ -107,6 +110,8 @@ GEM
       railties (>= 3.2)
     drb (2.2.3)
     erubi (1.13.1)
+    fast_jsonapi (1.5)
+      activesupport (>= 4.2)
     geokit (1.14.0)
     geokit-rails (2.5.0)
       geokit (~> 1.5)
@@ -161,6 +166,10 @@ GEM
       racc (~> 1.4)
     nokogiri (1.18.10-x86_64-linux-gnu)
       racc (~> 1.4)
+    oj (3.16.11)
+      bigdecimal (>= 3.0)
+      ostruct (>= 0.2)
+    ostruct (0.6.3)
     parallel (1.23.0)
     parser (3.2.2.4)
       ast (~> 2.4.1)
@@ -179,6 +188,8 @@ GEM
     rack (3.2.1)
     rack-cors (2.0.2)
       rack (>= 2.0.0)
+    rack-mini-profiler (3.3.1)
+      rack (>= 1.2.0)
     rack-session (2.1.1)
       base64 (>= 0.1.0)
       rack (>= 3.0.0)
@@ -251,6 +262,7 @@ GEM
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
     unicode-display_width (2.5.0)
+    uniform_notifier (1.18.0)
     webmock (3.19.1)
       addressable (>= 2.8.0)
       crack (>= 0.3.2)
@@ -273,15 +285,19 @@ DEPENDENCIES
   activerecord-import
   bootsnap
   bulk_insert (~> 1.9)
+  bullet (~> 8.0)
   csv
   debug
   dotenv-rails
+  fast_jsonapi (~> 1.5)
   geokit-rails (~> 2.3)
   gtfs
   gtfs-realtime-bindings
   mysql2 (~> 0.5)
+  oj (~> 3.16)
   puma (~> 6.4)
   rack-cors
+  rack-mini-profiler (~> 3.3)
   rails (~> 7.1, >= 7.1.5.2)
   rexml (~> 3.4)
   rubocop (~> 1.34)

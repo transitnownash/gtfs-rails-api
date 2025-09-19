@@ -70,4 +70,21 @@ Rails.application.configure do
     'localhost',                          # The localhost reserved domain.
     ENV.fetch('RAILS_DEVELOPMENT_HOSTS')  # Additional comma-separated hosts for development.
   ]
+
+  # Bullet gem configuration
+  config.after_initialize do
+    Bullet.enable = true
+    Bullet.alert = true
+    Bullet.bullet_logger = true
+    Bullet.console = true
+    Bullet.rails_logger = true
+    Bullet.add_footer = true
+  end
+
+  # Use Oj for JSON serialization
+  Oj.optimize_rails
+
+  # For large datasets, prefer using fast_jsonapi for serialization in controllers/models.
+
+  # Use Rails.cache in controllers for caching frequent API responses where appropriate.
 end
