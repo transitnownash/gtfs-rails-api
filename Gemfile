@@ -58,6 +58,7 @@ gem 'dotenv-rails', groups: %i[development test]
 gem 'webmock', groups: %i[development test]
 
 # Parse schedule
+gem 'csv'
 gem 'gtfs'
 
 # GTFS Realtime

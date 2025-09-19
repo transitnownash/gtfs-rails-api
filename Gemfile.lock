@@ -96,6 +96,7 @@ GEM
     crack (0.4.5)
       rexml
     crass (1.0.6)
+    csv (3.3.5)
     date (3.4.1)
     debug (1.9.0)
       irb (~> 1.10)
@@ -272,6 +273,7 @@ DEPENDENCIES
   activerecord-import
   bootsnap
   bulk_insert (~> 1.9)
+  csv
   debug
   dotenv-rails
   geokit-rails (~> 2.3)
