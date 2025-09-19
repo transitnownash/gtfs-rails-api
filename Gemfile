@@ -71,7 +71,7 @@ gem 'will_paginate', '~> 3.3'
 
 # Search radius tooling
 gem 'geokit-rails', '~> 2.3'
-gem 'rexml', '~> 3.3'
+gem 'rexml', '~> 3.4'
 
 gem 'oj', '~> 3.16'
 
