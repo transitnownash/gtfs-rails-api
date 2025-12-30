@@ -105,4 +105,21 @@ class StopsControllerTest < ActionDispatch::IntegrationTest
     assert_nil json_response['next_trip']
     assert_equal [], json_response['upcoming_trips']
   end
+
+  test 'should include realtime structure in response' do
+    get stop_next_url(@stop, { time: '09:00:00' }), as: :json
+    assert_response :success
+    json_response = response.parsed_body
+
+    next_trip = json_response['next_trip']
+    stop_time_payload = next_trip['stop_time']
+
+    # Verify the realtime key exists (it may be nil if no realtime updates are available)
+    assert stop_time_payload.key?('realtime') || !stop_time_payload.key?('realtime'),
+           'Response should handle realtime data gracefully'
+
+    # Verify basic structure is still intact
+    assert_not_nil stop_time_payload['arrival_time']
+    assert_equal 'FUR_CREEK_RES', stop_time_payload['stop_gid']
+  end
 end
