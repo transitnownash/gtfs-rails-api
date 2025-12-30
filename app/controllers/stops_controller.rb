@@ -34,27 +34,32 @@ class StopsController < ApplicationController
   def next
     date_filter = params[:date].presence
     time_filter = normalized_time_param
-    cache_key = "stops/#{@stop.stop_gid}/next/#{date_filter || 'today'}/t#{time_filter[0, 5].delete(':')}"
 
-    result = Rails.cache.fetch(cache_key, expires_in: 30.seconds) do
-      filtered = StopTime
-                 .joins(:trip)
-                 .merge(Trip.active(date_filter))
-                 .where(stop_gid: stop_and_children_gids)
-                 .includes(trip: %i[route shape])
-                 .to_a
-                 .select { |st| arrival_time_seconds(st.arrival_time) >= arrival_time_seconds(time_filter) }
-                 .sort_by { |st| arrival_time_seconds(st.arrival_time) }
-                 .first(4)
+    filtered = StopTime
+               .joins(:trip)
+               .merge(Trip.active(date_filter))
+               .where(stop_gid: stop_and_children_gids)
+               .includes(trip: %i[route shape])
+               .to_a
+               .select { |st| arrival_time_seconds(st.arrival_time) >= arrival_time_seconds(time_filter) }
+               .sort_by { |st| arrival_time_seconds(st.arrival_time) }
+               .first(4)
 
-      realtime_updates = fetch_realtime_updates
+    realtime_updates = fetch_realtime_updates
+    alerts = fetch_and_filter_alerts(@stop.stop_gid, filtered.first&.trip&.route_gid)
 
-      {
-        stop: @stop.as_json(methods: %i[child_stops parent_station]),
-        next_trip: filtered.first ? serialize_stop_time_with_trip(filtered.first, realtime_updates) : nil,
-        upcoming_trips: filtered.drop(1).first(3).map { |stop_time| serialize_stop_time_with_trip(stop_time, realtime_updates) }
-      }
+    vehicle_position = nil
+    if filtered.first
+      vehicle_position = fetch_vehicle_position_for_trip(filtered.first.trip.trip_gid)
     end
+
+    result = {
+      stop: @stop.as_json(methods: %i[child_stops parent_station]),
+      next_trip: filtered.first ? serialize_stop_time_with_trip(filtered.first, realtime_updates) : nil,
+      upcoming_trips: filtered.drop(1).first(3).map { |stop_time| serialize_stop_time_with_trip(stop_time, realtime_updates, include_shape: false) },
+      alerts: alerts,
+      vehicle_position: vehicle_position
+    }
 
     render json: result
   end
@@ -116,7 +121,7 @@ class StopsController < ApplicationController
     Time.zone.now.strftime('%H:%M:%S')
   end
 
-  def serialize_stop_time_with_trip(stop_time, realtime_updates = {})
+  def serialize_stop_time_with_trip(stop_time, realtime_updates = {}, include_shape: true)
     trip = stop_time.trip
     trip_payload = trip
                    .slice(:id, :trip_gid, :trip_headsign, :trip_short_name, :direction_id,
@@ -124,7 +129,7 @@ class StopsController < ApplicationController
                           :calendar_id)
     trip_payload['route'] = trip.route&.slice(:id, :route_gid, :route_short_name, :route_long_name, :route_desc,
                                               :route_type, :route_url, :route_color, :route_text_color)
-    trip_payload['shape'] = trip.shape&.as_json(only: %i[id shape_gid], methods: :points)
+    trip_payload['shape'] = trip.shape&.as_json(only: %i[id shape_gid], methods: :points) if include_shape
 
     stop_time_payload = stop_time.slice(:arrival_time, :departure_time, :stop_sequence, :stop_headsign,
                                         :pickup_type, :drop_off_type, :shape_dist_traveled, :timepoint, :stop_gid)
@@ -251,5 +256,78 @@ class StopsController < ApplicationController
       departure: stop_update.dig('departure', 'time') ? Time.at(stop_update.dig('departure', 'time')).in_time_zone('America/Chicago').strftime('%H:%M:%S') : nil,
       schedule_relationship: stop_update['schedule_relationship']
     }.compact
+  end
+
+  def fetch_and_filter_alerts(stop_gid, route_gid)
+    return [] if Rails.env.test?
+    return [] unless ENV.fetch('GTFS_REALTIME_ALERTS_URL', nil)
+
+    alerts_json = Rails.cache.fetch('/realtime/alerts.json', expires_in: 5.seconds) do
+      begin
+        uri = URI.parse(ENV.fetch('GTFS_REALTIME_ALERTS_URL'))
+        http = Net::HTTP.new(uri.host, uri.port)
+        http.use_ssl = uri.scheme == 'https'
+        http.read_timeout = 5
+        request = Net::HTTP::Get.new(uri.request_uri)
+        response = http.request(request)
+
+        return [] unless response.is_a?(Net::HTTPSuccess)
+
+        require 'protobuf'
+        require 'google/transit/gtfs-realtime.pb'
+
+        feed = Transit_realtime::FeedMessage.decode(response.body)
+        entities = feed.entity.map { |entity| entity.to_hash }
+        entities.map { |entity| convert_keys_to_strings(entity) }
+      rescue StandardError => e
+        Rails.logger.warn("Failed to fetch realtime alerts: #{e.message}")
+        []
+      end
+    end
+
+    # Filter alerts that match the stop or route
+    alerts_json.select do |entity|
+      alert = entity.dig('alert', 'informed_entity') || []
+      alert.any? do |informed|
+        informed['stop_id'] == stop_gid || informed['route_id'] == route_gid
+      end
+    end.map do |entity|
+      entity['alert']
+    end
+  end
+
+  def fetch_vehicle_position_for_trip(trip_gid)
+    return nil if Rails.env.test?
+    return nil unless ENV.fetch('GTFS_REALTIME_VEHICLE_POSITIONS_URL', nil)
+
+    vehicles_json = Rails.cache.fetch('/realtime/vehicle_positions.json', expires_in: 5.seconds) do
+      begin
+        uri = URI.parse(ENV.fetch('GTFS_REALTIME_VEHICLE_POSITIONS_URL'))
+        http = Net::HTTP.new(uri.host, uri.port)
+        http.use_ssl = uri.scheme == 'https'
+        http.read_timeout = 5
+        request = Net::HTTP::Get.new(uri.request_uri)
+        response = http.request(request)
+
+        return [] unless response.is_a?(Net::HTTPSuccess)
+
+        require 'protobuf'
+        require 'google/transit/gtfs-realtime.pb'
+
+        feed = Transit_realtime::FeedMessage.decode(response.body)
+        entities = feed.entity.map { |entity| entity.to_hash }
+        entities.map { |entity| convert_keys_to_strings(entity) }
+      rescue StandardError => e
+        Rails.logger.warn("Failed to fetch realtime vehicle positions: #{e.message}")
+        []
+      end
+    end
+
+    # Find vehicle position for matching trip
+    vehicle = vehicles_json.find do |entity|
+      entity.dig('vehicle', 'trip', 'trip_id') == trip_gid
+    end
+
+    vehicle&.dig('vehicle')
   end
 end
