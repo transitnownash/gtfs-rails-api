@@ -39,6 +39,7 @@ Rails.application.routes.draw do
                                                       latitude: latitude_regex,
                                                       longitude: longitude_regex
                                                     }
+  get '/stops/:stop_gid/next', to: 'stops#next', as: 'stop_next'
   get '/stops/:stop_gid', to: 'stops#show', as: 'stop'
   get '/stops/:stop_gid/stop_times', to: 'stops#show_stop_times', as: 'stop_stop_times'
   get '/stops/:stop_gid/trips', to: 'stops#show_trips', as: 'stop_trips'
