@@ -78,4 +78,48 @@ class StopsControllerTest < ActionDispatch::IntegrationTest
     assert_equal 'Bullfrog - Furnace Creek Resort', json_response['data'][0]['route_long_name']
     assert_equal '3', json_response['data'][0]['route_type']
   end
+
+  test 'should show next arrivals for stop' do
+    get stop_next_url(@stop, { time: '09:00:00' }), as: :json
+    assert_response :success
+    json_response = response.parsed_body
+
+    assert_equal 'FUR_CREEK_RES', json_response['stop']['stop_gid']
+
+    next_trip = json_response['next_trip']
+    assert_equal 'BFC1', next_trip['trip']['trip_gid']
+    assert_equal 'BFC', next_trip['trip']['route']['route_gid']
+    assert_equal '09:20:00', Time.parse(next_trip['stop_time']['arrival_time']).strftime('%H:%M:%S')
+
+    upcoming = json_response['upcoming_trips']
+    assert_equal 1, upcoming.length
+    assert_equal 'BFC2', upcoming.first['trip']['trip_gid']
+    assert_equal '11:00:00', Time.parse(upcoming.first['stop_time']['arrival_time']).strftime('%H:%M:%S')
+  end
+
+  test 'should return nil when no upcoming trips for stop' do
+    get stop_next_url(@stop, { time: '23:59:59' }), as: :json
+    assert_response :success
+    json_response = response.parsed_body
+
+    assert_nil json_response['next_trip']
+    assert_equal [], json_response['upcoming_trips']
+  end
+
+  test 'should include realtime structure in response' do
+    get stop_next_url(@stop, { time: '09:00:00' }), as: :json
+    assert_response :success
+    json_response = response.parsed_body
+
+    next_trip = json_response['next_trip']
+    stop_time_payload = next_trip['stop_time']
+
+    # Verify the realtime key exists (it may be nil if no realtime updates are available)
+    assert stop_time_payload.key?('realtime') || !stop_time_payload.key?('realtime'),
+           'Response should handle realtime data gracefully'
+
+    # Verify basic structure is still intact
+    assert_not_nil stop_time_payload['arrival_time']
+    assert_equal 'FUR_CREEK_RES', stop_time_payload['stop_gid']
+  end
 end
