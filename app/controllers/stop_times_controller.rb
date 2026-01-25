@@ -7,7 +7,7 @@ class StopTimesController < ApplicationController
 
   # GET /stop_times
   def index
-    render json: paginate_results(StopTime.all)
+    render json: paginate_results(StopTime.order(:id))
   end
 
   # GET /stop_times/1
