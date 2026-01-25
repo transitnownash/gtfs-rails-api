@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     services:
       mysql:
-        image: mysql:5.7
+        image: mysql:8.0
         env:
           MYSQL_ALLOW_EMPTY_PASSWORD: false
           MYSQL_ROOT_PASSWORD: rails
@@ -32,7 +32,7 @@ jobs:
       - name: Run Tests
         env:
           RAILS_ENV: test
-          DATABASE_URL: mysql2://root:rails@127.0.0.1:${{ job.services.mysql.ports['3306'] }}/gtfs_rails_api_test
+          TEST_DATABASE_URL: mysql2://root:rails@127.0.0.1:${{ job.services.mysql.ports['3306'] }}/gtfs_rails_api_test
         run: |
           bin/rails db:reset
           bin/rails test
