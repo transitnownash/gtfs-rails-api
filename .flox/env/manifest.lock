@@ -1,0 +1,145 @@
+{
+  "lockfile-version": 1,
+  "manifest": {
+    "version": 1,
+    "install": {
+      "ruby": {
+        "pkg-path": "ruby"
+      }
+    },
+    "hook": {},
+    "profile": {},
+    "options": {},
+    "services": {
+      "www": {
+        "command": "bundle exec rails server"
+      }
+    }
+  },
+  "packages": [
+    {
+      "attr_path": "ruby",
+      "broken": false,
+      "derivation": "/nix/store/z0zx5p8ii2p5iflz5f5mcqg4213w4dz0-ruby-3.3.10.drv",
+      "description": "Object-oriented language for quick and easy programming",
+      "install_id": "ruby",
+      "license": "Ruby",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=88d3861acdd3d2f0e361767018218e51810df8a1",
+      "name": "ruby-3.3.10",
+      "pname": "ruby",
+      "rev": "88d3861acdd3d2f0e361767018218e51810df8a1",
+      "rev_count": 931542,
+      "rev_date": "2026-01-21T18:02:10Z",
+      "scrape_date": "2026-01-23T04:33:51.853919Z",
+      "stabilities": [
+        "staging",
+        "unstable"
+      ],
+      "unfree": false,
+      "version": "3.3.10",
+      "outputs_to_install": [
+        "out"
+      ],
+      "outputs": {
+        "devdoc": "/nix/store/mxw7r6rlbjda2jy02c1d8zn5x988hl0q-ruby-3.3.10-devdoc",
+        "out": "/nix/store/23qvv82dzb51abc4invhxifshkq0p1w6-ruby-3.3.10"
+      },
+      "system": "aarch64-darwin",
+      "group": "toplevel",
+      "priority": 5
+    },
+    {
+      "attr_path": "ruby",
+      "broken": false,
+      "derivation": "/nix/store/dykb50dnl2kg7i9s3ii1wv1xpmchhqhx-ruby-3.3.10.drv",
+      "description": "Object-oriented language for quick and easy programming",
+      "install_id": "ruby",
+      "license": "Ruby",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=88d3861acdd3d2f0e361767018218e51810df8a1",
+      "name": "ruby-3.3.10",
+      "pname": "ruby",
+      "rev": "88d3861acdd3d2f0e361767018218e51810df8a1",
+      "rev_count": 931542,
+      "rev_date": "2026-01-21T18:02:10Z",
+      "scrape_date": "2026-01-23T05:14:25.260915Z",
+      "stabilities": [
+        "staging",
+        "unstable"
+      ],
+      "unfree": false,
+      "version": "3.3.10",
+      "outputs_to_install": [
+        "out"
+      ],
+      "outputs": {
+        "devdoc": "/nix/store/qr65l1x0z8yjg7w9hk5axih1qsiaq8xy-ruby-3.3.10-devdoc",
+        "out": "/nix/store/7dz41vvpqxllrl9nfxh7k32hw6zdna4n-ruby-3.3.10"
+      },
+      "system": "aarch64-linux",
+      "group": "toplevel",
+      "priority": 5
+    },
+    {
+      "attr_path": "ruby",
+      "broken": false,
+      "derivation": "/nix/store/2bsgsmldy5206yz19yn9cr6qbkrkx7dl-ruby-3.3.10.drv",
+      "description": "Object-oriented language for quick and easy programming",
+      "install_id": "ruby",
+      "license": "Ruby",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=88d3861acdd3d2f0e361767018218e51810df8a1",
+      "name": "ruby-3.3.10",
+      "pname": "ruby",
+      "rev": "88d3861acdd3d2f0e361767018218e51810df8a1",
+      "rev_count": 931542,
+      "rev_date": "2026-01-21T18:02:10Z",
+      "scrape_date": "2026-01-23T05:50:59.095812Z",
+      "stabilities": [
+        "staging",
+        "unstable"
+      ],
+      "unfree": false,
+      "version": "3.3.10",
+      "outputs_to_install": [
+        "out"
+      ],
+      "outputs": {
+        "devdoc": "/nix/store/f8nga0kf6mn58sf4hq5vqrwcjq3i3qy1-ruby-3.3.10-devdoc",
+        "out": "/nix/store/3nx913znd8q18i2yg8c0fw0h2afcx42h-ruby-3.3.10"
+      },
+      "system": "x86_64-darwin",
+      "group": "toplevel",
+      "priority": 5
+    },
+    {
+      "attr_path": "ruby",
+      "broken": false,
+      "derivation": "/nix/store/id729g60yxxr7qsmsd86gb4z3hav25dw-ruby-3.3.10.drv",
+      "description": "Object-oriented language for quick and easy programming",
+      "install_id": "ruby",
+      "license": "Ruby",
+      "locked_url": "https://github.com/flox/nixpkgs?rev=88d3861acdd3d2f0e361767018218e51810df8a1",
+      "name": "ruby-3.3.10",
+      "pname": "ruby",
+      "rev": "88d3861acdd3d2f0e361767018218e51810df8a1",
+      "rev_count": 931542,
+      "rev_date": "2026-01-21T18:02:10Z",
+      "scrape_date": "2026-01-23T06:37:52.415151Z",
+      "stabilities": [
+        "staging",
+        "unstable"
+      ],
+      "unfree": false,
+      "version": "3.3.10",
+      "outputs_to_install": [
+        "out"
+      ],
+      "outputs": {
+        "devdoc": "/nix/store/a3r95mzlyd20gkqak8ik60kr8larqxp9-ruby-3.3.10-devdoc",
+        "out": "/nix/store/x5y7r23d2j2g0rq7dqfvka9zqc3qfhz8-ruby-3.3.10"
+      },
+      "system": "x86_64-linux",
+      "group": "toplevel",
+      "priority": 5
+    }
+  ]
+}

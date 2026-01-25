@@ -51,12 +51,23 @@ class RealtimeController < ApplicationController
     8 => 'Not Boardable'
   }.freeze
 
-  SCHEDULE_RELATIONSHIPS = {
+  TRIP_SCHEDULE_RELATIONSHIPS = {
+    0 => 'Scheduled',
+    1 => 'Added', # deprecated in spec but still possible in feeds
+    2 => 'Unscheduled',
+    3 => 'Canceled',
+    5 => 'Replacement',
+    6 => 'Duplicated',
+    7 => 'Deleted',
+    8 => 'New'
+  }.freeze
+
+  STOP_TIME_SCHEDULE_RELATIONSHIPS = {
     0 => 'Scheduled',
     1 => 'Skipped',
     2 => 'No Data',
     3 => 'Unscheduled'
-  }
+  }.freeze
 
   def alerts
     return render json: 'Missing GTFS_REALTIME_ALERTS_URL' unless ENV.fetch 'GTFS_REALTIME_ALERTS_URL'
@@ -70,6 +81,16 @@ class RealtimeController < ApplicationController
         entity = entity.to_hash
         entity[:alert][:cause] = ALERT_CAUSES[entity[:alert][:cause]] unless entity[:alert][:cause].nil?
         entity[:alert][:effect] = ALERT_EFFECTS[entity[:alert][:effect]] unless entity[:alert][:effect].nil?
+        unless entity[:alert][:informed_entity].nil?
+          entity[:alert][:informed_entity] = entity[:alert][:informed_entity].map do |informed_entity|
+            unless informed_entity[:trip].nil?
+              unless informed_entity[:trip][:schedule_relationship].nil?
+                informed_entity[:trip][:schedule_relationship] = TRIP_SCHEDULE_RELATIONSHIPS[informed_entity[:trip][:schedule_relationship]]
+              end
+            end
+            informed_entity
+          end
+        end
         messages << entity
       end
       messages
@@ -106,11 +127,11 @@ class RealtimeController < ApplicationController
       feed.entity.each do |entity|
         entity = entity.to_hash
         unless entity[:trip_update][:trip][:schedule_relationship].nil?
-          entity[:trip_update][:trip][:schedule_relationship] = SCHEDULE_RELATIONSHIPS[entity[:trip_update][:trip][:schedule_relationship]]
+          entity[:trip_update][:trip][:schedule_relationship] = TRIP_SCHEDULE_RELATIONSHIPS[entity[:trip_update][:trip][:schedule_relationship]]
         end
         unless entity[:trip_update][:stop_time_update].nil?
           entity[:trip_update][:stop_time_update] = entity[:trip_update][:stop_time_update].map do |stop_time|
-            stop_time[:schedule_relationship] = SCHEDULE_RELATIONSHIPS[stop_time[:schedule_relationship]] unless stop_time[:schedule_relationship].nil?
+            stop_time[:schedule_relationship] = STOP_TIME_SCHEDULE_RELATIONSHIPS[stop_time[:schedule_relationship]] unless stop_time[:schedule_relationship].nil?
             stop_time
           end
         end
