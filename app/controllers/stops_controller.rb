@@ -4,6 +4,37 @@ require 'protobuf'
 require 'google/transit/gtfs-realtime.pb'
 
 class StopsController < ApplicationController
+  ALERT_CAUSES = {
+    0 => nil,
+    1 => 'Unknown Cause',
+    2 => 'Other Cause',
+    3 => 'Technical Problem',
+    4 => 'Strike',
+    5 => 'Demonstration',
+    6 => 'Accident',
+    7 => 'Holiday',
+    8 => 'Weather',
+    9 => 'Maintenance',
+    10 => 'Construction',
+    11 => 'Police Activity',
+    12 => 'Medical Emergency'
+  }.freeze
+
+  ALERT_EFFECTS = {
+    0 => nil,
+    1 => 'No Service',
+    2 => 'Reduced Service',
+    3 => 'Significant Delays',
+    4 => 'Detour',
+    5 => 'Additional Service',
+    6 => 'Modified Service',
+    7 => 'Other Effect',
+    8 => 'Unknown Effect',
+    9 => 'Stop Moved',
+    10 => 'No Effect',
+    11 => 'Accessibility Issue'
+  }.freeze
+
   before_action :set_stop, only: %i[show show_stop_times show_trips show_routes next]
 
   # GET /stops
@@ -129,7 +160,15 @@ class StopsController < ApplicationController
                           :calendar_id)
     trip_payload['route'] = trip.route&.slice(:id, :route_gid, :route_short_name, :route_long_name, :route_desc,
                                               :route_type, :route_url, :route_color, :route_text_color)
-    trip_payload['shape'] = trip.shape&.as_json(only: %i[id shape_gid], methods: :points) if include_shape
+    if include_shape && trip.shape
+      shape_points = trip.shape.points
+      trip_payload['shape'] = {
+        id: trip.shape.id,
+        shape_gid: trip.shape.shape_gid,
+        # Simplify shape points to only lat/lon
+        points: shape_points.map { |point| { lat: point['lat'], lon: point['lon'] } }
+      }
+    end
 
     stop_time_payload = stop_time.slice(:arrival_time, :departure_time, :stop_sequence, :stop_headsign,
                                         :pickup_type, :drop_off_type, :shape_dist_traveled, :timepoint, :stop_gid)
@@ -292,7 +331,11 @@ class StopsController < ApplicationController
         informed['stop_id'] == stop_gid || informed['route_id'] == route_gid
       end
     end.map do |entity|
-      entity['alert']
+      alert = entity['alert'].dup
+      # Convert cause and effect from integers to text
+      alert['cause'] = ALERT_CAUSES[alert['cause']] if alert['cause']
+      alert['effect'] = ALERT_EFFECTS[alert['effect']] if alert['effect']
+      alert
     end
   end
 
