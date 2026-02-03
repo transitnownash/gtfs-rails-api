@@ -5,6 +5,7 @@ require 'test_helper'
 class StopsControllerTest < ActionDispatch::IntegrationTest
   setup do
     @stop = stops(:Stop1).stop_gid
+    @bullfrog_stop = stops(:Stop3).stop_gid  # BULLFROG stop for midnight-spanning tests
   end
 
   test 'should get index' do
@@ -121,5 +122,67 @@ class StopsControllerTest < ActionDispatch::IntegrationTest
     # Verify basic structure is still intact
     assert_not_nil stop_time_payload['arrival_time']
     assert_equal 'FUR_CREEK_RES', stop_time_payload['stop_gid']
+  end
+
+  test 'should handle midnight-spanning trips at late night' do
+    # Query at 11:00 PM - should see the 23:30 trip first (earliest after 23:00)
+    get stop_next_url(@bullfrog_stop, { time: '23:00:00' }), as: :json
+    assert_response :success
+    json_response = response.parsed_body
+
+    next_trip = json_response['next_trip']
+    assert_not_nil next_trip
+    assert_equal 'BFC1', next_trip['trip']['trip_gid']
+    assert_equal '23:30:00', Time.parse(next_trip['stop_time']['arrival_time']).strftime('%H:%M:%S')
+
+    # Upcoming should include 23:45
+    upcoming = json_response['upcoming_trips']
+    assert_operator upcoming.length, :>=, 1
+    assert_equal '23:45:00', Time.parse(upcoming[0]['stop_time']['arrival_time']).strftime('%H:%M:%S')
+  end
+
+  test 'should handle midnight-spanning trips after midnight' do
+    # Query at 1:00 AM - fixtures have 25:15, 25:30, 26:15, 01:45, 02:30, 03:00
+    # Should see 25:15 (1:15 AM) first since it's the earliest after 1:00
+    get stop_next_url(@bullfrog_stop, { time: '01:00:00' }), as: :json
+    assert_response :success
+    json_response = response.parsed_body
+
+    next_trip = json_response['next_trip']
+    assert_not_nil next_trip, 'Should find the 1:15 AM trip (25:15:00 from yesterday)'
+
+    # The arrival time in JSON is a string - check it directly
+    arrival_time_str = next_trip['stop_time']['arrival_time']
+    assert_equal '25:15:00', arrival_time_str, 'Should preserve GTFS 24+ hour format for next trip'
+
+    upcoming = json_response['upcoming_trips']
+    assert_operator upcoming.length, :>=, 2, 'Should have at least two upcoming trips'
+
+    # Upcoming should be: 25:30 (1:30), 01:45, 02:30
+    assert_equal '25:30:00', upcoming[0]['stop_time']['arrival_time'], 'Second trip should be 25:30:00'
+    assert_equal '01:45:00', upcoming[1]['stop_time']['arrival_time'], 'Third trip should be 01:45:00'
+  end
+
+  test 'should correctly sort midnight-spanning and normal trips' do
+    # Query at 1:10 AM - should see times after 1:10: 25:15 (1:15), 25:30 (1:30), 01:45, 02:30, etc
+    # The fixture has: 25:15, 25:30, 26:15, 01:45, 02:30, 03:00
+    get stop_next_url(@bullfrog_stop, { time: '01:10:00' }), as: :json
+    assert_response :success
+    json_response = response.parsed_body
+
+    next_trip = json_response['next_trip']
+    assert_not_nil next_trip
+
+    # Should see 1:15 AM first (the 25:15:00 trip - midnight-spanning from yesterday)
+    assert_equal '25:15:00', next_trip['stop_time']['arrival_time']
+
+    # Upcoming trips should include midnight-spanning and normal trips sorted correctly
+    # After 25:15 (1:15), next should be 25:30 (1:30), then 01:45
+    upcoming = json_response['upcoming_trips']
+    assert_operator upcoming.length, :>=, 2, 'Should have at least 2 upcoming trips'
+
+    # Verify proper sorting: 25:15 (1:15) < 25:30 (1:30) < 01:45
+    assert_equal '25:30:00', upcoming[0]['stop_time']['arrival_time'], 'Second trip should be 25:30:00'
+    assert_equal '01:45:00', upcoming[1]['stop_time']['arrival_time'], 'Third trip should be 01:45:00'
   end
 end

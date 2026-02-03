@@ -40,8 +40,8 @@ class CalendarsControllerTest < ActionDispatch::IntegrationTest
     assert_equal '1', json_response['data'][0]['block_gid']
     assert_equal 'A_shp', json_response['data'][0]['shape_gid']
     assert_equal 2, json_response['data'][0]['stop_times'].length
-    assert_equal '2000-01-01 08:00:00', json_response['data'][0]['stop_times'][0]['arrival_time']
-    assert_equal '2000-01-01 08:00:00', json_response['data'][0]['stop_times'][0]['departure_time']
+    assert_equal '08:00:00', json_response['data'][0]['stop_times'][0]['arrival_time']
+    assert_equal '08:00:00', json_response['data'][0]['stop_times'][0]['departure_time']
     assert_equal 'BEATTY_AIRPORT', json_response['data'][0]['stop_times'][0]['stop_gid']
     assert_equal 1, json_response['data'][0]['stop_times'][0]['stop_sequence']
     assert_equal 'A_shp', json_response['data'][0]['shape']['shape_gid']

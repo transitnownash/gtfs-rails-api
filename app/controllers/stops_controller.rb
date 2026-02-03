@@ -65,15 +65,42 @@ class StopsController < ApplicationController
   def next
     date_filter = params[:date].presence
     time_filter = normalized_time_param
+    current_time_seconds = arrival_time_seconds(time_filter)
 
-    filtered = StopTime
-               .joins(:trip)
-               .merge(Trip.active(date_filter))
-               .where(stop_gid: stop_and_children_gids)
-               .includes(trip: %i[route shape])
-               .to_a
-               .select { |st| arrival_time_seconds(st.arrival_time) >= arrival_time_seconds(time_filter) }
-               .sort_by { |st| arrival_time_seconds(st.arrival_time) }
+    # Query today's service which includes both normal times (< 24:00:00) and 
+    # midnight-spanning times (>= 24:00:00, which represent times after midnight)
+    # Note: We use unscope(:order) to prevent the default_scope from converting GTFS 24+ times
+    all_trips = StopTime
+                .unscope(:order)
+                .joins(:trip)
+                .merge(Trip.active(date_filter))
+                .where(stop_gid: stop_and_children_gids)
+                .includes(trip: %i[route shape])
+                .to_a
+
+    # Filter to upcoming trips and sort by normalized time
+    # Times >= 86400 are already in GTFS 24+ format (past midnight on same service day)
+    # Times < 86400 in normal format might also be past midnight if they're early morning
+    # When in early morning service (current time < 6 AM), we need to sort mixed times correctly:
+    # - 24+ times (like 25:15:00) represent early morning of TODAY
+    # - Normal early times (like 01:45:00) also represent early morning of TODAY
+    # - Normal daytime times (like 08:10:00) represent LATER on TODAY
+    filtered = all_trips
+               .select { |st| is_trip_upcoming?(st.arrival_time, current_time_seconds) }
+               .sort_by do |st|
+                 arrival_seconds = arrival_time_seconds(st.arrival_time)
+                 # If it's already in 24+ format, use as-is
+                 if arrival_seconds >= 86400
+                   arrival_seconds
+                 # If current time is very early (< 6 AM = 21600 seconds), we're in post-midnight service
+                 # So early times (< 6 AM) should be treated as post-midnight for sorting
+                 elsif current_time_seconds < 21600 && arrival_seconds < 21600
+                   # Both in "early service" range, treat as same service period
+                   arrival_seconds + 86400
+                 else
+                   arrival_seconds
+                 end
+               end
                .first(4)
 
     realtime_updates = fetch_realtime_updates
@@ -152,6 +179,51 @@ class StopsController < ApplicationController
     Time.zone.now.strftime('%H:%M:%S')
   end
 
+  def previous_date(date_str)
+    return (Time.zone.today - 1.day).strftime('%Y-%m-%d') if date_str.blank?
+
+    (Date.parse(date_str) - 1.day).strftime('%Y-%m-%d')
+  rescue ArgumentError
+    (Time.zone.today - 1.day).strftime('%Y-%m-%d')
+  end
+
+  # Check if a trip is upcoming based on current time
+  # Handles GTFS times that can exceed 24:00:00 for trips spanning midnight
+  def is_trip_upcoming?(arrival_time, current_time_seconds)
+    arrival_seconds = arrival_time_seconds(arrival_time)
+
+    # If arrival time is >= 24:00:00 (86400 seconds), it represents a time after midnight
+    # that's part of today's service (e.g., 25:30:00 = 1:30 AM)
+    if arrival_seconds >= 86400
+      return true
+    end
+
+    # When in early morning service (current time before 6 AM = 21600 seconds),
+    # exclude times outside the early service window:
+    # - Exclude evening times (18:00 - 23:59, which is 64800-86399 seconds)
+    # - Exclude daytime times (06:00 - 17:59, which is 21600-64799 seconds)
+    # Only include: current time + upcoming early morning times (00:00 - 05:59)
+    if current_time_seconds < 21600
+      if arrival_seconds >= 21600
+        # Current time is early morning, but arrival time is daytime or evening
+        return false
+      end
+      if arrival_seconds >= 64800
+        # Evening times should be excluded
+        return false
+      end
+    end
+
+    arrival_seconds > current_time_seconds
+  end
+
+  # Normalize arrival time to seconds for sorting
+  # Times >= 24:00:00 are normalized to their actual time today (after midnight)
+  def normalized_arrival_seconds(arrival_time)
+    seconds = arrival_time_seconds(arrival_time)
+    seconds >= 86400 ? seconds - 86400 : seconds
+  end
+
   def serialize_stop_time_with_trip(stop_time, realtime_updates = {}, include_shape: true)
     trip = stop_time.trip
     trip_payload = trip
@@ -173,6 +245,10 @@ class StopsController < ApplicationController
     stop_time_payload = stop_time.slice(:arrival_time, :departure_time, :stop_sequence, :stop_headsign,
                                         :pickup_type, :drop_off_type, :shape_dist_traveled, :timepoint, :stop_gid)
 
+    # Force string values for GTFS times which can exceed 24:00:00
+    stop_time_payload['arrival_time'] = stop_time.read_attribute_before_type_cast(:arrival_time)
+    stop_time_payload['departure_time'] = stop_time.read_attribute_before_type_cast(:departure_time)
+
     realtime_update = find_realtime_update_for_stop(trip.trip_gid, stop_time.stop_gid, realtime_updates)
     if realtime_update
       stop_time_payload['realtime'] = realtime_update
@@ -186,6 +262,15 @@ class StopsController < ApplicationController
 
   def arrival_time_seconds(value)
     return value.seconds_since_midnight.to_i if value.respond_to?(:seconds_since_midnight)
+
+    # Handle GTFS time strings which can exceed 24:00:00 (e.g., "25:30:00" for 1:30 AM next day)
+    if value.is_a?(String) && value.match?(/^\d{2}:\d{2}:\d{2}$/)
+      parts = value.split(':')
+      hours = parts[0].to_i
+      minutes = parts[1].to_i
+      seconds = parts[2].to_i
+      return (hours * 3600) + (minutes * 60) + seconds
+    end
 
     parsed = if value.respond_to?(:to_time)
                value.to_time
