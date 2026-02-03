@@ -67,7 +67,7 @@ class StopsController < ApplicationController
     time_filter = normalized_time_param
     current_time_seconds = arrival_time_seconds(time_filter)
 
-    # Query today's service which includes both normal times (< 24:00:00) and 
+    # Query today's service which includes both normal times (< 24:00:00) and
     # midnight-spanning times (>= 24:00:00, which represent times after midnight)
     # Note: We use unscope(:order) to prevent the default_scope from converting GTFS 24+ times
     all_trips = StopTime
@@ -106,17 +106,16 @@ class StopsController < ApplicationController
     realtime_updates = fetch_realtime_updates
     alerts = fetch_and_filter_alerts(@stop.stop_gid, filtered.first&.trip&.route_gid)
 
-    vehicle_position = nil
-    if filtered.first
-      vehicle_position = fetch_vehicle_position_for_trip(filtered.first.trip.trip_gid)
-    end
+    vehicle_positions = filtered.map do |stop_time|
+      fetch_vehicle_position_for_trip(stop_time.trip.trip_gid)
+    end.compact
 
     result = {
       stop: @stop.as_json(methods: %i[child_stops parent_station]),
       next_trip: filtered.first ? serialize_stop_time_with_trip(filtered.first, realtime_updates) : nil,
       upcoming_trips: filtered.drop(1).first(3).map { |stop_time| serialize_stop_time_with_trip(stop_time, realtime_updates, include_shape: false) },
       alerts: alerts,
-      vehicle_position: vehicle_position
+      vehicle_positions: vehicle_positions
     }
 
     render json: result
