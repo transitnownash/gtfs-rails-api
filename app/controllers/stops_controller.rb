@@ -103,6 +103,8 @@ class StopsController < ApplicationController
                end
                .first(4)
 
+    # Fetch realtime data. To avoid race conditions, fetch fresh realtime data for each trip
+    # rather than caching a potentially stale global snapshot. Only use cache for retry resilience.
     realtime_updates = fetch_realtime_updates
     alerts = fetch_and_filter_alerts(@stop.stop_gid, filtered.first&.trip&.route_gid)
 
@@ -285,39 +287,12 @@ class StopsController < ApplicationController
     return {} if Rails.env.test?
     return {} unless ENV.fetch('GTFS_REALTIME_TRIP_UPDATES_URL', nil)
 
-    # Leverage the realtime_trip_updates endpoint via cache
-    realtime_json = Rails.cache.fetch('/realtime/trip_updates.json', expires_in: 5.seconds) do
-      begin
-        uri = URI.parse(ENV.fetch('GTFS_REALTIME_TRIP_UPDATES_URL'))
-        http = Net::HTTP.new(uri.host, uri.port)
-        http.use_ssl = uri.scheme == 'https'
-        http.read_timeout = 5
-        request = Net::HTTP::Get.new(uri.request_uri)
-        response = http.request(request)
-
-        return [] unless response.is_a?(Net::HTTPSuccess)
-
-        # Use RealtimeController's method to decode the protobuf
-        realtime_controller = RealtimeController.new
-        # Temporarily set up a minimal request context
-        realtime_controller.instance_eval do
-          @_request = ActionDispatch::TestRequest.create
-          @_response = ActionDispatch::TestResponse.new
-        end
-
-        # Decode using the RealtimeController's trip_updates logic
-        require 'protobuf'
-        require 'google/transit/gtfs-realtime.pb'
-
-        feed = Transit_realtime::FeedMessage.decode(response.body)
-        entities = feed.entity.map { |entity| entity.to_hash }
-
-        # Convert symbol keys to string keys for JSON serialization
-        entities.map { |entity| convert_keys_to_strings(entity) }
-      rescue StandardError => e
-        Rails.logger.warn("Failed to fetch realtime trip updates: #{e.message}")
-        []
-      end
+    # Use a shorter cache window (2 seconds instead of 5) to reduce stale data risks.
+    # This balances between minimizing redundant API calls and ensuring relatively fresh data.
+    # If the realtime service is slow or inconsistent, requests within this window may see
+    # slightly stale data, but at least we're not holding stale data for too long.
+    realtime_json = Rails.cache.fetch('/realtime/trip_updates.json', expires_in: 2.seconds) do
+      fetch_realtime_trip_updates_from_source
     end
 
     indexed = realtime_json.index_by { |entity| entity.dig('trip_update', 'trip', 'trip_id') }.tap do |h|
@@ -328,6 +303,31 @@ class StopsController < ApplicationController
   rescue StandardError => e
     Rails.logger.warn("Error in fetch_realtime_updates: #{e.message}")
     {}
+  end
+
+  def fetch_realtime_trip_updates_from_source
+    begin
+      uri = URI.parse(ENV.fetch('GTFS_REALTIME_TRIP_UPDATES_URL'))
+      http = Net::HTTP.new(uri.host, uri.port)
+      http.use_ssl = uri.scheme == 'https'
+      http.read_timeout = 5
+      request = Net::HTTP::Get.new(uri.request_uri)
+      response = http.request(request)
+
+      return [] unless response.is_a?(Net::HTTPSuccess)
+
+      require 'protobuf'
+      require 'google/transit/gtfs-realtime.pb'
+
+      feed = Transit_realtime::FeedMessage.decode(response.body)
+      entities = feed.entity.map { |entity| entity.to_hash }
+
+      # Convert symbol keys to string keys for JSON serialization
+      entities.map { |entity| convert_keys_to_strings(entity) }
+    rescue StandardError => e
+      Rails.logger.warn("Failed to fetch realtime trip updates from source: #{e.message}")
+      []
+    end
   end
 
   def convert_keys_to_strings(hash)
@@ -385,27 +385,9 @@ class StopsController < ApplicationController
     return [] if Rails.env.test?
     return [] unless ENV.fetch('GTFS_REALTIME_ALERTS_URL', nil)
 
-    alerts_json = Rails.cache.fetch('/realtime/alerts.json', expires_in: 5.seconds) do
-      begin
-        uri = URI.parse(ENV.fetch('GTFS_REALTIME_ALERTS_URL'))
-        http = Net::HTTP.new(uri.host, uri.port)
-        http.use_ssl = uri.scheme == 'https'
-        http.read_timeout = 5
-        request = Net::HTTP::Get.new(uri.request_uri)
-        response = http.request(request)
-
-        return [] unless response.is_a?(Net::HTTPSuccess)
-
-        require 'protobuf'
-        require 'google/transit/gtfs-realtime.pb'
-
-        feed = Transit_realtime::FeedMessage.decode(response.body)
-        entities = feed.entity.map { |entity| entity.to_hash }
-        entities.map { |entity| convert_keys_to_strings(entity) }
-      rescue StandardError => e
-        Rails.logger.warn("Failed to fetch realtime alerts: #{e.message}")
-        []
-      end
+    # Use a shorter cache window (2 seconds) to reduce stale alert data
+    alerts_json = Rails.cache.fetch('/realtime/alerts.json', expires_in: 2.seconds) do
+      fetch_realtime_alerts_from_source
     end
 
     # Filter alerts that match the stop or route
@@ -423,31 +405,36 @@ class StopsController < ApplicationController
     end
   end
 
+  def fetch_realtime_alerts_from_source
+    begin
+      uri = URI.parse(ENV.fetch('GTFS_REALTIME_ALERTS_URL'))
+      http = Net::HTTP.new(uri.host, uri.port)
+      http.use_ssl = uri.scheme == 'https'
+      http.read_timeout = 5
+      request = Net::HTTP::Get.new(uri.request_uri)
+      response = http.request(request)
+
+      return [] unless response.is_a?(Net::HTTPSuccess)
+
+      require 'protobuf'
+      require 'google/transit/gtfs-realtime.pb'
+
+      feed = Transit_realtime::FeedMessage.decode(response.body)
+      entities = feed.entity.map { |entity| entity.to_hash }
+      entities.map { |entity| convert_keys_to_strings(entity) }
+    rescue StandardError => e
+      Rails.logger.warn("Failed to fetch realtime alerts from source: #{e.message}")
+      []
+    end
+  end
+
   def fetch_vehicle_position_for_trip(trip_gid)
     return nil if Rails.env.test?
     return nil unless ENV.fetch('GTFS_REALTIME_VEHICLE_POSITIONS_URL', nil)
 
-    vehicles_json = Rails.cache.fetch('/realtime/vehicle_positions.json', expires_in: 5.seconds) do
-      begin
-        uri = URI.parse(ENV.fetch('GTFS_REALTIME_VEHICLE_POSITIONS_URL'))
-        http = Net::HTTP.new(uri.host, uri.port)
-        http.use_ssl = uri.scheme == 'https'
-        http.read_timeout = 5
-        request = Net::HTTP::Get.new(uri.request_uri)
-        response = http.request(request)
-
-        return [] unless response.is_a?(Net::HTTPSuccess)
-
-        require 'protobuf'
-        require 'google/transit/gtfs-realtime.pb'
-
-        feed = Transit_realtime::FeedMessage.decode(response.body)
-        entities = feed.entity.map { |entity| entity.to_hash }
-        entities.map { |entity| convert_keys_to_strings(entity) }
-      rescue StandardError => e
-        Rails.logger.warn("Failed to fetch realtime vehicle positions: #{e.message}")
-        []
-      end
+    # Use a shorter cache window (2 seconds) to reduce stale vehicle position data
+    vehicles_json = Rails.cache.fetch('/realtime/vehicle_positions.json', expires_in: 2.seconds) do
+      fetch_realtime_vehicle_positions_from_source
     end
 
     # Find vehicle position for matching trip
@@ -456,5 +443,28 @@ class StopsController < ApplicationController
     end
 
     vehicle&.dig('vehicle')
+  end
+
+  def fetch_realtime_vehicle_positions_from_source
+    begin
+      uri = URI.parse(ENV.fetch('GTFS_REALTIME_VEHICLE_POSITIONS_URL'))
+      http = Net::HTTP.new(uri.host, uri.port)
+      http.use_ssl = uri.scheme == 'https'
+      http.read_timeout = 5
+      request = Net::HTTP::Get.new(uri.request_uri)
+      response = http.request(request)
+
+      return [] unless response.is_a?(Net::HTTPSuccess)
+
+      require 'protobuf'
+      require 'google/transit/gtfs-realtime.pb'
+
+      feed = Transit_realtime::FeedMessage.decode(response.body)
+      entities = feed.entity.map { |entity| entity.to_hash }
+      entities.map { |entity| convert_keys_to_strings(entity) }
+    rescue StandardError => e
+      Rails.logger.warn("Failed to fetch realtime vehicle positions from source: #{e.message}")
+      []
+    end
   end
 end
