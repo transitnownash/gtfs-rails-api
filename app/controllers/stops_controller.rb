@@ -75,7 +75,7 @@ class StopsController < ApplicationController
                 .joins(:trip)
                 .merge(Trip.active(date_filter))
                 .where(stop_gid: stop_and_children_gids)
-                .includes(trip: %i[route])
+                .includes(trip: %i[route shape])
                 .to_a
 
     # Filter to upcoming trips and sort by normalized time
@@ -113,7 +113,7 @@ class StopsController < ApplicationController
     result = {
       stop: @stop.as_json(methods: %i[child_stops parent_station]),
       next_trip: filtered.first ? serialize_stop_time_with_trip(filtered.first, realtime_updates) : nil,
-      upcoming_trips: filtered.drop(1).first(3).map { |stop_time| serialize_stop_time_with_trip(stop_time, realtime_updates) },
+      upcoming_trips: filtered.drop(1).first(3).map { |stop_time| serialize_stop_time_with_trip(stop_time, realtime_updates, include_shape: false) },
       alerts: alerts,
       vehicle_positions: vehicle_positions
     }
@@ -223,14 +223,23 @@ class StopsController < ApplicationController
     seconds >= 86400 ? seconds - 86400 : seconds
   end
 
-  def serialize_stop_time_with_trip(stop_time, realtime_updates = {})
+  def serialize_stop_time_with_trip(stop_time, realtime_updates = {}, include_shape: true)
     trip = stop_time.trip
     trip_payload = trip
                    .slice(:id, :trip_gid, :trip_headsign, :trip_short_name, :direction_id,
-                          :block_gid, :service_gid, :start_time, :end_time, :route_gid, :route_id,
+                          :block_gid, :shape_gid, :service_gid, :start_time, :end_time, :route_gid, :route_id,
                           :calendar_id)
     trip_payload['route'] = trip.route&.slice(:id, :route_gid, :route_short_name, :route_long_name, :route_desc,
                                               :route_type, :route_url, :route_color, :route_text_color)
+    if include_shape && trip.shape
+      shape_points = trip.shape.points
+      trip_payload['shape'] = {
+        id: trip.shape.id,
+        shape_gid: trip.shape.shape_gid,
+        # Simplify shape points to only lat/lon
+        points: shape_points.map { |point| { lat: point['lat'], lon: point['lon'] } }
+      }
+    end
 
     stop_time_payload = stop_time.slice(:arrival_time, :departure_time, :stop_sequence, :stop_headsign,
                                         :pickup_type, :drop_off_type, :shape_dist_traveled, :timepoint, :stop_gid)
