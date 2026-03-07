@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_07_14_184344) do
+ActiveRecord::Schema[7.1].define(version: 2026_03_07_152735) do
   create_table "agencies", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
     t.string "agency_gid"
     t.string "agency_name", null: false
@@ -95,22 +95,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_14_184344) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["trip_gid", "start_time", "end_time"], name: "index_frequencies_on_trip_gid_and_start_time_and_end_time", unique: true
-  end
-
-  create_table "retail_locations", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
-    t.string "location_code", null: false
-    t.string "name"
-    t.string "address"
-    t.string "city"
-    t.string "state"
-    t.string "zip"
-    t.boolean "is_active", default: false, null: false
-    t.boolean "can_buy_media", default: false, null: false
-    t.boolean "can_reload_media", default: false, null: false
-    t.decimal "latitude", precision: 10, scale: 6, null: false
-    t.decimal "longitude", precision: 10, scale: 6, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "routes", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
