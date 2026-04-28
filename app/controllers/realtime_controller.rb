@@ -70,12 +70,14 @@ class RealtimeController < ApplicationController
   }.freeze
 
   def alerts
-    return render json: 'Missing GTFS_REALTIME_ALERTS_URL' unless ENV.fetch 'GTFS_REALTIME_ALERTS_URL'
+    return render json: { error: 'Missing GTFS_REALTIME_ALERTS_URL' }, status: :service_unavailable unless ENV.fetch('GTFS_REALTIME_ALERTS_URL', nil)
 
     expires_in CACHE_TTL.seconds, public: true
     messages = Rails.cache.fetch('/realtime/alerts.json', expires_in: CACHE_TTL.seconds) do
+      data = fetch_realtime_feed(ENV.fetch('GTFS_REALTIME_ALERTS_URL'))
+      next [] if data.nil?
+
       messages = []
-      data = Net::HTTP.get(URI.parse(ENV.fetch('GTFS_REALTIME_ALERTS_URL', nil)))
       feed = Transit_realtime::FeedMessage.decode(data)
       feed.entity.each do |entity|
         entity = entity.to_hash
@@ -96,15 +98,20 @@ class RealtimeController < ApplicationController
       messages
     end
     render json: messages
+  rescue StandardError => e
+    Rails.logger.error("Realtime alerts error: #{e.class}: #{e.message}")
+    render json: { error: 'Realtime data unavailable', data: [] }, status: :service_unavailable
   end
 
   def vehicle_positions
-    return render json: 'Missing GTFS_REALTIME_VEHICLE_POSITIONS_URL' unless ENV.fetch 'GTFS_REALTIME_VEHICLE_POSITIONS_URL'
+    return render json: { error: 'Missing GTFS_REALTIME_VEHICLE_POSITIONS_URL' }, status: :service_unavailable unless ENV.fetch('GTFS_REALTIME_VEHICLE_POSITIONS_URL', nil)
 
     expires_in CACHE_TTL.seconds, public: true
     positions = Rails.cache.fetch('/realtime/vehicle_positions.json', expires_in: CACHE_TTL.seconds) do
+      data = fetch_realtime_feed(ENV.fetch('GTFS_REALTIME_VEHICLE_POSITIONS_URL'))
+      next [] if data.nil?
+
       positions = []
-      data = Net::HTTP.get(URI.parse(ENV.fetch('GTFS_REALTIME_VEHICLE_POSITIONS_URL', nil)))
       feed = Transit_realtime::FeedMessage.decode(data)
       feed.entity.each do |entity|
         entity = entity.to_hash
@@ -114,15 +121,20 @@ class RealtimeController < ApplicationController
       positions
     end
     render json: positions
+  rescue StandardError => e
+    Rails.logger.error("Realtime vehicle_positions error: #{e.class}: #{e.message}")
+    render json: { error: 'Realtime data unavailable', data: [] }, status: :service_unavailable
   end
 
   def trip_updates
-    return render json: 'Missing GTFS_REALTIME_TRIP_UPDATES_URL' unless ENV.fetch 'GTFS_REALTIME_TRIP_UPDATES_URL'
+    return render json: { error: 'Missing GTFS_REALTIME_TRIP_UPDATES_URL' }, status: :service_unavailable unless ENV.fetch('GTFS_REALTIME_TRIP_UPDATES_URL', nil)
 
     expires_in CACHE_TTL.seconds, public: true
     updates = Rails.cache.fetch('/realtime/trip_updates.json', expires_in: CACHE_TTL.seconds) do
+      data = fetch_realtime_feed(ENV.fetch('GTFS_REALTIME_TRIP_UPDATES_URL'))
+      next [] if data.nil?
+
       updates = []
-      data = Net::HTTP.get(URI.parse(ENV.fetch('GTFS_REALTIME_TRIP_UPDATES_URL', nil)))
       feed = Transit_realtime::FeedMessage.decode(data)
       feed.entity.each do |entity|
         entity = entity.to_hash
@@ -140,5 +152,27 @@ class RealtimeController < ApplicationController
       updates
     end
     render json: updates.as_json
+  rescue StandardError => e
+    Rails.logger.error("Realtime trip_updates error: #{e.class}: #{e.message}")
+    render json: { error: 'Realtime data unavailable', data: [] }, status: :service_unavailable
+  end
+
+  private
+
+  FETCH_TIMEOUT = 10
+
+  def fetch_realtime_feed(url)
+    uri = URI.parse(url)
+    Net::HTTP.start(uri.host, uri.port,
+                    open_timeout: FETCH_TIMEOUT,
+                    read_timeout: FETCH_TIMEOUT,
+                    use_ssl: uri.scheme == 'https') do |http|
+      response = http.get(uri.request_uri)
+      response.body
+    end
+  rescue Errno::ECONNRESET, Errno::ECONNREFUSED, Errno::ETIMEDOUT,
+         Net::OpenTimeout, Net::ReadTimeout, SocketError => e
+    Rails.logger.error("Realtime feed fetch failed for #{url}: #{e.class}: #{e.message}")
+    nil
   end
 end
