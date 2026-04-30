@@ -7,6 +7,7 @@ require 'google/transit/gtfs-realtime.pb'
 # Realtime Controller
 class RealtimeController < ApplicationController
   CACHE_TTL = 5
+  RealtimeFeedUnavailableError = Class.new(StandardError)
 
   ALERT_CAUSES = {
     0 => nil,
@@ -75,7 +76,6 @@ class RealtimeController < ApplicationController
     expires_in CACHE_TTL.seconds, public: true
     messages = Rails.cache.fetch('/realtime/alerts.json', expires_in: CACHE_TTL.seconds) do
       data = fetch_realtime_feed(ENV.fetch('GTFS_REALTIME_ALERTS_URL'))
-      next [] if data.nil?
 
       messages = []
       feed = Transit_realtime::FeedMessage.decode(data)
@@ -109,7 +109,6 @@ class RealtimeController < ApplicationController
     expires_in CACHE_TTL.seconds, public: true
     positions = Rails.cache.fetch('/realtime/vehicle_positions.json', expires_in: CACHE_TTL.seconds) do
       data = fetch_realtime_feed(ENV.fetch('GTFS_REALTIME_VEHICLE_POSITIONS_URL'))
-      next [] if data.nil?
 
       positions = []
       feed = Transit_realtime::FeedMessage.decode(data)
@@ -132,7 +131,6 @@ class RealtimeController < ApplicationController
     expires_in CACHE_TTL.seconds, public: true
     updates = Rails.cache.fetch('/realtime/trip_updates.json', expires_in: CACHE_TTL.seconds) do
       data = fetch_realtime_feed(ENV.fetch('GTFS_REALTIME_TRIP_UPDATES_URL'))
-      next [] if data.nil?
 
       updates = []
       feed = Transit_realtime::FeedMessage.decode(data)
@@ -159,7 +157,7 @@ class RealtimeController < ApplicationController
 
   private
 
-  FETCH_TIMEOUT = 10
+  FETCH_TIMEOUT = 5
 
   def fetch_realtime_feed(url)
     uri = URI.parse(url)
@@ -173,6 +171,6 @@ class RealtimeController < ApplicationController
   rescue Errno::ECONNRESET, Errno::ECONNREFUSED, Errno::ETIMEDOUT,
          Net::OpenTimeout, Net::ReadTimeout, SocketError => e
     Rails.logger.error("Realtime feed fetch failed for #{url}: #{e.class}: #{e.message}")
-    nil
+    raise RealtimeFeedUnavailableError, "Failed to fetch realtime feed"
   end
 end
