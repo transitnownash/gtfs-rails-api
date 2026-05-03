@@ -180,8 +180,8 @@ namespace :import do
       end
       Shape.bulk_insert(set_size: 25) do |worker|
         # Reconnect database (previous block hits timeout limit)
-        ActiveRecord::Base.clear_active_connections!
-        shapes.each do |_, row|
+        ActiveRecord::Base.connection_handler.clear_active_connections!
+        shapes.each_value do |row|
           worker.add(Shape.hash_from_gtfs(row))
         end
       end
