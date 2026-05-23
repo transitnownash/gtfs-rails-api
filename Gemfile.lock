@@ -97,7 +97,7 @@ GEM
       rexml
     crass (1.0.6)
     csv (3.3.5)
-    date (3.4.1)
+    date (3.5.1)
     debug (1.9.0)
       irb (~> 1.10)
       reline (>= 0.3.8)
@@ -148,7 +148,7 @@ GEM
     msgpack (1.7.2)
     multi_json (1.15.0)
     mysql2 (0.5.5)
-    net-imap (0.5.10)
+    net-imap (0.5.14)
       date
       net-protocol
     net-pop (0.1.2)
@@ -262,7 +262,7 @@ GEM
     stringio (3.1.0)
     thor (1.4.0)
     thread_safe (0.3.6)
-    timeout (0.4.3)
+    timeout (0.6.1)
     tsort (0.2.0)
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
