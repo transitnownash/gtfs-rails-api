@@ -51,4 +51,4 @@ production:
   <<: *default
   database: gtfs_rails_api_production
   username: gtfs_rails_api
-  password: <%= ENV["GTFS_RAILS_API_DATABASE_PASSWORD"] %>
+  password: <%= ENV.fetch("DATABASE_URL", "mysql2://root@localhost/gtfs_rails_api_production") %>

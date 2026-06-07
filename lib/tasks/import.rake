@@ -29,12 +29,19 @@ namespace :import do
   desc 'Verifies configured GTFS feed is valid'
   task verify: :environment do |t|
     puts "Running #{t}"
+    gtfs_url = ENV.fetch('GTFS_URL', nil)
+
+    if gtfs_url.blank?
+      puts '[ERROR] GTFS_URL is not configured.'
+      exit 1
+    end
+
     begin
-      @source = GTFS::Source.build ENV.fetch('GTFS_URL', nil)
+      @source = GTFS::Source.build(gtfs_url)
       puts "Finished #{t}"
     rescue GTFS::InvalidSourceException => e
       puts "[ERROR] #{e.message}"
-      puts "[ERROR] GTFS zip at #{ENV.fetch('GTFS_URL')} is invalid."
+      puts "[ERROR] GTFS zip at #{gtfs_url} is invalid."
       exit 1
     end
   end
