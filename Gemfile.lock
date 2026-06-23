@@ -81,7 +81,7 @@ GEM
     ast (2.4.2)
     base64 (0.3.0)
     benchmark (0.5.0)
-    bigdecimal (4.0.1)
+    bigdecimal (4.1.2)
     bootsnap (1.17.0)
       msgpack (~> 1.2)
     builder (3.3.0)
@@ -164,7 +164,7 @@ GEM
       racc (~> 1.4)
     nokogiri (1.19.3-x86_64-linux-gnu)
       racc (~> 1.4)
-    oj (3.16.11)
+    oj (3.17.3)
       bigdecimal (>= 3.0)
       ostruct (>= 0.2)
     ostruct (0.6.3)
@@ -301,7 +301,7 @@ DEPENDENCIES
   gtfs
   gtfs-realtime-bindings
   mysql2 (~> 0.5)
-  oj (~> 3.16)
+  oj (~> 3.17)
   puma (~> 7.2)
   rack-cors
   rack-mini-profiler (~> 3.3)
