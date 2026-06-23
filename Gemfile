@@ -15,7 +15,7 @@ gem 'mysql2', '~> 0.5'
 
 # Use the Puma web server [https://github.com/puma/puma]
 # Puma 6+ is required for Rack 3 (Rails 7.1)
-gem 'puma', '~> 6.4'
+gem 'puma', '~> 7.2'
 
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 # gem "jbuilder"
