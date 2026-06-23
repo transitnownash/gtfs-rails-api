@@ -77,6 +77,6 @@ gem 'will_paginate', '~> 3.3'
 gem 'geokit-rails', '~> 2.3'
 gem 'rexml', '~> 3.4'
 
-gem 'oj', '~> 3.16'
+gem 'oj', '~> 3.17'
 
 gem 'fast_jsonapi', '~> 1.5'
