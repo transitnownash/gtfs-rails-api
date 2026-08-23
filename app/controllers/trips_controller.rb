@@ -18,10 +18,8 @@ class TripsController < ApplicationController
   # GET /trips/:id
   def show
     cache_key = "trips/#{@trip.trip_gid}/details"
-    result = Rails.cache.fetch(cache_key, expires_in: 5.minutes) do
-      @trip.as_json.merge(scheduled_today: @trip.active_on?)
-    end
-    render json: result
+    details = Rails.cache.fetch(cache_key, expires_in: 5.minutes) { @trip.as_json }
+    render json: details.merge(scheduled_today: @trip.active_on?)
   end
 
   # GET /trips/:id/stop_times
