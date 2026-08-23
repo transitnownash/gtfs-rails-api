@@ -37,6 +37,23 @@ class TripsControllerTest < ActionDispatch::IntegrationTest
     assert_equal '1', json_response['block_gid']
   end
 
+  test 'should show trip not running on current day' do
+    # setup travels to Thursday 2022-08-04; AAMV1 only runs Sat/Sun (service_gid WE)
+    weekend_only_trip = trips(:Trip8).trip_gid
+    get trip_url(weekend_only_trip), as: :json
+    assert_response :success
+    json_response = response.parsed_body
+    assert_equal 'AAMV1', json_response['trip_gid']
+    assert_equal false, json_response['scheduled_today']
+  end
+
+  test 'should show trip running on current day as scheduled_today' do
+    get trip_url(@trip), as: :json
+    assert_response :success
+    json_response = response.parsed_body
+    assert_equal true, json_response['scheduled_today']
+  end
+
   test 'should show trip shape' do
     get trip_shape_url(@trip), as: :json
     assert_response :success
