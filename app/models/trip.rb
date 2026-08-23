@@ -37,6 +37,10 @@ class Trip < ApplicationRecord
     Trip.active.where(block_gid:).includes(:shape, :stop_times, { stop_times: :stop })
   end
 
+  def active_on?(date = Time.zone.today)
+    Trip.active(date.to_s).exists?(id:)
+  end
+
   def as_json(_options = {})
     super(include: [shape: { only: %i[id shape_gid points], methods: :points }, stop_times: { methods: :stop }])
   end

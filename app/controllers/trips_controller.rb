@@ -18,10 +18,8 @@ class TripsController < ApplicationController
   # GET /trips/:id
   def show
     cache_key = "trips/#{@trip.trip_gid}/details"
-    result = Rails.cache.fetch(cache_key, expires_in: 5.minutes) do
-      @trip.as_json
-    end
-    render json: result
+    details = Rails.cache.fetch(cache_key, expires_in: 5.minutes) { @trip.as_json }
+    render json: details.merge(scheduled_today: @trip.active_on?)
   end
 
   # GET /trips/:id/stop_times
@@ -55,7 +53,7 @@ class TripsController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_trip
-    @trip = Trip.active.includes(:shape, :stop_times, { stop_times: :stop }).find_by(trip_gid: params[:trip_gid])
+    @trip = Trip.includes(:shape, :stop_times, { stop_times: :stop }).find_by(trip_gid: params[:trip_gid])
     raise ActionController::RoutingError, 'Not Found' if @trip.nil?
   end
 end
