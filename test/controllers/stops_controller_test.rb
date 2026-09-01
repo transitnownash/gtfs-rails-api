@@ -185,4 +185,21 @@ class StopsControllerTest < ActionDispatch::IntegrationTest
     assert_equal '25:30:00', upcoming[0]['stop_time']['arrival_time'], 'Second trip should be 25:30:00'
     assert_equal '01:45:00', upcoming[1]['stop_time']['arrival_time'], 'Third trip should be 01:45:00'
   end
+
+  test 'should not let a far-off midnight-spanning trip crowd out later same-day trips' do
+    # Query at 5:10 AM - fixtures have normal daytime trips (08:10, 12:05) plus a
+    # midnight-spanning trip far out at 25:15 (1:15 AM, ~20 hours away). The daytime
+    # trips are only minutes/hours away and must rank ahead of the ~20-hour-out one.
+    get stop_next_url(@bullfrog_stop, { time: '05:10:00' }), as: :json
+    assert_response :success
+    json_response = response.parsed_body
+
+    next_trip = json_response['next_trip']
+    assert_not_nil next_trip
+    assert_equal '08:10:00', next_trip['stop_time']['arrival_time']
+
+    upcoming_arrivals = json_response['upcoming_trips'].map { |t| t['stop_time']['arrival_time'] }
+    assert_not_includes upcoming_arrivals, '25:15:00',
+                         'A trip ~20 hours away should not crowd out same-day trips in the top 4'
+  end
 end

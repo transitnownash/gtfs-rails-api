@@ -78,30 +78,13 @@ class StopsController < ApplicationController
                 .includes(trip: %i[route shape])
                 .to_a
 
-    # Filter to upcoming trips and sort by normalized time
-    # Times >= 86400 are already in GTFS 24+ format (past midnight on same service day)
-    # Times < 86400 in normal format might also be past midnight if they're early morning
-    # When in early morning service (current time < 6 AM), we need to sort mixed times correctly:
-    # - 24+ times (like 25:15:00) represent early morning of TODAY
-    # - Normal early times (like 01:45:00) also represent early morning of TODAY
-    # - Normal daytime times (like 08:10:00) represent LATER on TODAY
+    # Rank every stop_time by how many seconds from now it arrives, then take the soonest 4.
     filtered = all_trips
-               .select { |st| is_trip_upcoming?(st.arrival_time, current_time_seconds) }
-               .sort_by do |st|
-                 arrival_seconds = arrival_time_seconds(st.arrival_time)
-                 # If it's already in 24+ format, use as-is
-                 if arrival_seconds >= 86400
-                   arrival_seconds
-                 # If current time is very early (< 6 AM = 21600 seconds), we're in post-midnight service
-                 # So early times (< 6 AM) should be treated as post-midnight for sorting
-                 elsif current_time_seconds < 21600 && arrival_seconds < 21600
-                   # Both in "early service" range, treat as same service period
-                   arrival_seconds + 86400
-                 else
-                   arrival_seconds
-                 end
-               end
+               .map { |st| [st, seconds_until_arrival(st.arrival_time, current_time_seconds)] }
+               .select { |(_st, delta)| delta }
+               .sort_by { |(_st, delta)| delta }
                .first(4)
+               .map(&:first)
 
     # Fetch realtime data. To avoid race conditions, fetch fresh realtime data for each trip
     # rather than caching a potentially stale global snapshot. Only use cache for retry resilience.
@@ -180,49 +163,28 @@ class StopsController < ApplicationController
     Time.zone.now.strftime('%H:%M:%S')
   end
 
-  def previous_date(date_str)
-    return (Time.zone.today - 1.day).strftime('%Y-%m-%d') if date_str.blank?
-
-    (Date.parse(date_str) - 1.day).strftime('%Y-%m-%d')
-  rescue ArgumentError
-    (Time.zone.today - 1.day).strftime('%Y-%m-%d')
-  end
-
-  # Check if a trip is upcoming based on current time
-  # Handles GTFS times that can exceed 24:00:00 for trips spanning midnight
-  def is_trip_upcoming?(arrival_time, current_time_seconds)
+  # Seconds from current_time_seconds until this stop_time's arrival, or nil if it
+  # isn't upcoming.
+  #
+  # GTFS times >= 24:00:00 (e.g. "25:15:00") represent a stop visited after midnight,
+  # still attributed to today's service day. We normalize those to a real clock time
+  # (25:15 -> 1:15) and measure forward from now, wrapping to the next occurrence if
+  # that clock time has already passed today (e.g. now = 5 AM, arrival normalizes to
+  # 12:48 AM -> ~20 hours away, not "already happened").
+  #
+  # Normal-format times (< 24:00:00) never wrap: once they've passed today they're
+  # excluded rather than treated as tomorrow's occurrence.
+  def seconds_until_arrival(arrival_time, current_time_seconds)
     arrival_seconds = arrival_time_seconds(arrival_time)
 
-    # If arrival time is >= 24:00:00 (86400 seconds), it represents a time after midnight
-    # that's part of today's service (e.g., 25:30:00 = 1:30 AM)
     if arrival_seconds >= 86400
-      return true
+      normalized = arrival_seconds - 86400
+      return normalized >= current_time_seconds ? normalized - current_time_seconds : normalized + 86400 - current_time_seconds
     end
 
-    # When in early morning service (current time before 6 AM = 21600 seconds),
-    # exclude times outside the early service window:
-    # - Exclude evening times (18:00 - 23:59, which is 64800-86399 seconds)
-    # - Exclude daytime times (06:00 - 17:59, which is 21600-64799 seconds)
-    # Only include: current time + upcoming early morning times (00:00 - 05:59)
-    if current_time_seconds < 21600
-      if arrival_seconds >= 21600
-        # Current time is early morning, but arrival time is daytime or evening
-        return false
-      end
-      if arrival_seconds >= 64800
-        # Evening times should be excluded
-        return false
-      end
-    end
+    return nil unless arrival_seconds > current_time_seconds
 
-    arrival_seconds > current_time_seconds
-  end
-
-  # Normalize arrival time to seconds for sorting
-  # Times >= 24:00:00 are normalized to their actual time today (after midnight)
-  def normalized_arrival_seconds(arrival_time)
-    seconds = arrival_time_seconds(arrival_time)
-    seconds >= 86400 ? seconds - 86400 : seconds
+    arrival_seconds - current_time_seconds
   end
 
   def serialize_stop_time_with_trip(stop_time, realtime_updates = {}, include_shape: true)
