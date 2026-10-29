@@ -80,3 +80,10 @@ gem 'rexml', '~> 3.4'
 gem 'oj', '~> 3.17'
 
 gem 'fast_jsonapi', '~> 1.5'
+
+# OpenTelemetry tracing; enabled only when OTEL_EXPORTER_OTLP_ENDPOINT is set
+gem 'opentelemetry-exporter-otlp', '~> 0.32.0', require: false
+gem 'opentelemetry-instrumentation-mysql2', '~> 0.31', require: false
+gem 'opentelemetry-instrumentation-net_http', '~> 0.27', require: false
+gem 'opentelemetry-instrumentation-rails', '~> 0.39', require: false
+gem 'opentelemetry-sdk', '~> 1.10', require: false

@@ -31,6 +31,15 @@
     "GTFS_REALTIME_VEHICLE_POSITIONS_URL": {
       "description": "GTFS Realtime Vehicle Positions URL (Optional)",
       "value": "http://example.com/vehiclepositions.pb"
+    },
+    "OTEL_EXPORTER_OTLP_ENDPOINT": {
+      "description": "OpenTelemetry OTLP/HTTP endpoint; tracing is enabled only when set. Other standard OTEL_* variables are honored. (Optional)",
+      "required": false
+    },
+    "OTEL_SERVICE_NAME": {
+      "description": "OpenTelemetry service name (Optional)",
+      "value": "gtfs-rails-api",
+      "required": false
     }
   }
 }
