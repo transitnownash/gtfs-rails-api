@@ -19,7 +19,11 @@ class RoutesController < ApplicationController
   # GET /routes/1/trips
   def show_trips
     date = params[:date] unless params[:date].nil?
-    render json: paginate_results(@route.trips.active(date).includes(:shape, :stop_times, { stop_times: :stop }))
+    cache_key = "routes/#{@route.route_gid}/trips/#{date || 'all'}-page#{params[:page] || 1}-per#{params[:per_page] || 100}"
+    result = Rails.cache.fetch(cache_key, expires_in: 5.minutes) do
+      paginate_results(@route.trips.active(date).includes(:shape, :stop_times, { stop_times: :stop })).to_json
+    end
+    render json: result
   end
 
   # GET /routes/1/shapes

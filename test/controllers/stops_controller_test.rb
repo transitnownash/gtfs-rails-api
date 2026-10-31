@@ -6,6 +6,10 @@ class StopsControllerTest < ActionDispatch::IntegrationTest
   setup do
     @stop = stops(:Stop1).stop_gid
     @bullfrog_stop = stops(:Stop3).stop_gid  # BULLFROG stop for midnight-spanning tests
+    %w[alerts trip_updates vehicle_positions].each do |feed|
+      stub_request(:get, "http://example.com/realtime/#{feed}.pb")
+        .to_return(body: File.binread("./test/fixtures/files/#{feed}.pb"), status: 200)
+    end
   end
 
   test 'should get index' do

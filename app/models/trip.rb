@@ -10,35 +10,32 @@ class Trip < ApplicationRecord
 
   default_scope { order(start_time: :asc) }
 
-  scope :active, lambda { |date = nil|
-    if date.blank?
-      dow = Time.current.strftime('%A').downcase
-      today = Time.zone.today.strftime('%Y-%m-%d')
-    else
-      dow = Date.parse(date).strftime('%A').downcase
-      today = Date.parse(date).strftime('%Y-%m-%d')
-    end
-    where("
-      service_gid IN (
+  scope :active, ->(date = nil) { where(service_gid: active_service_gids(date)) }
+
+  def self.active_service_gids(date = nil)
+    day = date.blank? ? Time.zone.today : Date.parse(date)
+    Rails.cache.fetch("trips/active_service_gids/#{day.iso8601}", expires_in: 10.minutes) do
+      today = day.strftime('%Y-%m-%d')
+      connection.select_values(<<~SQL.squish)
         SELECT c1.service_gid FROM calendars c1
         WHERE
-          #{dow} = 1 AND
+          #{day.strftime('%A').downcase} = 1 AND
           '#{today}' BETWEEN start_date AND end_date
           AND c1.service_gid NOT IN (
             SELECT c2.service_gid FROM calendar_dates c2 WHERE date = '#{today}' AND exception_type = 2
           )
         UNION
         SELECT c3.service_gid FROM calendar_dates c3 WHERE c3.date = '#{today}' AND exception_type = 1
-      )
-    ")
-  }
+      SQL
+    end
+  end
 
   def block
     Trip.active.where(block_gid:).includes(:shape, :stop_times, { stop_times: :stop })
   end
 
   def active_on?(date = Time.zone.today)
-    Trip.active(date.to_s).exists?(id:)
+    Trip.active_service_gids(date.to_s).include?(service_gid)
   end
 
   def as_json(_options = {})

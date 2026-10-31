@@ -10,7 +10,7 @@ class TripsController < ApplicationController
     date = params[:date] unless params[:date].nil?
     cache_key = "trips/index/#{date || 'all'}-page#{params[:page] || 1}-per#{params[:per_page] || 100}"
     result = Rails.cache.fetch(cache_key, expires_in: 5.minutes) do
-      paginate_results(Trip.active(date).includes(:shape, :stop_times, { stop_times: :stop }))
+      paginate_results(Trip.active(date).includes(:shape, :stop_times, { stop_times: :stop })).to_json
     end
     render json: result
   end
@@ -18,7 +18,10 @@ class TripsController < ApplicationController
   # GET /trips/:id
   def show
     cache_key = "trips/#{@trip.trip_gid}/details"
-    details = Rails.cache.fetch(cache_key, expires_in: 5.minutes) { @trip.as_json }
+    details = Rails.cache.fetch(cache_key, expires_in: 5.minutes) do
+      ActiveRecord::Associations::Preloader.new(records: [@trip], associations: [:shape, { stop_times: :stop }]).call
+      @trip.as_json
+    end
     render json: details.merge(scheduled_today: @trip.active_on?)
   end
 
@@ -26,7 +29,7 @@ class TripsController < ApplicationController
   def show_stop_times
     cache_key = "trips/#{@trip.trip_gid}/stop_times-page#{params[:page] || 1}-per#{params[:per_page] || 100}"
     result = Rails.cache.fetch(cache_key, expires_in: 5.minutes) do
-      paginate_results(@trip.stop_times)
+      paginate_results(@trip.stop_times.includes(:stop)).to_json
     end
     render json: result
   end
@@ -35,7 +38,7 @@ class TripsController < ApplicationController
   def show_shape
     cache_key = "trips/#{@trip.trip_gid}/shape"
     result = Rails.cache.fetch(cache_key, expires_in: 5.minutes) do
-      @trip.shape
+      @trip.shape.to_json
     end
     render json: result
   end
@@ -44,7 +47,7 @@ class TripsController < ApplicationController
   def show_block
     cache_key = "trips/#{@trip.trip_gid}/block"
     result = Rails.cache.fetch(cache_key, expires_in: 5.minutes) do
-      @trip.block
+      @trip.block.to_json
     end
     render json: result
   end
@@ -53,7 +56,7 @@ class TripsController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_trip
-    @trip = Trip.includes(:shape, :stop_times, { stop_times: :stop }).find_by(trip_gid: params[:trip_gid])
+    @trip = Trip.find_by(trip_gid: params[:trip_gid])
     raise ActionController::RoutingError, 'Not Found' if @trip.nil?
   end
 end

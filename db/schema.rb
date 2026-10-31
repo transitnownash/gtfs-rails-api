@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2026_03_07_152735) do
+ActiveRecord::Schema[7.2].define(version: 2026_10_31_180000) do
   create_table "agencies", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
     t.string "agency_gid"
     t.string "agency_name", null: false
@@ -32,6 +32,8 @@ ActiveRecord::Schema[7.2].define(version: 2026_03_07_152735) do
     t.string "exception_type", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["calendar_id"], name: "index_calendar_dates_on_calendar_id"
+    t.index ["date", "exception_type", "service_gid"], name: "index_calendar_dates_on_date_and_exception_type"
     t.index ["service_gid", "date"], name: "index_calendar_dates_on_service_gid_and_date", unique: true
   end
 
@@ -112,6 +114,7 @@ ActiveRecord::Schema[7.2].define(version: 2026_03_07_152735) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["route_gid"], name: "index_routes_on_route_gid", unique: true
+    t.index ["route_short_name"], name: "index_routes_on_route_short_name"
   end
 
   create_table "shapes", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
@@ -137,10 +140,9 @@ ActiveRecord::Schema[7.2].define(version: 2026_03_07_152735) do
     t.string "timepoint"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["stop_gid"], name: "index_stop_times_on_stop_gid"
+    t.index ["stop_gid", "arrival_time", "stop_sequence"], name: "index_stop_times_on_stop_gid_and_arrival_time"
     t.index ["stop_id"], name: "index_stop_times_on_stop_id"
     t.index ["trip_gid", "stop_sequence"], name: "index_stop_times_on_trip_gid_and_stop_sequence", unique: true
-    t.index ["trip_gid"], name: "index_stop_times_on_trip_gid"
     t.index ["trip_id"], name: "index_stop_times_on_trip_id"
   end
 
@@ -160,6 +162,8 @@ ActiveRecord::Schema[7.2].define(version: 2026_03_07_152735) do
     t.string "wheelchair_boarding"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["parent_station_id"], name: "index_stops_on_parent_station_id"
+    t.index ["stop_code"], name: "index_stops_on_stop_code"
     t.index ["stop_gid"], name: "index_stops_on_stop_gid", unique: true
   end
 
@@ -194,10 +198,10 @@ ActiveRecord::Schema[7.2].define(version: 2026_03_07_152735) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["block_gid"], name: "index_trips_on_block_gid"
-    t.index ["calendar_id"], name: "index_stop_times_on_service_id"
-    t.index ["route_gid"], name: "index_stop_times_on_route_gid"
-    t.index ["route_id"], name: "index_stop_times_on_route_id"
-    t.index ["service_gid"], name: "index_stop_times_on_service_gid"
+    t.index ["calendar_id"], name: "index_trips_on_calendar_id"
+    t.index ["route_gid"], name: "index_trips_on_route_gid"
+    t.index ["route_id", "start_time"], name: "index_trips_on_route_id_and_start_time"
+    t.index ["service_gid", "start_time"], name: "index_trips_on_service_gid_and_start_time"
     t.index ["shape_gid"], name: "index_trips_on_shape_gid"
     t.index ["shape_id"], name: "index_trips_on_shape_id"
     t.index ["trip_gid"], name: "index_trips_on_trip_gid", unique: true

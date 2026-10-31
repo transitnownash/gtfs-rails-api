@@ -1,40 +1,6 @@
 # frozen_string_literal: true
 
-require 'protobuf'
-require 'google/transit/gtfs-realtime.pb'
-
 class StopsController < ApplicationController
-  ALERT_CAUSES = {
-    0 => nil,
-    1 => 'Unknown Cause',
-    2 => 'Other Cause',
-    3 => 'Technical Problem',
-    4 => 'Strike',
-    5 => 'Demonstration',
-    6 => 'Accident',
-    7 => 'Holiday',
-    8 => 'Weather',
-    9 => 'Maintenance',
-    10 => 'Construction',
-    11 => 'Police Activity',
-    12 => 'Medical Emergency'
-  }.freeze
-
-  ALERT_EFFECTS = {
-    0 => nil,
-    1 => 'No Service',
-    2 => 'Reduced Service',
-    3 => 'Significant Delays',
-    4 => 'Detour',
-    5 => 'Additional Service',
-    6 => 'Modified Service',
-    7 => 'Other Effect',
-    8 => 'Unknown Effect',
-    9 => 'Stop Moved',
-    10 => 'No Effect',
-    11 => 'Accessibility Issue'
-  }.freeze
-
   before_action :set_stop, only: %i[show show_stop_times show_trips show_routes next]
 
   # GET /stops
@@ -75,7 +41,7 @@ class StopsController < ApplicationController
                 .joins(:trip)
                 .merge(Trip.active(date_filter))
                 .where(stop_gid: stop_and_children_gids)
-                .includes(trip: %i[route shape])
+                .includes(trip: :route)
                 .to_a
 
     # Rank every stop_time by how many seconds from now it arrives, then take the soonest 4.
@@ -86,14 +52,11 @@ class StopsController < ApplicationController
                .first(4)
                .map(&:first)
 
-    # Fetch realtime data. To avoid race conditions, fetch fresh realtime data for each trip
-    # rather than caching a potentially stale global snapshot. Only use cache for retry resilience.
     realtime_updates = fetch_realtime_updates
     alerts = fetch_and_filter_alerts(@stop.stop_gid, filtered.first&.trip&.route_gid)
 
-    vehicle_positions = filtered.map do |stop_time|
-      fetch_vehicle_position_for_trip(stop_time.trip.trip_gid)
-    end.compact
+    vehicles_by_trip = fetch_vehicle_positions_by_trip
+    vehicle_positions = filtered.filter_map { |stop_time| vehicles_by_trip[stop_time.trip.trip_gid] }
 
     result = {
       stop: @stop.as_json(methods: %i[child_stops parent_station]),
@@ -112,7 +75,7 @@ class StopsController < ApplicationController
     stop_gids += @stop.child_stops.map(&:stop_gid)
     cache_key = "stops/#{@stop.stop_gid}/stop_times-page#{params[:page] || 1}-per#{params[:per_page] || 100}"
     result = Rails.cache.fetch(cache_key, expires_in: 5.minutes) do
-      paginate_results(StopTime.where(stop_gid: stop_gids))
+      paginate_results(StopTime.where(stop_gid: stop_gids).includes(:stop)).to_json
     end
     render json: result
   end
@@ -129,7 +92,7 @@ class StopsController < ApplicationController
             .includes(:shape, :stop_times, { stop_times: :stop })
             .where(stop_times: { stop_gid: stop_gids })
             .distinct
-      )
+      ).to_json
     end
     render json: result
   end
@@ -138,7 +101,11 @@ class StopsController < ApplicationController
   def show_routes
     stop_gids = [@stop.stop_gid]
     stop_gids += @stop.child_stops.map(&:stop_gid)
-    render json: paginate_results(Route.joins(trips: [:stop_times]).where(stop_times: { stop_gid: stop_gids }).distinct)
+    cache_key = "stops/#{@stop.stop_gid}/routes-page#{params[:page] || 1}-per#{params[:per_page] || 100}"
+    result = Rails.cache.fetch(cache_key, expires_in: 5.minutes) do
+      paginate_results(Route.joins(trips: [:stop_times]).where(stop_times: { stop_gid: stop_gids }).distinct).to_json
+    end
+    render json: result
   end
 
   private
@@ -246,187 +213,48 @@ class StopsController < ApplicationController
   end
 
   def fetch_realtime_updates
-    return {} if Rails.env.test?
-    return {} unless ENV.fetch('GTFS_REALTIME_TRIP_UPDATES_URL', nil)
-
-    # Use a shorter cache window (2 seconds instead of 5) to reduce stale data risks.
-    # This balances between minimizing redundant API calls and ensuring relatively fresh data.
-    # If the realtime service is slow or inconsistent, requests within this window may see
-    # slightly stale data, but at least we're not holding stale data for too long.
-    realtime_json = Rails.cache.fetch('/realtime/trip_updates.json', expires_in: 2.seconds) do
-      fetch_realtime_trip_updates_from_source
-    end
-
-    indexed = realtime_json.index_by { |entity| entity.dig('trip_update', 'trip', 'trip_id') }.tap do |h|
-      h.default = {}
-    end
-    Rails.logger.debug("Indexed realtime updates with #{indexed.keys.length} trips")
-    indexed
+    RealtimeFeeds.entities(:trip_updates)
+                 .index_by { |entity| entity.dig(:trip_update, :trip, :trip_id) }
+                 .tap { |indexed| indexed.default = {} }
   rescue StandardError => e
     Rails.logger.warn("Error in fetch_realtime_updates: #{e.message}")
     {}
   end
 
-  def fetch_realtime_trip_updates_from_source
-    begin
-      uri = URI.parse(ENV.fetch('GTFS_REALTIME_TRIP_UPDATES_URL'))
-      http = Net::HTTP.new(uri.host, uri.port)
-      http.use_ssl = uri.scheme == 'https'
-      http.read_timeout = 5
-      request = Net::HTTP::Get.new(uri.request_uri)
-      response = http.request(request)
-
-      return [] unless response.is_a?(Net::HTTPSuccess)
-
-      require 'protobuf'
-      require 'google/transit/gtfs-realtime.pb'
-
-      feed = Transit_realtime::FeedMessage.decode(response.body)
-      entities = feed.entity.map { |entity| entity.to_hash }
-
-      # Convert symbol keys to string keys for JSON serialization
-      entities.map { |entity| convert_keys_to_strings(entity) }
-    rescue StandardError => e
-      Rails.logger.warn("Failed to fetch realtime trip updates from source: #{e.message}")
-      []
-    end
-  end
-
-  def convert_keys_to_strings(hash)
-    return hash unless hash.is_a?(Hash)
-
-    hash.transform_keys { |k| k.to_s }.transform_values do |v|
-      case v
-      when Hash
-        convert_keys_to_strings(v)
-      when Array
-        v.map { |item| item.is_a?(Hash) ? convert_keys_to_strings(item) : item }
-      else
-        v
-      end
-    end
-  end
-
   def find_realtime_update_for_stop(trip_gid, stop_gid, realtime_updates)
-    # The realtime feed uses numeric trip_id, but we have trip_gid from the database
-    # Try to find a realtime update using the trip_gid directly first
-    trip_update = realtime_updates[trip_gid]
-
-    # If not found and trip_gid looks numeric, try looking it up as a numeric ID
-    unless trip_update
-      # Try to find the trip in the database and get its numeric ID if available
-      trip = Trip.find_by(trip_gid: trip_gid)
-      if trip
-        # Try using the database ID
-        trip_update = realtime_updates[trip.id.to_s]
-      end
-    end
-
-    unless trip_update
-      Rails.logger.debug("Realtime update not found for trip_gid: #{trip_gid}")
-      return nil
-    end
-
-    # Use string keys to access the data structure (converted by convert_keys_to_strings)
-    stop_time_updates = trip_update.dig('trip_update', 'stop_time_update') || []
-    stop_update = stop_time_updates.find { |stu| stu['stop_id'] == stop_gid }
-
-    unless stop_update
-      Rails.logger.debug("Stop update not found for stop_gid: #{stop_gid} in trip: #{trip_gid}")
-      return nil
-    end
+    stop_time_updates = realtime_updates[trip_gid]&.dig(:trip_update, :stop_time_update) || []
+    stop_update = stop_time_updates.find { |stu| stu[:stop_id] == stop_gid }
+    return nil unless stop_update
 
     {
-      arrival: stop_update.dig('arrival', 'time') ? Time.at(stop_update.dig('arrival', 'time')).in_time_zone('America/Chicago').strftime('%H:%M:%S') : nil,
-      departure: stop_update.dig('departure', 'time') ? Time.at(stop_update.dig('departure', 'time')).in_time_zone('America/Chicago').strftime('%H:%M:%S') : nil,
-      schedule_relationship: stop_update['schedule_relationship']
+      arrival: stop_update.dig(:arrival, :time) ? Time.at(stop_update.dig(:arrival, :time)).in_time_zone('America/Chicago').strftime('%H:%M:%S') : nil,
+      departure: stop_update.dig(:departure, :time) ? Time.at(stop_update.dig(:departure, :time)).in_time_zone('America/Chicago').strftime('%H:%M:%S') : nil,
+      schedule_relationship: stop_update[:schedule_relationship]
     }.compact
   end
 
   def fetch_and_filter_alerts(stop_gid, route_gid)
-    return [] if Rails.env.test?
-    return [] unless ENV.fetch('GTFS_REALTIME_ALERTS_URL', nil)
-
-    # Use a shorter cache window (2 seconds) to reduce stale alert data
-    alerts_json = Rails.cache.fetch('/realtime/alerts.json', expires_in: 2.seconds) do
-      fetch_realtime_alerts_from_source
-    end
-
-    # Filter alerts that match the stop or route
-    alerts_json.select do |entity|
-      alert = entity.dig('alert', 'informed_entity') || []
-      alert.any? do |informed|
-        informed['stop_id'] == stop_gid || informed['route_id'] == route_gid
+    RealtimeFeeds.entities(:alerts).select do |entity|
+      (entity.dig(:alert, :informed_entity) || []).any? do |informed|
+        informed[:stop_id] == stop_gid || informed[:route_id] == route_gid
       end
     end.map do |entity|
-      alert = entity['alert'].dup
-      # Convert cause and effect from integers to text
-      alert['cause'] = ALERT_CAUSES[alert['cause']] if alert['cause']
-      alert['effect'] = ALERT_EFFECTS[alert['effect']] if alert['effect']
+      alert = entity[:alert].dup
+      alert[:cause] = RealtimeFeeds::ALERT_CAUSES[alert[:cause]] if alert[:cause]
+      alert[:effect] = RealtimeFeeds::ALERT_EFFECTS[alert[:effect]] if alert[:effect]
       alert
     end
+  rescue StandardError => e
+    Rails.logger.warn("Error in fetch_and_filter_alerts: #{e.message}")
+    []
   end
 
-  def fetch_realtime_alerts_from_source
-    begin
-      uri = URI.parse(ENV.fetch('GTFS_REALTIME_ALERTS_URL'))
-      http = Net::HTTP.new(uri.host, uri.port)
-      http.use_ssl = uri.scheme == 'https'
-      http.read_timeout = 5
-      request = Net::HTTP::Get.new(uri.request_uri)
-      response = http.request(request)
-
-      return [] unless response.is_a?(Net::HTTPSuccess)
-
-      require 'protobuf'
-      require 'google/transit/gtfs-realtime.pb'
-
-      feed = Transit_realtime::FeedMessage.decode(response.body)
-      entities = feed.entity.map { |entity| entity.to_hash }
-      entities.map { |entity| convert_keys_to_strings(entity) }
-    rescue StandardError => e
-      Rails.logger.warn("Failed to fetch realtime alerts from source: #{e.message}")
-      []
+  def fetch_vehicle_positions_by_trip
+    RealtimeFeeds.entities(:vehicle_positions).each_with_object({}) do |entity, by_trip|
+      by_trip[entity.dig(:vehicle, :trip, :trip_id)] ||= entity[:vehicle]
     end
-  end
-
-  def fetch_vehicle_position_for_trip(trip_gid)
-    return nil if Rails.env.test?
-    return nil unless ENV.fetch('GTFS_REALTIME_VEHICLE_POSITIONS_URL', nil)
-
-    # Use a shorter cache window (2 seconds) to reduce stale vehicle position data
-    vehicles_json = Rails.cache.fetch('/realtime/vehicle_positions.json', expires_in: 2.seconds) do
-      fetch_realtime_vehicle_positions_from_source
-    end
-
-    # Find vehicle position for matching trip
-    vehicle = vehicles_json.find do |entity|
-      entity.dig('vehicle', 'trip', 'trip_id') == trip_gid
-    end
-
-    vehicle&.dig('vehicle')
-  end
-
-  def fetch_realtime_vehicle_positions_from_source
-    begin
-      uri = URI.parse(ENV.fetch('GTFS_REALTIME_VEHICLE_POSITIONS_URL'))
-      http = Net::HTTP.new(uri.host, uri.port)
-      http.use_ssl = uri.scheme == 'https'
-      http.read_timeout = 5
-      request = Net::HTTP::Get.new(uri.request_uri)
-      response = http.request(request)
-
-      return [] unless response.is_a?(Net::HTTPSuccess)
-
-      require 'protobuf'
-      require 'google/transit/gtfs-realtime.pb'
-
-      feed = Transit_realtime::FeedMessage.decode(response.body)
-      entities = feed.entity.map { |entity| entity.to_hash }
-      entities.map { |entity| convert_keys_to_strings(entity) }
-    rescue StandardError => e
-      Rails.logger.warn("Failed to fetch realtime vehicle positions from source: #{e.message}")
-      []
-    end
+  rescue StandardError => e
+    Rails.logger.warn("Error in fetch_vehicle_positions_by_trip: #{e.message}")
+    {}
   end
 end
