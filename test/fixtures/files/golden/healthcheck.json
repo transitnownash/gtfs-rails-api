@@ -1,0 +1,2 @@
+200
+{"status":"ok","services":[{"name":"database","status":"ok"},{"name":"realtime_alerts","status":"ok"},{"name":"static_schedule_data","status":"ok"}]}

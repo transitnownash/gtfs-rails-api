@@ -1,8 +1,5 @@
 # frozen_string_literal: true
 
-require 'protobuf'
-require 'google/transit/gtfs-realtime.pb'
-
 class HealthController < ApplicationController
   skip_before_action :set_expires_in
 
@@ -29,7 +26,7 @@ class HealthController < ApplicationController
   end
 
   def realtime_alerts_service_status
-    Transit_realtime::FeedMessage.decode(realtime_feed_client.fetch(ENV.fetch('GTFS_REALTIME_ALERTS_URL', nil)))
+    RealtimeFeeds.entities(:alerts)
     healthy_service_status('realtime_alerts')
   rescue StandardError => e
     failing_service_status('realtime_alerts', e)
@@ -50,9 +47,5 @@ class HealthController < ApplicationController
   def failing_service_status(name, error)
     Rails.logger.error("Healthcheck #{name} failed: #{error.class}: #{error.message}")
     { name: name, status: 'failing', error: error.message }
-  end
-
-  def realtime_feed_client
-    @realtime_feed_client ||= RealtimeFeedClient.new
   end
 end

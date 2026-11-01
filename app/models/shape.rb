@@ -12,8 +12,9 @@ class Shape < ApplicationRecord
     )
   end
 
+  # Preloaded trips share Shape instances, so parse once per shape, not per trip.
   def points
-    JSON.parse(shape_points)
+    @points ||= JSON.parse(shape_points)
   end
 
   def self.hash_from_gtfs(row)

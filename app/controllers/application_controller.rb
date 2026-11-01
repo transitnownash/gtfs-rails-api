@@ -5,6 +5,10 @@
 class ApplicationController < ActionController::API
   before_action :set_expires_in
 
+  rescue_from Date::Error do
+    render json: { error: 'Invalid date' }, status: :bad_request
+  end
+
   def paginate_results(records)
     page = params[:page] ? params[:page].to_i : 1
     per_page = params[:per_page] ? params[:per_page].to_i : 100
