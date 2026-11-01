@@ -130,8 +130,6 @@ GEM
       multi_json
       rake
       rubyzip (~> 1.1)
-    gtfs-realtime-bindings (0.0.5)
-      protobuf (>= 3.0)
     hashdiff (1.1.0)
     i18n (1.15.2)
       concurrent-ruby (~> 1.0)
@@ -154,7 +152,6 @@ GEM
       net-pop
       net-smtp
     marcel (1.2.1)
-    middleware (0.1.0)
     mini_mime (1.1.5)
     minitest (5.27.0)
     msgpack (1.8.2)
@@ -254,11 +251,6 @@ GEM
       prettyprint
     prettyprint (0.2.0)
     prism (1.9.0)
-    protobuf (3.10.8)
-      activesupport (>= 3.2)
-      middleware
-      thor
-      thread_safe
     psych (5.1.2)
       stringio
     public_suffix (7.0.5)
@@ -339,7 +331,6 @@ GEM
     securerandom (0.4.1)
     stringio (3.1.0)
     thor (1.4.0)
-    thread_safe (0.3.6)
     timeout (0.6.1)
     tsort (0.2.0)
     tzinfo (2.0.6)
@@ -376,8 +367,8 @@ DEPENDENCIES
   dotenv-rails
   fast_jsonapi (~> 1.5)
   geokit-rails (~> 2.3)
+  google-protobuf
   gtfs
-  gtfs-realtime-bindings
   mysql2 (~> 0.5)
   oj (~> 3.17)
   opentelemetry-exporter-otlp (~> 0.32.0)

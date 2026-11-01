@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
-require 'protobuf'
-require 'google/transit/gtfs-realtime.pb'
+require Rails.root.join('lib/gtfs_realtime/gtfs-realtime_pb').to_s
 
 ##
 # Fetches and decodes GTFS-realtime feeds once per TTL. Each fill caches both the raw
@@ -109,9 +108,41 @@ class RealtimeFeeds
 
     def load(feed)
       data = RealtimeFeedClient.new.fetch(ENV.fetch(URL_ENV.fetch(feed), nil))
-      entities = Transit_realtime::FeedMessage.decode(data).entity.map(&:to_hash)
+      descriptor = TransitRealtime::FeedEntity.descriptor
+      entities = TransitRealtime::FeedMessage.decode(data).entity.map { |entity| legacy_hash(entity.to_h, descriptor) }
       presented = entities.map { |entity| send(:"present_#{feed.to_s.singularize}", entity.deep_dup) }
       { entities:, json: presented.to_json }
+    end
+
+    # Matches the hash the pure-Ruby protobuf gem produced: only fields present on the wire,
+    # in tag order, enums as integers, and enum values outside the schema dropped.
+    def legacy_hash(hash, descriptor)
+      legacy_fields(descriptor).each_with_object({}) do |(key, type, repeated, subtype), result|
+        next unless hash.key?(key)
+
+        value = hash[key]
+        if repeated
+          result[key] = value.filter_map { |item| legacy_value(item, type, subtype) } unless value.empty?
+        else
+          converted = legacy_value(value, type, subtype)
+          result[key] = converted unless converted.nil?
+        end
+      end
+    end
+
+    def legacy_value(value, type, subtype)
+      case type
+      when :message then legacy_hash(value, subtype)
+      when :enum then subtype.lookup_name(value) if value.is_a?(Symbol)
+      else value
+      end
+    end
+
+    def legacy_fields(descriptor)
+      @legacy_fields ||= {}
+      @legacy_fields[descriptor] ||= descriptor.sort_by(&:number).map do |field|
+        [field.name.to_sym, field.type, field.label == :repeated, field.subtype]
+      end
     end
 
     def present_alert(entity)

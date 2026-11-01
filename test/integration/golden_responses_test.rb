@@ -70,6 +70,12 @@ class GoldenResponsesTest < ActionDispatch::IntegrationTest
     end
   end
 
+  test 'golden realtime alerts with enum values outside the schema' do
+    stub_feeds(alerts: 'unknown_enums_alerts.pb')
+    get '/realtime/alerts.json'
+    assert_golden 'realtime_alerts_unknown_enums'
+  end
+
   private
 
   def stub_feeds(files)

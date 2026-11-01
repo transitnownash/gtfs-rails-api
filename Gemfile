@@ -64,7 +64,7 @@ gem 'csv'
 gem 'gtfs'
 
 # GTFS Realtime
-gem 'gtfs-realtime-bindings'
+gem 'google-protobuf'
 
 # Handle bulk inserts
 gem 'activerecord-import'
