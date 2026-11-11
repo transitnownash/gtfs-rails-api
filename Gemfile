@@ -3,18 +3,15 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '>= 2.7.0'
+ruby '>= 3.2.0'
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
-# Bump Rails to include patched ActiveRecord for CVE-2025-55193
-# Use Rails 7.1 with a minimum of 7.1.5.2 (first patched release)
-gem 'rails', '~> 7.1', '>= 7.1.5.2'
+gem 'rails', '~> 8.1'
 
 # Use mysql as the database for Active Record
 gem 'mysql2', '~> 0.5'
 
 # Use the Puma web server [https://github.com/puma/puma]
-# Puma 6+ is required for Rack 3 (Rails 7.1)
 gem 'puma', '~> 7.2'
 
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
