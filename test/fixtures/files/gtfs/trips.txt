@@ -1,0 +1,3 @@
+route_id,service_id,trip_id,trip_headsign,direction_id,block_id,shape_id
+55,WKDY,T1,Downtown,0,B1,S55
+55,WKDY,T2,Downtown,0,B1,

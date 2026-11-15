@@ -1,0 +1,2 @@
+agency_id,agency_name,agency_url,agency_timezone,agency_lang,agency_phone
+WMTA,WeGo Public Transit,https://www.wegotransit.com,America/Chicago,en,615-862-5950

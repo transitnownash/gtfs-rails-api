@@ -1,5 +1,20 @@
 # frozen_string_literal: true
 
+# Batched multi-row inserts for GTFS imports.
+module GtfsImport
+  module_function
+
+  # insert_all requires identical keys on every row; hash_from_gtfs omits
+  # unresolved foreign keys, so fill gaps with the column default.
+  def bulk_load(model, rows, batch_size: 500, upsert: true)
+    rows.each_slice(batch_size) do |batch|
+      keys = batch.flat_map(&:keys).uniq
+      batch = batch.map { |row| keys.index_with { |k| row.fetch(k) { model.column_defaults[k.to_s] } } }
+      upsert ? model.upsert_all(batch) : model.insert_all(batch) # rubocop:disable Rails/SkipsModelValidations
+    end
+  end
+end
+
 namespace :import do
   task default: 'import:all'
 
@@ -51,11 +66,7 @@ namespace :import do
     puts "Running #{t}"
     begin
       @source = GTFS::Source.build ENV.fetch('GTFS_URL', nil)
-      Agency.bulk_insert(update_duplicates: true) do |worker|
-        @source.each_agency do |row|
-          worker.add(Agency.hash_from_gtfs(row))
-        end
-      end
+      GtfsImport.bulk_load(Agency, @source.enum_for(:each_agency).lazy.map { |row| Agency.hash_from_gtfs(row) })
     rescue Errno::ENOENT
       puts '[warning] agency.txt does not exist.'
     end
@@ -85,11 +96,7 @@ namespace :import do
     puts "Running #{t}"
     begin
       @source = GTFS::Source.build ENV.fetch('GTFS_URL', nil)
-      Calendar.bulk_insert(update_duplicates: true) do |worker|
-        @source.each_calendar do |row|
-          worker.add(Calendar.hash_from_gtfs(row))
-        end
-      end
+      GtfsImport.bulk_load(Calendar, @source.enum_for(:each_calendar).lazy.map { |row| Calendar.hash_from_gtfs(row) })
     rescue Errno::ENOENT
       puts '[warning] calendar.txt does not exist.'
     end
@@ -100,11 +107,7 @@ namespace :import do
     puts "Running #{t}"
     begin
       @source = GTFS::Source.build ENV.fetch('GTFS_URL', nil)
-      FareAttribute.bulk_insert(update_duplicates: true) do |worker|
-        @source.each_fare_attribute do |row|
-          worker.add(FareAttribute.hash_from_gtfs(row))
-        end
-      end
+      GtfsImport.bulk_load(FareAttribute, @source.enum_for(:each_fare_attribute).lazy.map { |row| FareAttribute.hash_from_gtfs(row) })
     rescue Errno::ENOENT
       puts '[warning] fare_attributes.txt does not exist.'
     end
@@ -115,11 +118,7 @@ namespace :import do
     puts "Running #{t}"
     begin
       @source = GTFS::Source.build ENV.fetch('GTFS_URL', nil)
-      FareRule.bulk_insert(update_duplicates: true) do |worker|
-        @source.each_fare_rule do |row|
-          worker.add(FareRule.hash_from_gtfs(row))
-        end
-      end
+      GtfsImport.bulk_load(FareRule, @source.enum_for(:each_fare_rule).lazy.map { |row| FareRule.hash_from_gtfs(row) })
     rescue Errno::ENOENT
       puts '[warning] fare_rules.txt does not exist.'
     end
@@ -130,11 +129,7 @@ namespace :import do
     puts "Running #{t}"
     begin
       @source = GTFS::Source.build ENV.fetch('GTFS_URL', nil)
-      FeedInfo.bulk_insert(update_duplicates: true) do |worker|
-        @source.each_feed_info do |row|
-          worker.add(FeedInfo.hash_from_gtfs(row))
-        end
-      end
+      GtfsImport.bulk_load(FeedInfo, @source.enum_for(:each_feed_info).lazy.map { |row| FeedInfo.hash_from_gtfs(row) })
     rescue Errno::ENOENT
       puts '[warning] feed_info.txt does not exist.'
     end
@@ -145,11 +140,7 @@ namespace :import do
     puts "Running #{t}"
     begin
       @source = GTFS::Source.build ENV.fetch('GTFS_URL', nil)
-      Frequency.bulk_insert(update_duplicates: true) do |worker|
-        @source.each_frequency do |row|
-          worker.add(Frequency.hash_from_gtfs(row))
-        end
-      end
+      GtfsImport.bulk_load(Frequency, @source.enum_for(:each_frequency).lazy.map { |row| Frequency.hash_from_gtfs(row) })
     rescue Errno::ENOENT
       puts '[warning] frequencies.txt does not exist.'
     end
@@ -160,11 +151,7 @@ namespace :import do
     puts "Running #{t}"
     begin
       @source = GTFS::Source.build ENV.fetch('GTFS_URL', nil)
-      Route.bulk_insert(update_duplicates: true) do |worker|
-        @source.each_route do |row|
-          worker.add(Route.hash_from_gtfs(row))
-        end
-      end
+      GtfsImport.bulk_load(Route, @source.enum_for(:each_route).lazy.map { |row| Route.hash_from_gtfs(row) })
     rescue Errno::ENOENT
       puts '[warning] routes.txt does not exist.'
     end
@@ -185,13 +172,9 @@ namespace :import do
           dist_traveled: row.dist_traveled
         }
       end
-      Shape.bulk_insert(set_size: 25) do |worker|
-        # Reconnect database (previous block hits timeout limit)
-        ActiveRecord::Base.connection_handler.clear_active_connections!
-        shapes.each_value do |row|
-          worker.add(Shape.hash_from_gtfs(row))
-        end
-      end
+      # Reconnect database (previous block hits timeout limit)
+      ActiveRecord::Base.connection_handler.clear_active_connections!
+      GtfsImport.bulk_load(Shape, shapes.each_value.lazy.map { |row| Shape.hash_from_gtfs(row) }, batch_size: 25, upsert: false)
     rescue Errno::ENOENT
       puts '[warning] shapes.txt does not exist.'
     end
@@ -202,11 +185,7 @@ namespace :import do
     puts "Running #{t}"
     begin
       @source = GTFS::Source.build ENV.fetch('GTFS_URL', nil)
-      StopTime.bulk_insert(update_duplicates: true) do |worker|
-        @source.each_stop_time do |row|
-          worker.add(StopTime.hash_from_gtfs(row))
-        end
-      end
+      GtfsImport.bulk_load(StopTime, @source.enum_for(:each_stop_time).lazy.map { |row| StopTime.hash_from_gtfs(row) })
     rescue Errno::ENOENT
       puts '[warning] stop_times.txt does not exist.'
     end
@@ -217,11 +196,7 @@ namespace :import do
     puts "Running #{t}"
     begin
       @source = GTFS::Source.build ENV.fetch('GTFS_URL', nil)
-      Stop.bulk_insert(update_duplicates: true) do |worker|
-        @source.each_stop do |row|
-          worker.add(Stop.hash_from_gtfs(row))
-        end
-      end
+      GtfsImport.bulk_load(Stop, @source.enum_for(:each_stop).lazy.map { |row| Stop.hash_from_gtfs(row) })
     rescue Errno::ENOENT
       puts '[warning] stops.txt does not exist.'
     end
@@ -241,11 +216,7 @@ namespace :import do
     puts "Running #{t}"
     begin
       @source = GTFS::Source.build ENV.fetch('GTFS_URL', nil)
-      Transfer.bulk_insert(update_duplicates: true) do |worker|
-        @source.each_transfer do |row|
-          worker.add(Transfer.hash_from_gtfs(row))
-        end
-      end
+      GtfsImport.bulk_load(Transfer, @source.enum_for(:each_transfer).lazy.map { |row| Transfer.hash_from_gtfs(row) })
     rescue Errno::ENOENT
       puts '[warning] transfers.txt does not exist.'
     end
@@ -256,11 +227,7 @@ namespace :import do
     puts "Running #{t}"
     begin
       @source = GTFS::Source.build ENV.fetch('GTFS_URL', nil)
-      Trip.bulk_insert(update_duplicates: true) do |worker|
-        @source.each_trip do |row|
-          worker.add(Trip.hash_from_gtfs(row))
-        end
-      end
+      GtfsImport.bulk_load(Trip, @source.enum_for(:each_trip).lazy.map { |row| Trip.hash_from_gtfs(row) })
     rescue Errno::ENOENT
       puts '[warning] trips.txt does not exist.'
     end

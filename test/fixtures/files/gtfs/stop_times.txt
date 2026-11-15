@@ -1,0 +1,5 @@
+trip_id,arrival_time,departure_time,stop_id,stop_sequence,timepoint
+T1,08:00:00,08:00:00,CENT_A,1,1
+T1,08:10:00,08:10:00,BROAD,2,1
+T2,09:00:00,09:00:00,CENT_A,1,1
+T2,09:10:00,09:10:00,MISSING,2,1

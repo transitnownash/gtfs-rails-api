@@ -1,0 +1,4 @@
+stop_id,stop_code,stop_name,stop_lat,stop_lon,location_type,parent_station,wheelchair_boarding
+CENT,CENT,Central Station,36.1665,-86.7814,1,,1
+CENT_A,1001,Central Station Bay A,36.1666,-86.7815,0,CENT,1
+BROAD,1002,Broadway & 5th,36.1610,-86.7770,0,,1

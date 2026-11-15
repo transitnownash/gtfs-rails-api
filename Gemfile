@@ -65,7 +65,6 @@ gem 'google-protobuf'
 
 # Handle bulk inserts
 gem 'activerecord-import'
-gem 'bulk_insert', '~> 1.9'
 
 # Paginate API results
 gem 'will_paginate', '~> 3.3'
