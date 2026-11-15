@@ -1,44 +1,41 @@
 # frozen_string_literal: true
 
-# Batched multi-row inserts for GTFS imports.
-module GtfsImport
-  module_function
-
-  # insert_all requires identical keys on every row; hash_from_gtfs omits
-  # unresolved foreign keys, so fill gaps with the column default.
-  def bulk_load(model, rows, batch_size: 500, upsert: true)
-    rows.each_slice(batch_size) do |batch|
-      keys = batch.flat_map(&:keys).uniq
-      batch = batch.map { |row| keys.index_with { |k| row.fetch(k) { model.column_defaults[k.to_s] } } }
-      upsert ? model.upsert_all(batch) : model.insert_all(batch) # rubocop:disable Rails/SkipsModelValidations
-    end
-  end
-end
-
 namespace :import do
   task default: 'import:all'
 
-  desc 'Import all available data'
+  desc 'Import all data into staging tables, validate, then swap them live (FORCE=1 skips the shrink guard)'
   task all: :environment do |_t|
     Rake::Task['import:verify'].invoke
-    Rake::Task['clean:all'].invoke
+    GtfsImport.prepare_staging!
 
-    Rake::Task['import:agency'].invoke
-    Rake::Task['import:stops'].invoke
-    Rake::Task['import:routes'].invoke
-    Rake::Task['import:calendar'].invoke
-    Rake::Task['import:calendar_dates'].invoke
-    Rake::Task['import:shapes'].invoke
-    Rake::Task['import:trips'].invoke
-    Rake::Task['import:stop_times'].invoke
-    Rake::Task['import:fare_attributes'].invoke
-    Rake::Task['import:fare_rules'].invoke
-    Rake::Task['import:frequencies'].invoke
-    Rake::Task['import:transfers'].invoke
-    Rake::Task['import:feed_info'].invoke
-    Rake::Task['import:set_parent_stops'].invoke
-    Rake::Task['import:trips_start_end'].invoke
-    Rake::Task['import:apply_overrides'].invoke
+    begin
+      GtfsImport.with_staging do
+        %w[
+          agency stops routes calendar calendar_dates shapes trips stop_times fare_attributes
+          fare_rules frequencies transfers feed_info set_parent_stops trips_start_end apply_overrides
+        ].each { |name| Rake::Task["import:#{name}"].invoke }
+
+        GtfsImport.validate_staging!(force: ENV['FORCE'] == '1')
+      end
+    rescue GtfsImport::ValidationError => e
+      puts "[ERROR] #{e.message}"
+      puts '[ERROR] Import rejected; live tables were not changed.'
+      GtfsImport.drop_tables!('_staging')
+      exit 1
+    end
+
+    GtfsImport.swap!
+    puts "Swapped in new data: #{GtfsImport::MODELS.map { |m| "#{m.table_name}=#{m.count}" }.join(' ')}"
+  end
+
+  desc 'Restore the data replaced by the last import:all (restart the app afterwards)'
+  task rollback: :environment do |t|
+    puts "Running #{t}"
+    GtfsImport.rollback!
+    puts "Finished #{t}"
+  rescue GtfsImport::ValidationError => e
+    puts "[ERROR] #{e.message}"
+    exit 1
   end
 
   desc 'Verifies configured GTFS feed is valid'

@@ -33,7 +33,8 @@ class HealthController < ApplicationController
   end
 
   def static_schedule_data_service_status
-    raise StandardError, 'No agency records found' unless Agency.exists?
+    missing = GtfsImport.missing_tables
+    raise StandardError, "No records found in: #{missing.join(', ')}" if missing.any?
 
     healthy_service_status('static_schedule_data')
   rescue StandardError => e
